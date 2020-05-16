@@ -1,0 +1,255 @@
+
+<!-- End Cart Panel -->
+
+
+
+
+
+
+
+<!-- Start Login Register Area -->
+<div class="htc__login__register bg__white ptb--130" style="background: rgba(0, 0, 0, 0) url(assets/images/bg/5.jpg) no-repeat scroll center center / cover ; ">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <ul class="login__register__menu" role="tablist">
+          <li role="presentation" class="login active"><a href="#login" role="tab" data-toggle="tab">Login</a></li>
+          <li role="presentation" class="register"><a href="#register" role="tab" data-toggle="tab">Register</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- Start Login Register Content -->
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="htc__login__register__wrap ">
+          <!-- Start Single Content -->
+          <div id="login" role="tabpanel" class="single__tabs__panel tab-pane fade in active">
+
+            <form (ngSubmit)="onSubmit($event)" #LoginForm="ngForm">
+              <div class="login">
+                <label [hidden]="verificationLogin" class="alert">* Vérifier les informations données</label>
+                <label [hidden]="!AdminVerification" class="notif">* Pour l'administrateur l'Email n'est pas necessaire</label>
+                <div class="form-group">
+                  <input type="email" [(ngModel)]="LoginData.Email"
+                         class="form-control"
+                         id="loginEmail"
+                         name="loginEmail"
+                         placeholder="Email"
+                         [disabled]="AdminVerification"
+                         required #loginEmail="ngModel">
+                </div>
+                <div class="form-group">
+                  <input type="password" [(ngModel)]="LoginData.password"
+                         class="form-control"
+                         id="loginpassword"
+                         name="loginpassword"
+                         placeholder="Password"
+                         #loginpassword="ngModel">
+                </div>
+              </div>
+              <hr>
+              <div class=" tabs__checkbox">
+                <label class="specialities-label"> Administrateur
+                  <input type="checkbox" #logintypecheckbox (change)="onConnexionTypeChanged(logintypecheckbox.checked)" />
+                  <span class="checkmark"></span>
+                </label>
+                <hr>
+                <input type="checkbox">
+                <span> Remember me</span>
+                <span class="forget"><a href="#">Forget Pasword?</a></span>
+              </div>
+              <div class="htc__login__btn mt--30">
+                <button type="submit" [disabled]="!LoginForm.form.valid" (click)="onFormSubmited(!LoginForm.form.valid)">Login</button>
+              </div>
+            </form>
+
+<!--            <form #LoginForm="ngForm">-->
+<!--              <div class="login">-->
+<!--                <label [hidden]="verificationLogin" class="alert">* Vérifier les informations données</label>-->
+<!--                <input name="login" type="email" placeholder="Email" [disabled]="AdminVerification">-->
+<!--                <label [hidden]="!AdminVerification" class="alert">* Pour l'administrateur le login n'est pas necessaire</label>-->
+<!--                <input name="password" type="password" placeholder="Password*" required>-->
+<!--              </div>-->
+<!--              <hr>-->
+<!--              <div class=" tabs__checkbox">-->
+<!--                <input type="checkbox" #logintypecheckbox (change)="onConnexionTypeChanged(logintypecheckbox.checked)" /><label>Administrateur</label>-->
+<!--                <hr>-->
+<!--                <input type="checkbox">-->
+<!--                <span> Remember me</span>-->
+<!--                <span class="forget"><a href="#">Forget Pasword?</a></span>-->
+<!--              </div>-->
+<!--              <div class="htc__login__btn mt&#45;&#45;30">-->
+<!--                <button type="submit" [disabled]="!LoginForm.form.valid" (click)="onFormSubmited(!LoginForm.form.valid)">Login</button>-->
+<!--              </div>-->
+<!--            </form>-->
+          </div>
+          <!-- End Single Content -->
+          <!-- Start Single Content -->
+          <div id="register" role="tabpanel" class="register-width single__tabs__panel tab-pane fade" style="width: 200%; ">
+            <form (ngSubmit)="onSubmitRegister($event)" #RegisterForm="ngForm">
+              <div class="login">
+                <label [hidden]="verificationLogin" class="alert">* Vérifier les informations données</label>
+                <label [hidden]="!AdminVerification" class="alert">* Pour l'administrateur l'Email n'est pas necessaire</label>
+                <div class="form-group">
+                  <input type="text" [(ngModel)]="RegisterData.firstname"
+                         class="form-control"
+                         id="Registerfirstname"
+                         name="Registerfirstname"
+                         placeholder="firstname"
+                         [disabled]="AdminVerification"
+                         required #Registerfirstname="ngModel">
+                </div>
+                <div class="form-group">
+                  <input type="text" [(ngModel)]="RegisterData.lastname"
+                         class="form-control"
+                         id="Registerlastname"
+                         name="Registerfirstname"
+                         placeholder="lastname"
+                         [disabled]="AdminVerification"
+                         required #Registerlastname="ngModel">
+                </div>
+                <div class="form-group">
+                  <input type="text" [(ngModel)]="RegisterData.tel"
+                         class="form-control"
+                         id="Registertel"
+                         name="Registertel"
+                         placeholder="tel"
+                         [disabled]="AdminVerification"
+                         required #Registertel="ngModel">
+                </div>
+                <div class="form-group">
+                  <input type="email" [(ngModel)]="RegisterData.email"
+                         class="form-control"
+                         id="RegisterEmail"
+                         name="RegisterEmail"
+                         placeholder="Email"
+                         [disabled]="AdminVerification"
+                         required #RegisterEmail="ngModel">
+                </div>
+                <div class="form-group">
+                  <input type="password" [(ngModel)]="RegisterData.password"
+                         class="form-control"
+                         id="password1"
+                         name="password1"
+                         placeholder="Password"
+                         #Registerpassword1="ngModel">
+                </div>
+                <div class="form-group">
+                  <input type="password" [(ngModel)]="ConfirmPassword"
+                         class="form-control"
+                         id="password2"
+                         name="password2"
+                         placeholder="Confirm Password"
+                         (blur)="ProviderComfirmPassword()"
+                         #Registerpassword2="ngModel">
+                </div>
+                <span [hidden]="verificationPassword" class="alert" name="ProviderComfirmAlert">*Les mots de passe ne correspondent pas</span>
+
+              </div>
+
+              <hr>
+              <div>
+                <label class="specialities-label"> Representant d'une societé
+                  <input name="TypeProvider" type="checkbox"  #SocietyRepcheckbox (change)="SocietyRepChanged(SocietyRepcheckbox.checked)" >
+                  <span class="checkmark"></span>
+                </label>
+                <hr>
+                <div class="login" [hidden]="!SocietyRepcheckbox.checked">
+                  <label>Informations Societé</label>
+                  <hr>
+                  <div class="form-group">
+                    <input type="text" [(ngModel)]="SocietyData.name"
+                           class="form-control"
+                           id="RegisterSocietyname"
+                           name="RegisterSocietyname"
+                           placeholder="Societyname"
+                           [disabled]="AdminVerification"
+                           required #RegisterSocietyname="ngModel">
+                  </div>
+                  <div class="form-group">
+                    <input type="text" [(ngModel)]="SocietyData.tel"
+                           class="form-control"
+                           id="RegisterSocietytel"
+                           name="RegisterSocietytel"
+                           placeholder="Societytel"
+                           [disabled]="AdminVerification"
+                           required #RegisterSocietytel="ngModel">
+                  </div>
+                  <div class="form-group">
+                    <input type="email" [(ngModel)]="SocietyData.email"
+                           class="form-control"
+                           id="RegisterSocietyemail"
+                           name="RegisterSocietyemail"
+                           placeholder="Societyemail"
+                           [disabled]="AdminVerification"
+                           required #RegisterSocietyemail="ngModel">
+                  </div>
+                </div>
+                <div>
+                  <fieldset>
+                    <legend>Choississez les specialités : </legend>
+                    <div class="flex-container">
+                      <label class="specialities-label" *ngFor="let speciality of collection.Specialities ; index as i" >
+                        {{speciality.name}}
+                        <input type="checkbox" name="specialities" #SpecialityElement
+                             value="{{speciality.id}}" (change)="SpecialityChecked(SpecialityElement.checked,speciality.id)">
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
+<!--                    <div class="flex-container">-->
+<!--                      <div class="" *ngFor="let speciality of collection.Specialities ; index as i" >-->
+<!--                        <input type="checkbox" name="specialities" class="flex-container-input" #SpecialityElement-->
+<!--                             value="{{speciality.id}}" (change)="SpecialityChecked(SpecialityElement.checked,speciality.id)">-->
+<!--                        <label class="specialities-label">{{speciality.name}}</label>-->
+<!--                      </div>-->
+<!--                    </div>-->
+                  </fieldset>
+                  <hr>
+                  <label class="TP-Specilities">Prix Total : {{SpecialitiesSelectedPrice}}</label>
+                </div>
+              </div>
+              <div class="htc__login__btn">
+                <button type="submit" [disabled]="!RegisterForm.form.valid" >register</button>
+              </div>
+
+            </form>
+
+
+            <!--            <form (ngSubmit)="onSubmitRegister($event)" #RegisterForm="ngForm">-->
+<!--              <div class="login">-->
+<!--                &lt;!&ndash;                <label [hidden]="!AdminVerification" class="alert">* Pour l'administrateur le login n'est pas necessaire</label>&ndash;&gt;-->
+<!--                <label>Informations fournisseur</label>-->
+<!--                <hr>-->
+<!--                <input name="firstname" type="text" placeholder="firstname" required>-->
+<!--                <input name="lastname" type="text" placeholder="lastname" required>-->
+<!--                <input name="tel" type="text" placeholder="tel" required>-->
+<!--                <input name="email" type="email" placeholder="Email" required>-->
+<!--                <input name="password1" ng-model="password1" type="password" placeholder="Password*" required>-->
+<!--                <input name="password2" ng-model="password2" type="password" placeholder="Confirm Password*" (blur)="ProviderComfirmPassword()" required>-->
+<!--                <span hidden class="alert" name="ProviderComfirmAlert">Informations fournisseur</span>-->
+<!--              </div>-->
+<!--              <hr>-->
+<!--              <div>-->
+<!--                <input name="TypeProvider" type="checkbox"  #SocietyRepcheckbox (change)="SocietyRepChanged(SocietyRepcheckbox.checked)" >  <label>  Representant d'une societé</label>-->
+<!--                <hr>-->
+<!--                <div class="login" [hidden]="!SocietyRepcheckbox.checked">-->
+<!--                  <label>Informations Societé</label>-->
+<!--                  <hr>-->
+<!--                  <input name="Societyname" type="text" placeholder="Society name" [required]="SocietyRepcheckbox.checked">-->
+<!--                  <input name="Societytel" type="text" placeholder="Society tel"  [required]="SocietyRepcheckbox.checked">-->
+<!--                  <input name="Societyemail" type="email" placeholder="Society email"  [required]="SocietyRepcheckbox.checked">-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="htc__login__btn">-->
+<!--                <button type="submit" [disabled]="!RegisterForm.form.valid" >register</button>-->
+<!--              </div>-->
+<!--            </form>-->
+          </div>
+          <!-- End Single Content -->
+        </div>
+      </div>
+    </div>
+    <!-- End Login Register Content -->
+  </div>
+</div>
+<!-- End Login Register Area -->

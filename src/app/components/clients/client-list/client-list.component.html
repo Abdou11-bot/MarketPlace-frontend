@@ -1,298 +1,178 @@
-<div class="container ">
-  <div class="my-5">
-    <h2 class="justify-content-center5">Liste des clients</h2>
-    <button type="button" class="btn-lg btn btn-success float-right" (click)="open(addmodal,-1)  "><i class="fa fa-plus-square"></i>	</button>
-  </div>
-  <div class="">
-    <div class=" ">
-      <div class="clearfix"></div>
-      <div class="clearfix"></div>
-      <section class="my-5">
-        <div class="my-5 shadow-lg overflow-auto bg-white rounded"  *ngFor="let client of collection.clients | paginate: config" >
-          <div class="mt-5 row m-1">
-            <div class="col-lg col-xl align-items-start">
-              <div class="float-left view overlay rounded z-depth-1-half mb-lg-0 mb-4 w-50">
-                <img class="img-fluid" width="100%" height="75px" [src]="sane(client.imageSrc)" alt="{{client.lastName}}">
-                <a>
-                  <div class="mask rgba-white-slight"></div>
-                </a>
-              </div>
-              <div class="float-right">
-                <h3>
-                  <p class="text-capitalize text-left" >
-                    Nom : {{client.lastName}}<br>
-                    Prenom : {{client.firstName}}<br>
-                    CIN : {{client.cin}}<br>
-                    Email : {{client.mail}}</p>
-                </h3>
-              </div>
-            </div>
-          </div>
-          <div class="mb-5 row m-1" >
-            <div class="col-lg col-xl align-items-end">
-              <div class="float-left text-capitalize text-xl-left">
-                <p> Description : <br>
-                  En littérature, la description constitue une pause dans le récit, où elle peut former un ensemble autonome, bien que le plus souvent elle prenne place dans la narration.
-                </p>
-              </div>
-              <div class="float-right btn-group-lg m-4">
-                <button type="button" class="mr-2 btn-lg btn btn-success" (click)="modalUpdate(updatemodal, client.id)"><i class="fa fa-edit"></i></button>
-                <button type="button" class="ml-2 btn-lg btn btn-danger" (click)="open(deletemodel,client.id)"><i class="fa fa-trash"></i></button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!--
-      <mat-grid-list cols="2" rowHeight="400px" class="container" [gutterSize]="'20px'">
-        <mat-grid-tile class="border-dark table-bordered" *ngFor="let client of collection.clients | paginate: config" >
-          <mat-card class="m-3">
-            <mat-card-content>
-              <div class="align-items-start">
-                <div class=" float-left" >
-                  <img width="200px" height="150px" [src]="sane(client.imageSrc)" alt="{{client.lastName}}">
-                </div>
-                <div class=" float-right" >
-                  <p class=" card-text text-capitalize text-xl-left" style="font-size: x-large; ">
-                    Nom : {{client.lastName}}<br>
-                    Prenom : {{client.firstName}}<br>
-                    CIN : {{client.cin}}<br>
-                    Email : {{client.mail}}</p>
-                </div>
-              </div>
-            </mat-card-content>
-            <mat-card-footer>
-              <div class="align-items-start">
-                <div class="float-left text-uppercase text-large text-xl-left">
-                  <p> Description : <br>
-                    En littérature, la description constitue une pause dans le récit, où elle peut former un ensemble autonome, bien que le plus souvent elle prenne place dans la narration.
-                  </p>
-                </div>
-                <div class="float-right  ">
-                  <button type="button" class=" bnt btn-success" (click)="modalUpdate(updatemodal, client.id)"><i class="fa fa-edit"></i></button>
-                  <button type="button" class=" bnt btn-danger" (click)="open(deletemodel,client.id)"><i class="fa fa-trash"></i></button>
-                </div>
-              </div>
-            </mat-card-footer>
-          </mat-card>
-        </mat-grid-tile>
-      </mat-grid-list>-->
-
-
-      <!--
-      <div class="card-columns ml-1 mr-1 mt-1 mb-1">
-              <div class="card" style="width:300px" *ngFor="let client of collection.clients | paginate: config">
-                <img class="card-img-top" width="280px" height="300px" [src]="sane(client.imageSrc)">
-                <div class="card-body">
-                  <h4 class="card-title">{{client.lastName}}  {{client.firstName}}</h4>
-                  <h4 class="card-text">{{client.cin}}</h4>
-                  <p class="card-text">{{client.mail}}</p>
-                  <div class="btn-group btn-block">
-                    <button type="button" class="mr-lg-2 btn-lg bnt btn-success" (click)="modalUpdate(updatemodal, client.id)">Update</button>
-                    <button type="button" class="ml-lg-2 btn-lg bnt btn-danger" (click)="open(deletemodel,client.id)">Delete</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-            <table class="container-md table-bordered table-hover table table-responsive-md ">
-              <thead class="thead-light table-head">
-              <tr class="" scope="item">
-                <td>FirstName</td>
-                <td>LastName</td>
-                <td>Image</td>
-                <td>cin</td>
-                <td colspan="2">Email</td>
-              </tr>
-              </thead>
-              <tbody >
-              <tr class="p-2 mt-lg-2 mb-lg-2 "  *ngFor="let client of collection.clients | paginate: config">
-                <td class="" scope="row">{{client.firstName}}</td>
-                <td scope="row">{{client.lastName}}</td>
-                <td scope="row"><img [src]="sane(client.imageSrc)"/></td>
-                <td scope="row">{{client.cin}}</td>
-                <td scope="row">{{client.mail}}</td>
-                <td class="btn-group btn-block">
-                  <button type="button" class="mr-lg-2 btn-lg bnt btn-success" (click)="modalUpdate(updatemodal, client.id)">Update</button>
-                  <button type="button" class="ml-lg-2 btn-lg bnt btn-danger" (click)="open(deletemodel,client.id)">Delete</button>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-
-
-
-
-            -->
-      <div  class="">
-        <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
-      </div>
+<div class="container text-large">
+  <div class="container-lg">
+    <div class="container-lg">
+      <h2 class="container justify-content-center">Liste des clients</h2>
+      <button id="btn-add" type="button" class="btn-lg ml-lg-2 mb-lg-2 bnt btn-success float-right" (click)="open(addmodal,-1)  ">Add</button>
+      <!-- <button id="btn-add" type="button" class="btn-lg ml-lg-2 mb-lg-2 bnt btn-primary float-right" (click)="goToAdd()">Add</button>-->
+    </div>
+    <div class=""></div>
+    <div class="container-md">
+      <table class="container-md table-bordered table-hover table table-responsive-md ">
+        <thead class="thead-light table-head">
+        <tr class="" scope="item">
+        <!--  <td>Id</td>-->
+          <td>FirstName</td>
+          <td>LastName</td>
+          <td>cin</td>
+          <td colspan="2">Email</td>
+        </tr>
+        </thead>
+        <tbody >
+        <tr class="p-2 mt-lg-2 mb-lg-2 "  *ngFor="let client of collection.clients | paginate: config">
+         <!-- <td scope="row">{{client.id}}</td>-->
+          <td class="" scope="row">{{client.firstName}}</td>
+          <td scope="row">{{client.lastName}}</td>
+          <td scope="row">{{client.cin}}</td>
+          <td scope="row">{{client.mail}}</td>
+          <td class="btn-group btn-block">
+            <button type="button" class="mr-lg-2 btn-lg bnt btn-warning" (click)="modalUpdate(updatemodal, client.id)">Update</button>
+            <button type="button" class="ml-lg-2 btn-lg bnt btn-danger" (click)="open(deletemodel,client.id)">Delete</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div  class="p-2 ml-lg-2 mt-lg-2 mb-lg-2">
+      <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
     </div>
   </div>
-</div>
-    <ng-template #addmodal let-modal >
-      <div class="container custom-container">
-        <div class="col-md-auto">
+  <ng-template #addmodal let-modal >
+    <div class="container custom-container">
+      <div class="col-md-auto">
 
-          <form (ngSubmit)="onSubmit()" #clientFormAdd="ngForm">
-            <div class="modal-header">
-              <h3 class="mb-3 text-center modal-title" id="modal-basic-title">Create Client</h3>
-              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="form-group">
-                <label for="firstNameAdd">FirstName</label>
-                <input pattern="[A-Za-z]*" type="text" [(ngModel)]="clientAdd.firstName"
-                       class="form-control"
-                       id="firstNameAdd"
-                       name="firstNameAdd"
-                       placeholder="Enter your firstName"
-                       required #firstNameAdd="ngModel">
-                <div [hidden]="!firstNameAdd.pristine" class="alert alert-danger">firstName is required</div>
-              </div>
-              <div class="form-group">
-                <label for="lastNameAdd">LastName</label>
-                <input pattern="[A-Za-z]*" type="text" [(ngModel)]="clientAdd.lastName"
-                       class="form-control"
-                       id="lastNameAdd"
-                       name="lastNameAdd"
-                       placeholder="Enter your lastName"
-                       required #lastNameAdd="ngModel">
-                <div [hidden]="!lastNameAdd.pristine" class="alert alert-danger">lastName is required</div>
-              </div>
-              <div class="form-group">
-                <label for="cinAdd">Cin</label>
-                <input pattern="[A-Z][0-9]{6}[A-Z]" type="text" [(ngModel)]="clientAdd.cin"
-                       class="form-control"
-                       id="cinAdd"
-                       name="cinAdd"
-                       placeholder="Enter your cin"
-                       required #cinAdd="ngModel">
-                <div [hidden]="!cinAdd.pristine" class="alert alert-danger">CIN is required</div>
-              </div>
-              <div class="form-group">
-                <label for="emailAdd">Email</label>
-                <input pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" type="email" [(ngModel)]="clientAdd.mail"
-                       class="form-control"
-                       id="emailAdd"
-                       name="emailAdd"
-                       placeholder="Enter your email address"
-                       required #emailAdd="ngModel">
-                <img [src]="imgURL" height="200" *ngIf="imgURL">
-                <div [hidden]="!emailAdd.pristine" class="alert alert-danger">Email is required</div>
-              </div>
-              <div class="form-group">
-                <label for="imageAdd">Image</label>
-                <input type="file" [(ngModel)]="clientAdd.imageSrc"
-                       class="form-control"
-                       id="imageAdd"
-                       name="imageAdd"
-                       placeholder="Choose your imageAdd "
-                       required #imageAdd="ngModel"
-                       accept="image/*"
-                       (change)="onFileChanged($event)">
-                <div [hidden]="!imageAdd.pristine" class="alert alert-danger">Image is required</div>
-              </div>
-            </div>
-            <div class="form-group modal-footer">
-              <button class="btn btn-success btn-lg "  [disabled]="!clientFormAdd.form.valid" >Create Client</button>
-              <button type="button" class="btn btn-lg btn-danger" (click)="modal.close('Save click')">Cancel</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </ng-template>
-
-    <ng-template class="container " #deletemodel let-modal>
-      <div class="container custom-container">
-        <div class="col-md-12">
-          <h2 class="mb-3 text-center">Delete Client ?</h2>
-          <div class="form-group container pl-lg-5">
-            <button class="btn btn-warning btn-lg  mr-lg-5 ml-lg-2 " type="button"  (click)="delete()">Delete </button>
-            <button class="btn btn-lg ml-lg-5 btn-danger" type="button"  (click)="modal.close('Save click')" >Cancel</button>
+        <form (ngSubmit)="onSubmit()" #clientFormAdd="ngForm">
+          <div class="modal-header">
+            <h3 class="mb-3 text-center modal-title" id="modal-basic-title">Create Client</h3>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">×</span>
+            </button>
           </div>
-        </div>
-      </div>
-    </ng-template>
-
-    <ng-template #updatemodal let-modal>
-      <div class="container custom-container">
-        <div class="col-md-12">
-          <form (ngSubmit)="update()" #clientFormUpdate="ngForm">
-            <div class="modal-header">
-              <h3 class="mb-3 text-center modal-title" id="modal-basic-title1">update Client</h3>
-              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <input type="hidden" [(ngModel)]="clientUpdate.id"
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="firstNameAdd">FirstName</label>
+              <input pattern="[A-Za-z]*" type="text" [(ngModel)]="clientAdd.firstName"
                      class="form-control"
-                     id="idUpdate"
-                     name="idUpdate"
-                     required #id="ngModel" value="{{clientUpdate.id}}">
-              <div class="form-group">
-                <label for="firstNameUpdate">FirstName</label>
-                <input pattern="[A-Za-z]*" type="text" [(ngModel)]="clientUpdate.firstName"
-                       class="form-control"
-                       id="firstNameUpdate"
-                       name="firstNameUpdate"
-                       placeholder="Enter your firstName"
-                       required #firstNameUpdate="ngModel" value="{{clientUpdate.firstName}}">
-                <div [hidden]="!firstNameUpdate.pristine" class="alert alert-danger">firstName is required</div>
-              </div>
-              <div class="form-group">
-                <label for="lastNameUpdate">LastName</label>
-                <input pattern="[A-Za-z]*" type="text" [(ngModel)]="clientUpdate.lastName"
-                       class="form-control"
-                       id="lastNameUpdate"
-                       name="lastNameUpdate"
-                       placeholder="Enter your lastName"
-                       required #lastNameUpdate="ngModel" value="{{clientUpdate.lastName}}">
-                <div [hidden]="!lastNameUpdate.pristine" class="alert alert-danger">lastName is required</div>
-              </div>
-              <div class="form-group">
-                <label for="cinUpdate">Cin</label>
-                <input pattern="[A-Z][0-9]{6}[A-Z]" type="text" [(ngModel)]="clientUpdate.cin"
-                       class="form-control"
-                       id="cinUpdate"
-                       name="cinUpdate"
-                       placeholder="Enter your cin"
-                       required #cinUpdate="ngModel" value="{{clientUpdate.cin}}">
-                <div [hidden]="!cinUpdate.pristine" class="alert alert-danger">CIN is required</div>
-              </div>
-              <div class="form-group">
-                <label for="emailUpdate">Email</label>
-                <input pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" type="email" [(ngModel)]="clientUpdate.mail"
-                       class="form-control"
-                       id="emailUpdate"
-                       name="emailUpdate"
-                       placeholder="Enter your email address"
-                       required #emailUpdate="ngModel" value="{{clientUpdate.mail}}">
-                <div [hidden]="!emailUpdate.pristine" class="alert alert-danger">Email is required</div>
-              </div>
-              <div class="form-group">
-                <label for="imageUpdate">Image</label>
-                <input type="file" [(ngModel)]="clientUpdate.imageSrc"
-                       class="form-control"
-                       id="imageUpdate"
-                       accept="image/*"
-                       name="imageUpdate"
-                       placeholder="Choose your imageAdd "
-                       required #imageUpdate="ngModel"
-                       (change)="onFileChanged($event)">
-                <div [hidden]="!imageUpdate.pristine" class="alert alert-danger">Image is required</div>
-              </div>
+                     id="firstNameAdd"
+                     name="firstNameAdd"
+                     placeholder="Enter your firstName"
+                     required #firstNameAdd="ngModel">
+              <div [hidden]="!firstNameAdd.pristine" class="alert alert-danger">firstName is required</div>
             </div>
-            <div class="form-group modal-footer">
-              <button class="btn btn-success btn-lg "  [disabled]="!clientFormUpdate.form.valid" >update Client</button>
-              <button type="button" class="btn btn-danger btn-lg" (click)="modal.close('Save click')">Cancel</button>
+            <div class="form-group">
+              <label for="lastNameAdd">LastName</label>
+              <input pattern="[A-Za-z]*" type="text" [(ngModel)]="clientAdd.lastName"
+                     class="form-control"
+                     id="lastNameAdd"
+                     name="lastNameAdd"
+                     placeholder="Enter your lastName"
+                     required #lastNameAdd="ngModel">
+              <div [hidden]="!lastNameAdd.pristine" class="alert alert-danger">lastName is required</div>
             </div>
-          </form>
+            <div class="form-group">
+              <label for="cinAdd">Cin</label>
+              <input pattern="[A-Z][0-9]{6}[A-Z]" type="text" [(ngModel)]="clientAdd.cin"
+                     class="form-control"
+                     id="cinAdd"
+                     name="cinAdd"
+                     placeholder="Enter your cin"
+                     required #cinAdd="ngModel">
+              <div [hidden]="!cinAdd.pristine" class="alert alert-danger">CIN is required</div>
+            </div>
+            <div class="form-group">
+              <label for="emailAdd">Email</label>
+              <input pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" type="email" [(ngModel)]="clientAdd.mail"
+                     class="form-control"
+                     id="emailAdd"
+                     name="emailAdd"
+                     placeholder="Enter your email address"
+                     required #emailAdd="ngModel">
+              <div [hidden]="!emailAdd.pristine" class="alert alert-danger">Email is required</div>
+            </div>
+          </div>
+          <div class="form-group modal-footer">
+            <button class="btn btn-success btn-lg "  [disabled]="!clientFormAdd.form.valid" >Create Client</button>
+            <button type="button" class="btn btn-lg btn-danger" (click)="modal.close('Save click')">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template class="container " #deletemodel let-modal>
+    <div class="container custom-container">
+      <div class="col-md-12">
+        <h2 class="mb-3 text-center">Delete Client ?</h2>
+        <div class="form-group container pl-lg-5">
+          <button class="btn btn-warning btn-lg  mr-lg-5 ml-lg-2 " type="button"  (click)="delete()">Delete </button>
+          <button class="btn btn-lg ml-lg-5 btn-danger" type="button"  (click)="modal.close('Save click')" >Cancel</button>
         </div>
       </div>
-    </ng-template>
+    </div>
+  </ng-template>
+
+  <ng-template #updatemodal let-modal>
+    <div class="container custom-container">
+      <div class="col-md-12">
+        <form (ngSubmit)="update()" #clientFormUpdate="ngForm">
+          <div class="modal-header">
+            <h3 class="mb-3 text-center modal-title" id="modal-basic-title1">update Client</h3>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" [(ngModel)]="clientUpdate.id"
+                   class="form-control"
+                   id="idUpdate"
+                   name="idUpdate"
+                   required #id="ngModel" value="{{clientUpdate.id}}">
+            <div class="form-group">
+              <label for="firstNameUpdate">FirstName</label>
+              <input pattern="[A-Za-z]*" type="text" [(ngModel)]="clientUpdate.firstName"
+                     class="form-control"
+                     id="firstNameUpdate"
+                     name="firstNameUpdate"
+                     placeholder="Enter your firstName"
+                     required #firstNameUpdate="ngModel" value="{{clientUpdate.firstName}}">
+              <div [hidden]="!firstNameUpdate.pristine" class="alert alert-danger">firstName is required</div>
+            </div>
+            <div class="form-group">
+              <label for="lastNameUpdate">LastName</label>
+              <input pattern="[A-Za-z]*" type="text" [(ngModel)]="clientUpdate.lastName"
+                     class="form-control"
+                     id="lastNameUpdate"
+                     name="lastNameUpdate"
+                     placeholder="Enter your lastName"
+                     required #lastNameUpdate="ngModel" value="{{clientUpdate.lastName}}">
+              <div [hidden]="!lastNameUpdate.pristine" class="alert alert-danger">lastName is required</div>
+            </div>
+            <div class="form-group">
+              <label for="cinUpdate">Cin</label>
+              <input pattern="[A-Z][0-9]{6}[A-Z]" type="text" [(ngModel)]="clientUpdate.cin"
+                     class="form-control"
+                     id="cinUpdate"
+                     name="cinUpdate"
+                     placeholder="Enter your cin"
+                     required #cinUpdate="ngModel" value="{{clientUpdate.cin}}">
+              <div [hidden]="!cinUpdate.pristine" class="alert alert-danger">CIN is required</div>
+            </div>
+            <div class="form-group">
+              <label for="emailUpdate">Email</label>
+              <input pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" type="email" [(ngModel)]="clientUpdate.mail"
+                     class="form-control"
+                     id="emailUpdate"
+                     name="emailUpdate"
+                     placeholder="Enter your email address"
+                     required #emailUpdate="ngModel" value="{{clientUpdate.mail}}">
+              <div [hidden]="!emailUpdate.pristine" class="alert alert-danger">Email is required</div>
+            </div>
+          </div>
+          <div class="form-group modal-footer">
+            <button class="btn btn-success btn-lg "  [disabled]="!clientFormUpdate.form.valid" >update Client</button>
+            <button type="button" class="btn btn-danger btn-lg" (click)="modal.close('Save click')">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ng-template>
+</div>

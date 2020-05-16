@@ -1,0 +1,128 @@
+*{
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+.alert{
+  color:red;
+}
+.notif{
+  color:#FF6666;
+  font-size: 20px;
+}
+.htc__login__btn button:hover {
+    background: #ff4136;
+    color: #fff;
+    border: 1px solid #ff4136;
+}
+.htc__login__btn button {
+    border: 1px solid #d5d5d5;
+    display: inline-block;
+    font-size: 20px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    text-transform: capitalize;
+    transition: all 0.5s ease 0s;
+    width: 150px;
+    color: #4b4b4b;
+    text-transform: uppercase;
+}
+
+.login-register-width {
+  /* 1/3 of 60% = the 20% margin on either side */
+  margin-left: -30%;
+  margin-right: -30%;
+}
+.register-width {
+  /* 1/3 of 60% = the 20% margin on either side */
+  margin-left: -40%;
+  margin-right: -40%;
+}
+
+
+.flex-container{
+  display: flex;
+  flex-flow: wrap;
+  margin-left:-10px;
+  margin-right:-10px;
+}
+
+.flex-container > label {
+  width: 20%;
+  margin-left: 2%;
+  margin-right: 2%;
+  text-align: left;
+  line-height: 30px;
+  font-size: 15px;
+}
+
+.TP-Specilities {
+  font-size: 20px;
+}
+
+/* The container */
+.specialities-label {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.specialities-label input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.specialities-label:hover input ~ .checkmark {
+  background-color: #8E8E8E;
+}
+
+/* When the checkbox is checked, add a blue background */
+.specialities-label input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.specialities-label input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.specialities-label .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}

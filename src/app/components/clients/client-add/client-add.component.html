@@ -1,0 +1,50 @@
+<div class="container custom-container">
+  <div class="col-md-12">
+    <h3 class="mb-3 text-center">Create Client</h3>
+    <form (ngSubmit)="onSubmit()" #clientForm="ngForm">
+      <div class="form-group">
+        <label for="firstName">FirstName</label>
+        <input pattern="[A-Za-z]*" type="text" [(ngModel)]="client.firstName"
+               class="form-control"
+               id="firstName"
+               name="firstName"
+               placeholder="Enter your firstName"
+               required #firstName="ngModel">
+        <div [hidden]="!firstName.pristine" class="alert alert-danger">firstName is required</div>
+      </div>
+      <div class="form-group">
+        <label for="lastName">LastName</label>
+        <input pattern="[A-Za-z]*" type="text" [(ngModel)]="client.lastName"
+               class="form-control"
+               id="lastName"
+               name="lastName"
+               placeholder="Enter your lastName"
+               required #lastName="ngModel">
+        <div [hidden]="!lastName.pristine" class="alert alert-danger">lastName is required</div>
+      </div>
+      <div class="form-group">
+        <label for="cin">Cin</label>
+        <input pattern="[A-Z0-9]{10}" type="text" [(ngModel)]="client.cin"
+               class="form-control"
+               id="cin"
+               name="cin"
+               placeholder="Enter your cin"
+               required #cin="ngModel">
+        <div [hidden]="!cin.pristine" class="alert alert-danger">CIN is required</div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" type="email" [(ngModel)]="client.mail"
+               class="form-control"
+               id="email"
+               name="email"
+               placeholder="Enter your email address"
+               required #email="ngModel">
+        <div [hidden]="!email.pristine" class="alert alert-danger">Email is required</div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-success btn-lg "  [disabled]="!clientForm.form.valid" >Create Client</button>
+      </div>
+    </form>
+  </div>
+</div>

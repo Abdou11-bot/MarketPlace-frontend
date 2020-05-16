@@ -1,9 +1,9 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "client-web": {
+    "siteecommerce": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/client-web",
+            "outputPath": "dist/siteecommerce",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -24,9 +24,24 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/css/responsive.css",
+              "src/assets/style.css",
+              "node_modules/sweetalert2/src/sweetalert2.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/colors/lib/styles.js",
+              "src/assets/js/vendor/jquery-1.12.0.min.js",
+              "src/assets/js/vendor/modernizr-2.8.3.min.js",
+              "src/assets/js/bootstrap.min.js",
+              "src/assets/js/main.js",
+              "src/assets/js/owl.carousel.min.js",
+              "node_modules/postcss/lib/vendor.js",
+              "node_modules/jasmine-spec-reporter/built/main.js",
+              "node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/scripts-webpack-plugin.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -62,18 +77,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "client-web:build"
+            "browserTarget": "siteecommerce:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "client-web:build:production"
+              "browserTarget": "siteecommerce:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "client-web:build"
+            "browserTarget": "siteecommerce:build"
           }
         },
         "test": {
@@ -110,15 +125,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "client-web:serve"
+            "devServerTarget": "siteecommerce:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "client-web:serve:production"
+              "devServerTarget": "siteecommerce:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "client-web"
+  "defaultProject": "siteecommerce"
 }
