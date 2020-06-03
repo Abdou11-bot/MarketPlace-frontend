@@ -13,6 +13,15 @@ export class LocalStorageService {
       }
       return this.storage.get('products');
     }
+    public storeUserOnStorage(login: string) {
+      this.storage.set('login', login);
+    }
+    public getUserFromStorage(): string {
+      if((this.storage.get('login')===null)||(this.storage.get('login')===undefined )){
+        return JSON.stringify([]);
+      }
+      return this.storage.get('login');
+    }
     public clearStorage(){
       this.storage.clear();
     }

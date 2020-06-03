@@ -17,6 +17,9 @@ export class ProductService {
   getAllSpecialities(): Promise<Array<SpecialityModel>> {
     return this.http.get<Array<SpecialityModel>>(environment.SERVER_API_URL + '/api/provider/specialities').toPromise();
   }
+  getAllProductsForSpeciality(id: number): Promise<Array<ProductModel>> {
+    return this.http.get<Array<ProductModel>>(environment.SERVER_API_URL + '/api/product/productsforSpeciality/'+id).toPromise();
+  }
 
   getProduct(id: number): Promise<ProductModel> {
     return this.http.get<ProductModel>(environment.SERVER_API_URL + '/api/provider/getproduct/'+id).toPromise();
@@ -30,6 +33,9 @@ export class ProductService {
 
   getProvider(id: number): Promise<ProviderModel> {
     return this.http.get<ProviderModel>(environment.SERVER_API_URL + '/api/provider/getProfil/' + id).toPromise();
+  }
+  getAdmin(): Promise<ProviderModel> {
+    return this.http.get<ProviderModel>(environment.SERVER_API_URL + '/api/admin/getAdmin').toPromise();
   }
 
   createProduct(uploadData: FormData,provider) {

@@ -14,6 +14,7 @@ import { ContactComponent } from './components/contact/contact.component';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { LoginComponent } from './components/login/login.component';
 import { ListproduitsComponent } from './components/listproduits/listproduits.component';
+import { ListspecialitiesComponent } from './components/listspecialities/listspecialities.component';
 import { DetailProduitsComponent } from './components/detailProduits/detailproduits.component';
 import { DevisComponent } from './components/devis/devis.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -39,8 +40,10 @@ const routes: Routes = [
     { path: 'about', component: AboutComponent },
      { path: 'blog', component: BlogComponent },
     { path: 'devis', component: DevisComponent },
+    { path: 'admin', component: DashboardComponent },
     { path: 'wishlist', component: WishlistComponent },
     { path: 'produits', component: ListproduitsComponent },
+    { path: 'specialities', component: ListspecialitiesComponent },
     { path: 'produit/detail', component: DetailProduitsComponent },
     { path: '**', redirectTo: '/home', pathMatch: 'full' }
  ];
@@ -57,6 +60,7 @@ const routes: Routes = [
     WishlistComponent,
     LoginComponent,
     ListproduitsComponent,
+    ListspecialitiesComponent,
     DetailProduitsComponent,
     DevisComponent,
     DashboardComponent,

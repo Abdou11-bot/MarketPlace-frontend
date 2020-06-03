@@ -1,5 +1,6 @@
 import {SafeUrl} from '@angular/platform-browser';
 import {ProviderModel} from './provider.model';
+import {SpecialityModel} from './speciality.model';
 import {ImageModel} from './image.model';
 
 export  class ProductModel {
@@ -13,6 +14,7 @@ export  class ProductModel {
   blocked: boolean;
   provider: ProviderModel;
   images: Array<ImageModel>;
+  speciality: SpecialityModel;
   constructor(obj: any) {
       this.id = obj.id;
       this.name = obj.name;
@@ -23,6 +25,7 @@ export  class ProductModel {
       this.marque = obj.marque;
       this.blocked = obj.blocked;
       this.provider = new ProviderModel(obj.provider);
+      this.speciality = new SpecialityModel(obj.speciality);
       this.images = obj.images;
 //      this.images = new ImageModel({}).convertMultiImages(obj.images);
   }

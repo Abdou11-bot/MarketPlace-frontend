@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import{ProductService} from '../../services/product.service';
 import{ImageModel} from '../../models/image.model';
 import{ProviderModel} from '../../models/provider.model';
+import{SpecialityModel} from '../../models/speciality.model';
 import{ProductModel} from '../../models/product.model';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {EventEmitter, Input, Output, TemplateRef, ViewEncapsulation} from '@angular/core';
@@ -14,37 +15,32 @@ import { LocalStorageService } from '../../services/localStorage.service';
 import { SessionStorageService } from '../../services/sessionStorage.service';
 
 @Component({
-  selector: 'app-listproduits',
-  templateUrl: './listproduits.component.html',
-  styleUrls: ['./listproduits.component.css']
+  selector: 'app-listspecialities',
+  templateUrl: './listspecialities.component.html',
+  styleUrls: ['./listspecialities.component.css']
 })
-export class ListproduitsComponent implements OnInit {
+export class ListspecialitiesComponent implements OnInit {
 
-  product= new ProductModel({'provider':{},'images': [],'speciality': {}});
-  public selectedFile;
-  public selectedImages;
   config: any;
-  collection = { count: 0, products: Array<ProductModel> () };
-  id: number;
-  closeResult: string;
-  constructor(public ProductService : ProductService, public sanitizer: DomSanitizer, private router: Router,
-              private modalService: NgbModal, public dialog: MatDialog) {
-    this.ProductService.getAllProductsForSpeciality(this.router.getCurrentNavigation().extras.state.SpecialityId).then(response => {
+  collection = { count: 0, specialities: Array<SpecialityModel> () };
+  constructor(public ProductService : ProductService, public sanitizer: DomSanitizer, private router: Router) {
+
+  }
+  ngOnInit(): void {
+    this.ProductService.getAllSpecialities().then(response => {
       for (const resp of response) {
-        this.collection.products.push(new ProductModel(resp));
+        this.collection.specialities.push(new SpecialityModel(resp));
       }
     });
-    this.collection.count = this.collection.products.length;
+    this.collection.count = this.collection.specialities.length;
     this.config = {
-      itemsPerPage: 99,
+      itemsPerPage: 30,
       currentPage: 1,
       totalItems: this.collection.count
     };
   }
-  ngOnInit(): void {
-  }
- sane(imagrSrc: any) {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(imagrSrc);
+ sane(imageSrc: any) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(imageSrc);
   }
 
 /*

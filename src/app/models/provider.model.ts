@@ -1,4 +1,5 @@
 import {SafeUrl} from '@angular/platform-browser';
+import {SocietyModel} from './society.model';
 
 export  class ProviderModel {
   id: number;
@@ -10,6 +11,7 @@ export  class ProviderModel {
   tel: string;
   status: number;
   type: boolean;
+  society: SocietyModel;
   constructor(obj: any) {
       this.id = obj.id;
       this.lastname = obj.lastname;

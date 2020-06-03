@@ -189,64 +189,24 @@
           </div>
           <div class="category-menu-list">
             <ul>
-              <li><a href="#"><img alt="" src="assets/images/icons/thum2.png"> {{collection.specialities[0].name}}<i class="zmdi zmdi-chevron-right"></i></a>
+              <li><a routerLink="/produits" [state]="{ SpecialityId: collection.specialities[0].id }" ><img alt="" src="assets/images/icons/thum2.png"> {{collection.specialities[0].name}}<i class="zmdi zmdi-chevron-right"></i></a>
                 <div class="category-menu-dropdown">
                   <div class="category-part-1 category-common " *ngFor="let speciality of collection.specialities; index as i;let e=even; let o=odd;">
                     <ul *ngIf="e && i<collection.specialities.length">
-<!--                      <li><a href="#">{{speciality.name}} i: {{i}} et i+4: {{i+4}} et f(i):
-{{collection.specialities[i].name}} et f(i+4): {{collection.specialities[i+4].name}}</a></li>-->
-                      <li><a href="#"> {{speciality.name}}</a></li>
-<!--                      <li><a href="#"> {{speciality.name}}</a></li>-->
-<!--                      <li><a href="#"> {{collection.specialities[(4*i)+2].name}}</a></li>-->
-<!--                      <li><a href="#"> {{collection.specialities[(4*i)+3].name}}</a></li>-->
+                      <li><a routerLink="/produits" [state]="{ SpecialityId: speciality.id }" > {{speciality.name}}</a></li>
                     </ul>
                     <ul *ngIf="o">
-                      <!--                      <li><a href="#">{{speciality.name}} i: {{i}} et i+4: {{i+4}} et f(i):
-                      {{collection.specialities[i].name}} et f(i+4): {{collection.specialities[i+4].name}}</a></li>-->
-                      <li><a href="#"> {{speciality.name}}</a></li>
-<!--                      <li><a href="#"> {{speciality.name}}</a></li>-->
-                      <!--                      <li><a href="#"> {{collection.specialities[(4*i)+2].name}}</a></li>-->
-                      <!--                      <li><a href="#"> {{collection.specialities[(4*i)+3].name}}</a></li>-->
+                      <li><a routerLink="/produits" [state]="{ SpecialityId: speciality.id }" > {{speciality.name}}</a></li>
                     </ul>
                   </div>
-<!--                  <div class="category-part-2 category-common mb&#45;&#45;30">-->
-<!--                    <h4 class="categories-subtitle"> Jewelry & Watches</h4>-->
-<!--                    <ul>-->
-<!--                      <li><a href="#"> Men’s Clothing</a></li>-->
-<!--                      <li><a href="#"> Computer & Office</a></li>-->
-<!--                      <li><a href="#"> Jewelry & Watches</a></li>-->
-<!--                      <li><a href="#"> Bags & Shoes</a></li>-->
-<!--                      <li><a href="#"> Phones & Accessories</a></li>-->
-<!--                    </ul>-->
-<!--                  </div>-->
-<!--                  <div class="category-part-3 category-common">-->
-<!--                    <h4 class="categories-subtitle"> Jewelry & Watches</h4>-->
-<!--                    <ul>-->
-<!--                      <li><a href="#"> Men’s Clothing</a></li>-->
-<!--                      <li><a href="#"> Computer & Office</a></li>-->
-<!--                      <li><a href="#"> Jewelry & Watches</a></li>-->
-<!--                      <li><a href="#"> Bags & Shoes</a></li>-->
-<!--                      <li><a href="#"> Phones & Accessories</a></li>-->
-<!--                    </ul>-->
-<!--                  </div>-->
-<!--                  <div class="category-part-4 category-common">-->
-<!--                    <h4 class="categories-subtitle"> Jewelry & Watches</h4>-->
-<!--                    <ul>-->
-<!--                      <li><a href="#"> Men’s Clothing</a></li>-->
-<!--                      <li><a href="#"> Computer & Office</a></li>-->
-<!--                      <li><a href="#"> Jewelry & Watches</a></li>-->
-<!--                      <li><a href="#"> Bags & Shoes</a></li>-->
-<!--                      <li><a href="#"> Phones & Accessories</a></li>-->
-<!--                    </ul>-->
-<!--                  </div>-->
                 </div>
               </li>
-              <li><a href="#"><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[1].name}}</a></li>
-              <li><a href="#"><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[2].name}}</a></li>
-              <li><a href="#"><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[3].name}}</a></li>
-              <li><a href="#"><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[4].name}}</a></li>
-              <li><a href="#"><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[5].name}}</a></li>
-              <li><a href="#"><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[6].name}}</a></li>
+              <li><a routerLink="/produits" [state]="{ SpecialityId: collection.specialities[1].id }" ><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[1].name}}</a></li>
+              <li><a routerLink="/produits" [state]="{ SpecialityId: collection.specialities[2].id }" ><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[2].name}}</a></li>
+              <li><a routerLink="/produits" [state]="{ SpecialityId: collection.specialities[3].id }" ><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[3].name}}</a></li>
+              <li><a routerLink="/produits" [state]="{ SpecialityId: collection.specialities[4].id }" ><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[4].name}}</a></li>
+              <li><a routerLink="/produits" [state]="{ SpecialityId: collection.specialities[5].id }" ><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[5].name}}</a></li>
+              <li><a routerLink="/produits" [state]="{ SpecialityId: collection.specialities[6].id }" ><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[6].name}}</a></li>
             </ul>
           </div>
         </div>

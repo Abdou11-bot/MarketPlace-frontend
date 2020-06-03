@@ -45,7 +45,7 @@
                   <span class="ti-mobile"></span>
                 </div>
                 <div class="contact__details">
-                  <p> Phone : <br><a href="#">+012 345 678 102 </a></p>
+                  <p> Phone : <br><a href="#">{{Administrator.tel}}</a></p>
                 </div>
               </div>
               <!-- End Single Adress -->
@@ -55,7 +55,7 @@
                   <span class="ti-email"></span>
                 </div>
                 <div class="contact__details">
-                  <p> Mail :<br><a href="#">info@example.com</a></p>
+                  <p> Mail :<br><a href="#">{{Administrator.email}}</a></p>
                 </div>
               </div>
               <!-- End Single Adress -->
@@ -65,25 +65,52 @@
             <div class="contact-title">
               <h2 class="contact__title">Get In Touch</h2>
             </div>
-            <form id="contact-form" action="mail.php" method="post">
-              <div class="single-contact-form">
-                <div class="contact-box name">
-                  <input type="text" name="name" placeholder="Your Nme*">
-                  <input type="email" name="email" placeholder="Mail*">
+            <form (ngSubmit)="onSubmit()" #productFormAdd="ngForm">
+              <div class="modal-body">
+                <div class="single-contact-form form-group" >
+                  <div class="contact-box name">
+                    <input type="text" [(ngModel)]="Complaint.name"
+                      class="form-control"
+                      id="nameAdd"
+                      name="nameAdd"
+                      placeholder="Enter product name"
+                      required #nameAdd="ngModel">
+                    <input type="text" [(ngModel)]="Complaint.email"
+                      class="form-control"
+                      id="emailAdd"
+                      name="emailAdd"
+                      placeholder="Enter product email"
+                      required #emailAdd="ngModel">
+<!--                    <input type="text" name="name" placeholder="Your Nme*" >-->
+<!--                    <input type="email" name="email" placeholder="Mail*">-->
+                  </div>
                 </div>
-              </div>
-              <div class="single-contact-form">
-                <div class="contact-box subject">
-                  <input type="text" name="subject" placeholder="Subject*">
+                <div class="single-contact-form">
+                  <div class="contact-box subject">
+                    <input type="text" [(ngModel)]="Complaint.objet"
+                           class="form-control"
+                           id="objetAdd"
+                           name="objetAdd"
+                           placeholder="Enter product objet"
+                           required #objetAdd="ngModel">
+<!--                    <input type="text" name="subject" placeholder="Subject*">-->
+                  </div>
                 </div>
-              </div>
-              <div class="single-contact-form">
-                <div class="contact-box message">
-                  <textarea name="message"  placeholder="Massage*"></textarea>
+                <div class="single-contact-form">
+                  <div class="contact-box message">
+                    <textarea type="text" [(ngModel)]="Complaint.message"
+                      class="form-control"
+                      id="messageAdd"
+                      name="messageAdd"
+                      placeholder="Enter a message"
+                      required #messageAdd="ngModel">{{Complaint.message}}</textarea>
+
+                    <!--                    <textarea name="message"  placeholder="Massage*"></textarea>-->
+                  </div>
                 </div>
-              </div>
-              <div class="contact-btn">
-                <button type="submit" class="fv-btn">SEND</button>
+                <div class="contact-btn">
+                  <button type="submit" class="fv-btn">SEND</button>
+                </div>
               </div>
             </form>
           </div>
