@@ -8,7 +8,9 @@ export  class QuotationModel {
   email: string;
   address: string;
   quantity: number;
-  postalCode: number;
+  postalCode: string;
+  date: string;
+  locality: string;
   product: ProductModel;
   constructor(obj: any) {
       this.id = obj.id;
@@ -18,6 +20,8 @@ export  class QuotationModel {
       this.address = obj.address;
       this.quantity = obj.quantity;
       this.postalCode = obj.postalCode;
+      this.date = obj.date;
+      this.locality = obj.locality;
       this.product = new ProductModel(obj.product);
   }
 }

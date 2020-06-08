@@ -1,3 +1,12 @@
 .quotationButton:hover{
     cursor: pointer;
 }
+.wishlistButtonPressed{
+  backgroung: red;
+}
+.wishlistButtonPressed:hover{
+  backgroung-color: white;
+}
+*{
+font-size:large;
+}

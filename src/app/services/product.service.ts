@@ -25,6 +25,16 @@ export class ProductService {
     return this.http.get<ProductModel>(environment.SERVER_API_URL + '/api/provider/getproduct/'+id).toPromise();
   }
 
+  incrementView(id: number): Promise<any> {
+    const Data = new FormData();
+    Data.append('data', id+'');
+    return this.http.post<ProductModel>(environment.SERVER_API_URL + '/api/product/increment',Data).toPromise();
+  }
+
+  getMostViewProduct(): Promise<ProductModel> {
+    return this.http.get<ProductModel>(environment.SERVER_API_URL + '/api/product/mostview').toPromise();
+  }
+
   getProducts(data: string): Promise<Array<ProductModel>> {
     let params = new HttpParams();
     params = params.append('chaine', data);
@@ -37,7 +47,7 @@ export class ProductService {
   getAdmin(): Promise<ProviderModel> {
     return this.http.get<ProviderModel>(environment.SERVER_API_URL + '/api/admin/getAdmin').toPromise();
   }
-
+/*
   createProduct(uploadData: FormData,provider) {
     // @ts-ignore
    return this.http.post('http://localhost:8080/api/provider/addproduct/'+provider, uploadData)
@@ -67,5 +77,5 @@ export class ProductService {
     return this.http.get<string>('http://localhost:8080/api/image/uploadImage/' + id, {responseType: 'text'})
       .toPromise();
   }
-
+*/
 }

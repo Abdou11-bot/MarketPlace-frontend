@@ -21,6 +21,7 @@ import { switchMap } from 'rxjs/operators';
 export class CategoriebarComponent implements OnInit {
 
   config: any;
+  product= new ProductModel({'provider':{},'images': [],'speciality': {}});
    collection = { count: 0, specialities: Array<SpecialityModel> () };
    closeResult: string;
    constructor(public ProductService : ProductService, public sanitizer: DomSanitizer, private route: ActivatedRoute) {
@@ -35,13 +36,14 @@ export class CategoriebarComponent implements OnInit {
        currentPage: 1,
        totalItems: this.collection.count
      };
+     this.ProductService.getMostViewProduct().then(response =>{
+        this.product = new ProductModel(response);
+     });
    }
 
    ngOnInit(): void {
    }
   sane(imagrSrc: any) {
      return this.sanitizer.bypassSecurityTrustResourceUrl(imagrSrc);
-   }
-   redirectToSpeciality(id:number){
    }
  }

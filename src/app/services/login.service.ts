@@ -28,7 +28,6 @@ export class LoginService {
         for(let i=0; i<collection.Specialities.length;i++){
           Data.append('specialities', JSON.stringify(collection.Specialities[i]));
         }
-  //  return this.http.post<any>(environment.SERVER_API_URL + '/api/provider/register',{params: params}).toPromise();
     return this.http.post<any>(environment.SERVER_API_URL + '/api/provider/register',Data).toPromise();
   }
 }

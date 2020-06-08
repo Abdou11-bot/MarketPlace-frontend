@@ -6,12 +6,9 @@ import { LocalStorageService } from './localStorage.service';
 import { SessionStorageService } from './sessionStorage.service';
 
 @Injectable({providedIn: 'root'})
-export class ComplaintService {
+export class QuotationService {
   constructor(private http: HttpClient) {  }
-  contactUs(complaint): Promise<any>  {
-    return this.http.post<any>(environment.SERVER_API_URL + '/api/complaint/contactUs',complaint).toPromise();
-  }
-  SendComplaint(complaint): Promise<any>  {
-    return this.http.post<any>(environment.SERVER_API_URL + '/api/complaint/add',complaint).toPromise();
+  RequestQuotaion(quotation): Promise<any>  {
+    return this.http.post<any>(environment.SERVER_API_URL + '/api/quotation/add',quotation).toPromise();
   }
 }

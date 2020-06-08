@@ -10,6 +10,7 @@ import{ProviderModel} from '../../models/provider.model';
 import{SpecialityModel} from '../../models/speciality.model';
 import{ProductService} from '../../services/product.service';
 import{SocietyModel} from '../../models/society.model';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit {
   AdminVerification : boolean;
   SocietyRepVerification : boolean = false;
   verificationLogin : boolean = true;
+  verificationRegister : boolean = true;
   verificationPassword : boolean = true;
   ConfirmPassword='';
   LoginData = {Email:'',password:''};
@@ -29,7 +31,7 @@ export class LoginComponent implements OnInit {
   SocietyData = new SocietyModel({});
   collection = { Specialities: Array<SpecialityModel> () };
   SpecialitiesSelectedPrice: number;
-  constructor(public LoginService : LoginService, public ProductService : ProductService) {}
+  constructor(private router:Router,public LoginService : LoginService, public ProductService : ProductService) {}
   ngOnInit(): void {
     this.ProductService.getAllSpecialities().then(response => {
         for (const resp of response) {
@@ -39,6 +41,14 @@ export class LoginComponent implements OnInit {
     this.SpecialitiesSelectedPrice = 0;
   }
 
+  openSuccessModal(message)
+  {
+    Swal.fire({text: message,icon: 'success'});
+  }
+  openFailedModal(error,message)
+  {
+    Swal.fire(error, message, 'error')
+  }
 
   SpecialityChecked(value:boolean, id:number){
     if(value){
@@ -78,7 +88,7 @@ export class LoginComponent implements OnInit {
 //    alert(event.target.login.value);
 //    alert(event.target.password.value);
     if(this.LoginData.password.trim()===''){
-      alert("Echec");
+      this.openFailedModal('Erreur','Verifier le password');
       this.verificationLogin = false;
     }else{
       const Data = new FormData();
@@ -90,10 +100,10 @@ export class LoginComponent implements OnInit {
       Data.append('password', this.LoginData.password);
       this.LoginService.login(Data,this.ConnexionType).then(response => {
         if(response){
-          alert("OK");
+          this.openSuccessModal('Reussi');
           this.verificationLogin = true;
         }else{
-          alert("Echec");
+          this.openFailedModal('Erreur','Reessayer');
           this.verificationLogin = false;
         }
       });
@@ -109,11 +119,14 @@ export class LoginComponent implements OnInit {
       Data.append('specialities', JSON.stringify(this.collection.Specialities[i]));
     }
     */
-    this.LoginService.register(JSON.stringify(this.RegisterData),JSON.stringify(this.SocietyData),this.collection).then(response => {
+    this.LoginService.register(JSON.stringify(this.RegisterData),JSON.stringify(this.SocietyData),this.collection).then(async response => {
       if(response!=null){
-        alert("OK");
+        this.verificationRegister = true;
+        await this.openSuccessModal('Reussi');
+        this.router.navigate(['/home']);
       }else{
-        alert("Echec");
+        this.verificationRegister = false;
+        this.openFailedModal('Erreur','Reessayer');
       }
     });
   }
