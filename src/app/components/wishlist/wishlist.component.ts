@@ -10,6 +10,7 @@ import { SessionStorageService } from '../../services/sessionStorage.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import{QuotationService} from '../../services/quotation.service';
 import{QuotationModel} from '../../models/quotation.model';
+import{LoginService} from '../../services/login.service';
 
 @Component({
   selector: 'app-wishlist',
@@ -18,10 +19,11 @@ import{QuotationModel} from '../../models/quotation.model';
 })
 
 export class WishlistComponent implements OnInit {
+  medecinFlag: boolean = false;
   collection = { count: 0, products: Array<ProductModel> () };
   quotation= new QuotationModel({'product':{'provider':{},'images': [],'speciality': {}}});
   constructor(private StorageService: LocalStorageService, private router:Router, private QuotationService: QuotationService,
-            private ProductService: ProductService, public sanitizer: DomSanitizer) {
+            private LoginService: LoginService, private ProductService: ProductService, public sanitizer: DomSanitizer) {
   /*    let operationResponse = this.StorageService.getOperation();
       let operationArray = operationResponse.split(',');
       let operation = operationArray[0].substr(1);
@@ -35,6 +37,7 @@ export class WishlistComponent implements OnInit {
         }
       }
   */
+    this.medecinFlag = this.StorageService.MedecinExists();
     this.getWishlist();
   }
 
@@ -123,7 +126,7 @@ export class WishlistComponent implements OnInit {
                     <div class="bradcaump__inner text-center">
                       <h2 class="bradcaump-title">Cart</h2>
                       <nav class="bradcaump-inner">
-                        <a class="breadcrumb-item" href="index.html">Devis</a>
+                        <a class="breadcrumb-item" href="/home">Home</a>
                         <span class="brd-separetor">/</span>
                         <span class="breadcrumb-item active">Devis</span>
                       </nav>
@@ -290,5 +293,107 @@ export class WishlistComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustResourceUrl(imagrSrc);
   }
 
+
+   openRequestQuotationMedecinModal(i:number){
+      Swal.fire({
+        title: ``,
+        html: `
+        <div>
+          <div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url(assets/images/bg/2.jpg) no-repeat scroll center center / cover ;">
+            <div class="ht__bradcaump__wrap">
+              <div class="container">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="bradcaump__inner text-center">
+                      <h2 class="bradcaump-title">Demande de Devis</h2>
+                      <nav class="bradcaump-inner">
+                        <a class="breadcrumb-item" href="/home">Home</a>
+                        <span class="brd-separetor">/</span>
+                        <span class="breadcrumb-item active">Devis</span>
+                      </nav>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+                <form #QuotationFormAdd="ngForm">
+                  <div class="modal-body">
+                    <div class="single-contact-form">
+                      <div class="contact-box message">
+                        <input type="number" [(ngModel)]="quotation.quantity"
+                               class="form-control form-input-size"
+                               style=" height:25%; font-size:25px;"
+                               id="quantityAdd"
+                               name="quantityAdd"
+                               placeholder="Entrer la quantité"
+                               required >
+                      </div>
+                    </div>
+                    <div class="single-contact-form">
+                      <div class="contact-box message">
+                        <input type="text" [(ngModel)]="quotation.postalCode"
+                               class="form-control form-input-size"
+                               style=" height:25%; font-size:25px;"
+                               id="postalCodeAdd"
+                               name="postalCodeAdd"
+                               placeholder="Entrer votre addresse postale"
+                               required >
+                      </div>
+                    </div>
+                  </div>
+                </form>
+          </div>
+        </div>`,
+        showCancelButton: true,
+        confirmButtonText: 'Demander un devis',
+        width: '60%',
+        cancelButtonText: 'Annuler',
+        preConfirm: async () => {
+          let quantity =Number((<HTMLInputElement>document.getElementById('quantityAdd')).value.trim());
+          let code_postal = ((<HTMLInputElement>document.getElementById('postalCodeAdd')).value.trim());
+          if(quantity <= 0 ){
+            await this.openFailedModal('Erreur...', 'Vérifier la quantité ');
+            this.openRequestQuotationMedecinModal(i);
+            return false;
+          }
+          this.quotation.quantity = quantity;
+          if(code_postal == "" ){
+            await this.openFailedModal('Erreur...', 'Vérifier l\'Adresse postale ');
+            this.openRequestQuotationMedecinModal(i);
+            return false;
+          }
+          this.quotation.postalCode = code_postal;
+        }}).then((result) =>  {
+          if (result.value) {
+            this.onSubmitUserLoggedQuotation(i);
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire(
+              'Annuler',
+          )
+        }
+      })
+    }
+
+  async onSubmitUserLoggedQuotation(i:number){
+    let today :string = new Date().toISOString().substring(0,10);
+    this.quotation.date = today;
+    this.quotation.product=this.collection.products[i];
+    let medecin = await this.LoginService.getMedecin(this.StorageService.getMedecin());
+//    let medecin = await this.LoginService.getMedecin(Number(this.StorageService.getMedecin()));
+    this.quotation.firstname = medecin.firstname;
+    this.quotation.lastname = medecin.lastname;
+    this.quotation.email = medecin.email;
+    const Data = new FormData();
+    Data.append('quotation', JSON.stringify(this.quotation));
+    this.QuotationService.RequestQuotaion(Data).then(response => {
+      if(response!=null){
+        this.openSuccessModal('Reussi !');
+      }else{
+        this.openFailedModal('Echec','Veuillez reessayer');
+      }
+    });
+  }
 
 }

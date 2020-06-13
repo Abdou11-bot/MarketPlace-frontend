@@ -44,7 +44,9 @@
                   <td class="product-name"><a title="Voir produit "  routerLink="/produit/detail" [state]="{ id: product.id }" >{{product.name}}</a></td>
                   <td class="product-name"><a title="Voir produit "  routerLink="/produit/detail" [state]="{ id: product.id }" >{{product.marque}}</a></td>
                   <td class="product-stock-status"><span class="wishlist-in-stock">{{product.provider.lastname}}</span></td>
-                  <td class="product-add-to-cart"><a (click)="openRequestQuotationModal(i)"> Devis</a></td>
+                  <td [hidden]=" medecinFlag" class=""><button class="btn btn-info" (click)="openRequestQuotationModal(i)"> Devis</button></td>
+                  <td [hidden]=" !medecinFlag" class=""><button class="btn btn-info" (click)="openRequestQuotationMedecinModal(i)"> Devis</button></td>
+<!--                  <td class="product-add-to-cart"><a (click)="openRequestQuotationModal(i)"> Devis</a></td>-->
                 </tr>
                 </tbody>
 <!--                <tfoot>-->
@@ -67,7 +69,7 @@
 <!--                </tfoot>-->
                 <hr>
                 <p  class="product-add-to-cart emptyButton"  >
-                  <a (click)="empty()" style=" float: center ">Vider</a>
+                  <button class="btn btn-info" (click)="empty()" style=" float: center ">Vider</button>
                 </p>
               </table>
             </div>

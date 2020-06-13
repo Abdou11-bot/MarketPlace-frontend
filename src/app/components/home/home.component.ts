@@ -11,6 +11,8 @@ import {Router} from '@angular/router';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {DomSanitizer} from '@angular/platform-browser';
 import {MatDialog} from '@angular/material/dialog';
+import { LocalStorageService } from '../../services/localStorage.service';
+import { SessionStorageService } from '../../services/sessionStorage.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -21,7 +23,7 @@ export class HomeComponent implements OnInit {
   config: any;
   collection = { count: 0, products: Array<ProductModel> (), specialities: Array<SpecialityModel> () };
   closeResult: string;
-  constructor(public ProductService : ProductService, public sanitizer: DomSanitizer) {  }
+  constructor(public ProductService : ProductService, private StorageService: LocalStorageService,  private router: Router, public sanitizer: DomSanitizer) {  }
 
   ngOnInit(): void {
     this.ProductService.getAllSpecialities().then(response => {
@@ -33,6 +35,7 @@ export class HomeComponent implements OnInit {
       for (const resp of response) {
         this.collection.products.push(new ProductModel (resp));
       }
+      this.customSort(3);
     });
     this.collection.count = this.collection.products.length;
     this.config = {
@@ -42,9 +45,27 @@ export class HomeComponent implements OnInit {
     };
   }
 
+
+  customSort(filter:number){
+    if(filter==1)
+      this.collection.products.sort((a,b) => a.name.localeCompare(b.name));
+    if(filter == 2)
+      this.collection.products.sort((a,b) => a.id - b.id);
+    if(filter == 3)
+      this.collection.products.sort((a,b) => a.nombreVue - b.nombreVue);
+    if(filter == 4)
+      this.collection.products.sort((a,b) => a.speciality.name.localeCompare(b.speciality.name));
+  }
+
+
   sane(imagrSrc: any) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(imagrSrc);
   }
+   gotoListProductsOfSpeciality(id:number){
+      this.StorageService.storeType('speciality');
+      this.StorageService.storeSpeciality(''+id);
+      this.router.navigate(['/produits']).then(() => {window.location.reload(); });
+    }
 
   SpecialityExists(id: number){
     for(let product of this.collection.products){

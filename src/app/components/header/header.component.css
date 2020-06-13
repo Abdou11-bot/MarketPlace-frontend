@@ -1,4 +1,9 @@
 @import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css';
+
+*{
+  font-size:large;
+}
+
 @media screen and (max-width: 900px) {
 #mobile{
 float:left;
@@ -46,8 +51,5 @@ float:left;
 .dropdown:hover .dropbtn {
   background-color: #2196F3;
 }
-}
-*{
-font-size:large;
-}
 
+}

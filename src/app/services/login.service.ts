@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import { LocalStorageService } from './localStorage.service';
 import { SessionStorageService } from './sessionStorage.service';
 import{ProductService} from './product.service';
+import {MedecinModel} from '../models/medecin.model';
 
 @Injectable({providedIn: 'root'})
 export class LoginService {
@@ -29,5 +30,27 @@ export class LoginService {
           Data.append('specialities', JSON.stringify(collection.Specialities[i]));
         }
     return this.http.post<any>(environment.SERVER_API_URL + '/api/provider/register',Data).toPromise();
+  }
+  loginMedecin(login:string,password:string): Promise<MedecinModel> {
+    let params = new HttpParams();
+    params = params.append('login', login);
+    params = params.append('password', password);
+    let loginResponse = this.http.get<MedecinModel>(environment.SERVER_API_URL + '/api/medecin/logging',{params: params}).toPromise();
+    if(loginResponse != null){
+      this.StorageService.storeMedecin(login);
+    }
+    return loginResponse;
+  }
+  getMedecinById(id:number): Promise<MedecinModel>{
+    return this.http.get<MedecinModel>(environment.SERVER_API_URL + '/api/medecin/get/'+id).toPromise();
+  }
+  getMedecin(email:string): Promise<MedecinModel>{
+    return this.http.get<MedecinModel>(environment.SERVER_API_URL + '/api/medecin/get/'+email).toPromise();
+  }
+  registerMedecin(data:string,speciality:string): Promise<any>  {
+    const Data = new FormData();
+    Data.append('data', data);
+    Data.append('speciality', speciality);
+    return this.http.post<any>(environment.SERVER_API_URL + '/api/medecin/add',Data).toPromise();
   }
 }

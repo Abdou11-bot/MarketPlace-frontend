@@ -18,8 +18,46 @@ import { SessionStorageService } from '../../services/sessionStorage.service';
   templateUrl: './listproduits.component.html',
   styleUrls: ['./listproduits.component.css']
 })
+
+  /*  let type = '';
+    type = this.router.getCurrentNavigation().extras.state.type;
+    if(type == '' || type == 'speciality'){
+      this.ProductService.getAllProductsForSpeciality(this.router.getCurrentNavigation().extras.state.SpecialityId).then(response => {
+        for (const resp of response) {
+          this.collection.products.push(new ProductModel(resp));
+        }
+      });
+      this.collection.count = this.collection.products.length;
+      this.config = {
+        itemsPerPage: 99,
+        currentPage: 1,
+        totalItems: this.collection.count
+      };
+    }
+    if(type == 'research'){
+      let speciality = this.router.getCurrentNavigation().extras.state.speciality;
+      let provider = this.router.getCurrentNavigation().extras.state.provider;
+      let product = this.router.getCurrentNavigation().extras.state.product;
+      this.ProductService.getResearchResult(speciality,product,provider).then(response => {
+        for (const resp of response) {
+          this.collection.products.push(new ProductModel(resp));
+        }
+      });
+      this.collection.count = this.collection.products.length;
+      this.config = {
+        itemsPerPage: 99,
+        currentPage: 1,
+        totalItems: this.collection.count
+      };
+    }
+    if(this.collection.count == 0){
+      this.erreurFlag = true;
+      this.openFailedModal('Aucun resultat trouvé !',' ');}
+  }
+  */
 export class ListproduitsComponent implements OnInit {
 
+  erreurFlag = false;
   product= new ProductModel({'provider':{},'images': [],'speciality': {}});
   public selectedFile;
   public selectedImages;
@@ -28,23 +66,70 @@ export class ListproduitsComponent implements OnInit {
   id: number;
   closeResult: string;
   constructor(public ProductService : ProductService, public sanitizer: DomSanitizer, private router: Router,
-              private modalService: NgbModal, public dialog: MatDialog) {
-    this.ProductService.getAllProductsForSpeciality(this.router.getCurrentNavigation().extras.state.SpecialityId).then(response => {
-      for (const resp of response) {
-        this.collection.products.push(new ProductModel(resp));
-      }
-    });
-    this.collection.count = this.collection.products.length;
-    this.config = {
-      itemsPerPage: 99,
-      currentPage: 1,
-      totalItems: this.collection.count
-    };
+               public StorageService: LocalStorageService, private modalService: NgbModal, public dialog: MatDialog) {}
+
+  customSort(filter:number){
+    if(filter==1)
+      this.collection.products.sort((a,b) => a.name.localeCompare(b.name));
+    if(filter == 2)
+      this.collection.products.sort((a,b) => a.id - b.id);
+    if(filter == 3)
+      this.collection.products.sort((a,b) => a.nombreVue - b.nombreVue);
+    if(filter == 4)
+      this.collection.products.sort((a,b) => a.speciality.name.localeCompare(b.speciality.name));
   }
+
   ngOnInit(): void {
+    let type = ' ';
+    type = this.StorageService.getType();
+    if(type.trim() == 'speciality'){
+      this.ProductService.getAllProductsForSpeciality(Number(this.StorageService.getSpeciality())).then(response => {
+        for (const resp of response) {
+          this.collection.products.push(new ProductModel(resp));
+        }
+        this.verifyError();
+      });
+      this.collection.count = this.collection.products.length;
+    /*    this.config = {
+          itemsPerPage: 99,
+          currentPage: 1,
+          totalItems: this.collection.count
+        };
+      */
+    }else{
+      let ResearchParamsString  = this.StorageService.getResearchParams();
+      let ResearchParams = ResearchParamsString.split(',');
+      let speciality = ResearchParams[0];
+      let provider = ResearchParams[1];
+      let product = ResearchParams[2];
+      this.ProductService.getResearchResult(speciality.trim(),product.trim(),provider.trim()).then(response => {
+        for (const resp of response) {
+          this.collection.products.push(new ProductModel(resp));
+        }
+        this.verifyError();
+      });
+      this.collection.count = this.collection.products.length;
+/*        this.config = {
+          itemsPerPage: 99,
+          currentPage: 1,
+          totalItems: this.collection.count
+        };
+  */
+    }
+  }
+  verifyError(){
+    if(this.collection.products.length == 0){
+      this.erreurFlag = true;
+      this.openFailedModal('Aucun resultat trouvé !',' ');
+    }
   }
  sane(imagrSrc: any) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(imagrSrc);
+  }
+
+  openFailedModal(error,message)
+  {
+    Swal.fire(error, message, 'error')
   }
 
 /*

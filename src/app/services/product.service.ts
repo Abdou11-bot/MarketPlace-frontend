@@ -40,6 +40,54 @@ export class ProductService {
     params = params.append('chaine', data);
     return this.http.get<Array<ProductModel>>(environment.SERVER_API_URL + '/api/product/productsids',{params: params}).toPromise();
   }
+  getResearchResult(speciality:string, product: string, provider: string): Promise<Array<ProductModel>> {
+    if(speciality != '0' && provider!='' &&product!=''){
+      let params = new HttpParams();
+      params = params.append('params', speciality);
+      params = params.append('params', provider);
+      params = params.append('params', product);
+      return this.http.get<Array<ProductModel>>(environment.SERVER_API_URL + '/api/product/researchAll',{params: params}).toPromise();
+    }
+    if(speciality != '0' &&(product == '' && provider == '')){
+      let params = new HttpParams();
+      params = params.append('param', speciality);
+      params = params.append('type', 'speciality');
+      return this.http.get<Array<ProductModel>>(environment.SERVER_API_URL + '/api/product/research',{params: params}).toPromise();
+    }
+    if(product!='' &&(speciality == '0' && provider == '')){
+      let params = new HttpParams();
+      params = params.append('param', product);
+      params = params.append('type', 'product');
+      return this.http.get<Array<ProductModel>>(environment.SERVER_API_URL + '/api/product/research',{params: params}).toPromise();
+    }
+    if(provider != '' &&(product == '' && speciality == '0')){
+      let params = new HttpParams();
+      params = params.append('param', provider);
+      params = params.append('type', 'provider');
+      return this.http.get<Array<ProductModel>>(environment.SERVER_API_URL + '/api/product/research',{params: params}).toPromise();
+    }
+    if(speciality == '0'  &&(product != '' && provider != '')){
+      let params = new HttpParams();
+      params = params.append('param', provider);
+      params = params.append('param', product);
+      params = params.append('type', 'ProviderAndProduct');
+      return this.http.get<Array<ProductModel>>(environment.SERVER_API_URL + '/api/product/researchTwoParams',{params: params}).toPromise();
+    }
+    if(product == '' &&(provider != '' && speciality != '0' )){
+      let params = new HttpParams();
+      params = params.append('param', speciality);
+      params = params.append('param', provider);
+      params = params.append('type', 'SpecialityAndProvider');
+      return this.http.get<Array<ProductModel>>(environment.SERVER_API_URL + '/api/product/researchTwoParams',{params: params}).toPromise();
+    }
+    if(provider == '' &&(product != '' && speciality != '0' )){
+      let params = new HttpParams();
+      params = params.append('param', speciality);
+      params = params.append('param', product);
+      params = params.append('type', 'SpecialityAndProduct');
+      return this.http.get<Array<ProductModel>>(environment.SERVER_API_URL + '/api/product/researchTwoParams',{params: params}).toPromise();
+    }
+  }
 
   getProvider(id: number): Promise<ProviderModel> {
     return this.http.get<ProviderModel>(environment.SERVER_API_URL + '/api/provider/getProfil/' + id).toPromise();

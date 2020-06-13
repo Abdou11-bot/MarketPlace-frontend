@@ -107,7 +107,7 @@
         <!-- End MAinmenu Ares -->
         <div class="col-md-2 col-sm-4 col-xs-3">
           <ul class="menu-extra">
-            <li class="search search__open hidden-xs"><span class="ti-search"></span></li>
+            <li class="search search__open hidden-xs" (click)="openResearchModal()"><span class="ti-search"></span></li>
             <li><a href="/login"><span class="ti-user"></span></a></li>
             <li><a title="Voir la wishlist" routerLink="/wishlist" [state]="{ operation: 'list'}"><span class="ti-heart"></span></a></li>
 <!--            <li class="cart__menu"><span class="ti-heart"></span></li>-->
@@ -115,6 +115,7 @@
           </ul>
         </div>
       </div>
+
       <div class="mobile-menu-area"></div>
     </div>
   </div>

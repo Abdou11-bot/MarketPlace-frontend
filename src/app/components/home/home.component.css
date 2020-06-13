@@ -1,6 +1,18 @@
 *{
 font-size:large;
 }
+.SpecialityButton:hover{
+  background-color:#2196F3;
+  cursor: pointer;
+}
+.SpecialityButton{
+  background-color:white;
+}
+.SpecialityTab{
+  border-top-color: none;
+  border-width: 2px 0px 0px;
+  border-color: #2196F3;
+}
 /*-----------------------------------------------------------------------------------
   Template Name: Tmart-Minimalist eCommerce HTML5 Template.
   Template URI: #

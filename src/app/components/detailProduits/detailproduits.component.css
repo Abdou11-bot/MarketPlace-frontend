@@ -1,5 +1,6 @@
 .quotationButton:hover{
-    cursor: pointer;
+  background-color:#2196F3;
+  cursor: pointer;
 }
 .wishlistButtonPressed{
   backgroung: red;
@@ -9,4 +10,5 @@
 }
 *{
 font-size:large;
+font-family: Roboto, "Helvetica Neue", sans-serif;
 }

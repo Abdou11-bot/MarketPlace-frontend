@@ -12,6 +12,8 @@ import{ProductService} from '../../services/product.service';
 import{SocietyModel} from '../../models/society.model';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
+import { LocalStorageService } from '../../services/localStorage.service';
+import { SessionStorageService } from '../../services/sessionStorage.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -31,7 +33,7 @@ export class LoginComponent implements OnInit {
   SocietyData = new SocietyModel({});
   collection = { Specialities: Array<SpecialityModel> () };
   SpecialitiesSelectedPrice: number;
-  constructor(private router:Router,public LoginService : LoginService, public ProductService : ProductService) {}
+  constructor(private router:Router,public LoginService : LoginService, public ProductService : ProductService,private StorageService: LocalStorageService) {}
   ngOnInit(): void {
     this.ProductService.getAllSpecialities().then(response => {
         for (const resp of response) {

@@ -23,7 +23,7 @@ export class ListspecialitiesComponent implements OnInit {
 
   config: any;
   collection = { count: 0, specialities: Array<SpecialityModel> () };
-  constructor(public ProductService : ProductService, public sanitizer: DomSanitizer, private router: Router) {
+  constructor(public ProductService : ProductService, public sanitizer: DomSanitizer, private StorageService: LocalStorageService,  private router: Router) {
 
   }
   ngOnInit(): void {
@@ -41,6 +41,22 @@ export class ListspecialitiesComponent implements OnInit {
   }
  sane(imageSrc: any) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(imageSrc);
+  }
+
+   gotoListProductsOfSpeciality(id:number){
+      this.StorageService.storeType('speciality');
+      this.StorageService.storeSpeciality(''+id);
+      this.router.navigate(['/produits']).then(() => {window.location.reload(); });
+    }
+
+
+  customSort(filter:number){
+    if(filter==1)
+      this.collection.specialities.sort((a,b) => a.name.localeCompare(b.name));
+    if(filter == 2)
+      this.collection.specialities.sort((a,b) => a.id - b.id);
+    if(filter == 3)
+      this.collection.specialities.sort((a,b) => a.price - b.price);
   }
 
 /*

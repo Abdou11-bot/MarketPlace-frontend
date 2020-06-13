@@ -221,24 +221,34 @@
           </div>
           <div class="category-menu-list">
             <ul>
-              <li><a routerLink="/produits" [state]="{ SpecialityId: collection.specialities[0].id }" ><img alt="" src="assets/images/icons/thum2.png"> {{collection.specialities[0].name}}<i class="zmdi zmdi-chevron-right"></i></a>
+<!--              <li><a routerLink="/produits" [state]="{ 'SpecialityId': collection.specialities[0].id , 'type' : 'speciality' }" ><img alt="" src="assets/images/icons/thum2.png"> {{collection.specialities[0].name}}<i class="zmdi zmdi-chevron-right"></i></a>-->
+              <li><a (click)="gotoListProductsOfSpeciality(collection.specialities[0].id)"  ><img alt="" src="assets/images/icons/thum2.png"> {{collection.specialities[0].name}}<i class="zmdi zmdi-chevron-right"></i></a>
                 <div class="category-menu-dropdown">
                   <div class="category-part-1 category-common " *ngFor="let speciality of collection.specialities; index as i;let e=even; let o=odd;">
                     <ul *ngIf="e && i<collection.specialities.length">
-                      <li><a routerLink="/produits" [state]="{ SpecialityId: speciality.id }" > {{speciality.name}}</a></li>
+                      <li><button  class="btn btn-primary buttonSpecialities" (click)="gotoListProductsOfSpeciality(speciality.id)" > {{speciality.name}}</button></li>
+<!--                      <li><a routerLink="/produits" [state]="{ 'SpecialityId': speciality.id , 'type' : 'speciality' }" > {{speciality.name}}</a></li>-->
                     </ul>
-                    <ul *ngIf="o">
-                      <li><a routerLink="/produits" [state]="{ SpecialityId: speciality.id }" > {{speciality.name}}</a></li>
+                    <ul *ngIf="o && i<collection.specialities.length">
+<!--                      <li><a routerLink="/produits" [state]="{ 'SpecialityId': speciality.id , 'type' : 'speciality' }" > {{speciality.name}}</a></li>-->
+                      <li><button  class="btn btn-primary buttonSpecialities" (click)="gotoListProductsOfSpeciality(speciality.id)"  > {{speciality.name}}</button></li>
                     </ul>
                   </div>
                 </div>
               </li>
-              <li><a routerLink="/produits" [state]="{ SpecialityId: collection.specialities[1].id }" ><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[1].name}}</a></li>
-              <li><a routerLink="/produits" [state]="{ SpecialityId: collection.specialities[2].id }" ><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[2].name}}</a></li>
-              <li><a routerLink="/produits" [state]="{ SpecialityId: collection.specialities[3].id }" ><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[3].name}}</a></li>
-              <li><a routerLink="/produits" [state]="{ SpecialityId: collection.specialities[4].id }" ><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[4].name}}</a></li>
-              <li><a routerLink="/produits" [state]="{ SpecialityId: collection.specialities[5].id }" ><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[5].name}}</a></li>
-              <li><a routerLink="/produits" [state]="{ SpecialityId: collection.specialities[6].id }" ><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[6].name}}</a></li>
+<!--              <li><a routerLink="/produits" [state]="{ 'SpecialityId': collection.specialities[1].id , 'type' : 'speciality' }" ><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[1].name}}</a></li>-->
+<!--              <li><a routerLink="/produits" [state]="{ 'SpecialityId': collection.specialities[2].id , 'type' : 'speciality' }" ><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[2].name}}</a></li>-->
+<!--              <li><a routerLink="/produits" [state]="{ 'SpecialityId': collection.specialities[3].id , 'type' : 'speciality' }" ><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[3].name}}</a></li>-->
+<!--              <li><a routerLink="/produits" [state]="{ 'SpecialityId': collection.specialities[4].id , 'type' : 'speciality' }" ><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[4].name}}</a></li>-->
+<!--              <li><a routerLink="/produits" [state]="{ 'SpecialityId': collection.specialities[5].id , 'type' : 'speciality' }" ><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[5].name}}</a></li>-->
+<!--              <li><a routerLink="/produits" [state]="{ 'SpecialityId': collection.specialities[6].id , 'type' : 'speciality' }" ><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[6].name}}</a></li>-->
+
+              <li><a (click)="gotoListProductsOfSpeciality(collection.specialities[1].id)" ><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[1].name}}</a></li>
+              <li><a (click)="gotoListProductsOfSpeciality(collection.specialities[2].id)" ><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[2].name}}</a></li>
+              <li><a (click)="gotoListProductsOfSpeciality(collection.specialities[3].id)" ><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[3].name}}</a></li>
+              <li><a (click)="gotoListProductsOfSpeciality(collection.specialities[4].id)" ><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[4].name}}</a></li>
+              <li><a (click)="gotoListProductsOfSpeciality(collection.specialities[5].id)" ><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[5].name}}</a></li>
+              <li><a (click)="gotoListProductsOfSpeciality(collection.specialities[6].id)" ><img alt="" src="assets/images/icons/thum7.png"> {{collection.specialities[6].name}}</a></li>
             </ul>
           </div>
         </div>

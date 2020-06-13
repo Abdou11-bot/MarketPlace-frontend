@@ -31,6 +31,7 @@ import {CommonModule} from '@angular/common';
 import { StorageServiceModule } from 'ngx-webstorage-service';
 import { LocalStorageService } from './services/localStorage.service';
 import { SessionStorageService } from './services/sessionStorage.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
    { path: 'home', component: HomeComponent },
@@ -80,7 +81,8 @@ const routes: Routes = [
     MatGridListModule,
     MatIconModule,
     MatDialogModule,
-    StorageServiceModule
+    StorageServiceModule,
+    BrowserAnimationsModule
   ],
   providers: [LocalStorageService,SessionStorageService],
   bootstrap: [AppComponent]

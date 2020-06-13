@@ -4,6 +4,10 @@ import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 @Injectable()
 export class LocalStorageService {
     constructor(@Inject(LOCAL_STORAGE) private storage: StorageService) { }
+
+    public clearStorage(){
+      this.storage.clear();
+    }
     /* W I S H L I S T   B E G I N */
     public storeOnStorage(product: number): boolean {
       if(this.productExists(product)){
@@ -131,9 +135,76 @@ export class LocalStorageService {
       }
       return this.storage.get('login');
     }
-    public clearStorage(){
-      this.storage.clear();
+    public clearLogin(){
+      this.storage.remove('login');
     }
     /* L O G I N   E N D */
+
+    /* M E D E C I N   B E G I N */
+
+    public MedecinExists(): boolean {
+      if(this.getMedecin() == null || this.getMedecin() == undefined || this.getMedecin().trim() == ''){
+        return  false;
+      }
+      return true;
+    }
+    public storeMedecin(login: string) {
+      this.storage.set('medecin', login);
+    }
+    public getMedecin(): string {
+     /* if((this.storage.get('medecin')==null)||(this.storage.get('medecin')==undefined )){
+        return ' ';
+      }*/
+      return this.storage.get('medecin');
+    }
+    public clearMedecin(){
+      this.storage.remove('medecin');
+    }
+    /* M E D E C I N   E N D  */
+
+    /* S E A R C H   B E G I N */
+    public storeResearchParams(speciality: string,provider: string,product: string) {
+      this.storage.set('speciality', speciality);
+      this.storage.set('provider', provider);
+      this.storage.set('product', product);
+    }
+    storeType(type:string){
+      this.storage.set('type', type);
+    }
+    storeSpeciality(speciality:string){
+      this.storage.set('speciality', speciality);
+    }
+    public getSpeciality(): string {
+      if((this.storage.get('speciality')!=null)&&(this.storage.get('speciality')!=undefined )){
+        return this.storage.get('speciality');
+      }
+      return ' ';
+    }
+    public getType(): string {
+      if((this.storage.get('type')!=null)&&(this.storage.get('type')!=undefined )){
+        return this.storage.get('type');
+      }
+      return 'speciality';
+    }
+    public getResearchParams(): string {
+      let result = ' ';
+      if((this.storage.get('speciality')!=null)&&(this.storage.get('speciality')!=undefined )){
+        result+= this.storage.get('speciality');
+      }
+      if((this.storage.get('provider')!=null)||(this.storage.get('provider')!=undefined )){
+        result+=', ' + this.storage.get('provider');
+      }
+      if((this.storage.get('product')!=null)||(this.storage.get('product')!=undefined )){
+        result+=', ' + this.storage.get('product');
+      }
+      return result;
+    }
+    public clearResearchParams(){
+        this.storage.remove('speciality');
+        this.storage.remove('provider');
+        this.storage.remove('product');
+        this.storage.remove('type');
+    }
+    /* S E A R C H   E N D */
 
 }
