@@ -9,9 +9,16 @@
   font-size: 20px;
 }
 .htc__login__btn button:hover {
-    background: #ff4136;
+    cursor: pointer;
+    background: #2196F3;
     color: #fff;
-    border: 1px solid #ff4136;
+    border: 1px solid #2196F3;
+}
+.login__register__menu li.active a{
+    color: #2196F3;
+}
+.login__register__menu li a:hover{
+    color: #2196F3;
 }
 .htc__login__btn button {
     border: 1px solid #d5d5d5;
@@ -125,4 +132,22 @@
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+.login select, .login label {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: currentcolor currentcolor #8e8e8e;
+    -o-border-image: none;
+    border-image: none;
+    border-style: none none solid;
+    border-width: 0 0 1px;
+    color: #686868;
+    font-size: 20px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 15px;
+    width: 100%;
+    background: transparent;
 }

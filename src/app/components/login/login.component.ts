@@ -10,6 +10,7 @@ import{ProviderModel} from '../../models/provider.model';
 import{SpecialityModel} from '../../models/speciality.model';
 import{ProductService} from '../../services/product.service';
 import{SocietyModel} from '../../models/society.model';
+import{MedecinModel} from '../../models/medecin.model';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { LocalStorageService } from '../../services/localStorage.service';
@@ -23,13 +24,16 @@ export class LoginComponent implements OnInit {
 
   ConnexionType : string = 'provider';
   AdminVerification : boolean;
+  displayLoginForm : boolean = true;
   SocietyRepVerification : boolean = false;
   verificationLogin : boolean = true;
   verificationRegister : boolean = true;
   verificationPassword : boolean = true;
   ConfirmPassword='';
+  MedecinSpecilality;
   LoginData = {Email:'',password:''};
   RegisterData = new ProviderModel({});
+  MedecinData = new MedecinModel({});
   SocietyData = new SocietyModel({});
   collection = { Specialities: Array<SpecialityModel> () };
   SpecialitiesSelectedPrice: number;
@@ -43,6 +47,13 @@ export class LoginComponent implements OnInit {
     this.SpecialitiesSelectedPrice = 0;
   }
 
+  changeDisplayForm(index:number){
+    if(index==1){
+      this.displayLoginForm = true;
+    }else{
+      this.displayLoginForm = false;
+    }
+  }
   openSuccessModal(message)
   {
     Swal.fire({text: message,icon: 'success'});
@@ -133,11 +144,34 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  onSubmitMedecin(event: any){
+    this.LoginService.registerMedecin(JSON.stringify(this.MedecinData),this.MedecinSpecilality).then(async response => {
+      if(response!=null){
+        this.verificationRegister = true;
+        await this.openSuccessModal('Reussi');
+        this.router.navigate(['/home']);
+      }else{
+        this.verificationRegister = false;
+        this.openFailedModal('Erreur','Reessayer');
+      }
+    });
+  }
+
   ProviderComfirmPassword(){
   //alert(this.RegisterData.password);
   //alert(this.ConfirmPassword);
   //alert(this.RegisterData.password===this.ConfirmPassword);
     if(this.RegisterData.password==this.ConfirmPassword){
+      this.verificationPassword = true;
+    }else{
+      this.verificationPassword = false;
+    }
+  }
+  MedecinComfirmPassword(){
+  //alert(this.RegisterData.password);
+  //alert(this.ConfirmPassword);
+  //alert(this.RegisterData.password===this.ConfirmPassword);
+    if(this.MedecinData.password==this.ConfirmPassword){
       this.verificationPassword = true;
     }else{
       this.verificationPassword = false;

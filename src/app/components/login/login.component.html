@@ -3,8 +3,8 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
-        <ul class="login__register__menu" role="tablist">
-          <li role="presentation" class="login active"><a href="#login" role="tab" data-toggle="tab">Login</a></li>
+        <ul class="login__register__menu " role="tablist">
+          <li role="presentation" class="login active loginTitle" style="" ><a  class="loginTitle" href="#login" role="tab" data-toggle="tab">Login</a></li>
           <li role="presentation" class="register"><a href="#register" role="tab" data-toggle="tab">Register</a></li>
         </ul>
       </div>
@@ -77,7 +77,16 @@
           <!-- End Single Content -->
           <!-- Start Single Content -->
           <div id="register" role="tabpanel" class="register-width single__tabs__panel tab-pane fade" style="width: 200%; ">
-            <form (ngSubmit)="onSubmitRegister($event)" #RegisterForm="ngForm">
+            <label class="specialities-label"> Fournisseur
+              <input name="TypeProvider" type="radio"  (change)="changeDisplayForm(1)" checked >
+              <span class="checkmark"></span>
+            </label>
+            <label class="specialities-label"> Medecin
+              <input name="TypeProvider" type="radio"  (change)="changeDisplayForm(2)"  >
+              <span class="checkmark"></span>
+            </label>
+            <hr>
+            <form [hidden]="!displayLoginForm" (ngSubmit)="onSubmitRegister($event)" #RegisterForm="ngForm">
               <div class="login">
                 <label [hidden]="verificationRegister" class="alert">* Vérifier les informations données</label>
                 <div class="form-group">
@@ -189,6 +198,73 @@
               </div>
               <div class="htc__login__btn">
                 <button type="submit" [disabled]="!RegisterForm.form.valid" >register</button>
+              </div>
+
+            </form>
+            <form [hidden]="displayLoginForm" (ngSubmit)="onSubmitMedecin($event)" #MedecinForm="ngForm">
+              <div class="login">
+                <label [hidden]="verificationRegister" class="alert">* Vérifier les informations données</label>
+                <div class="form-group">
+                  <input type="text" [(ngModel)]="MedecinData.firstname"
+                         class="form-control"
+                         id="Medecinfirstname"
+                         name="Medecinfirstname"
+                         placeholder="firstname"
+                         required #Medecinfirstname="ngModel">
+                </div>
+                <div class="form-group">
+                  <input type="text" [(ngModel)]="MedecinData.lastname"
+                         class="form-control"
+                         id="Medecinlastname"
+                         name="Medecinfirstname"
+                         placeholder="lastname"
+                         required #Medecinlastname="ngModel">
+                </div>
+                <div class="form-group">
+                  <input type="text" [(ngModel)]="MedecinData.tel"
+                         class="form-control"
+                         id="Medecintel"
+                         name="Medecintel"
+                         placeholder="tel"
+                         required #Medecintel="ngModel">
+                </div>
+                <div class="form-group">
+                  <input type="email" [(ngModel)]="MedecinData.email"
+                         class="form-control"
+                         id="MedecinEmail"
+                         name="MedecinEmail"
+                         placeholder="Email"
+                         required #MedecinEmail="ngModel">
+                </div>
+                <div class="form-group">
+                  <input type="password" [(ngModel)]="MedecinData.password"
+                         class="form-control"
+                         id="Medecinpassword1"
+                         name="Medecinpassword1"
+                         placeholder="Password"
+                         #Medecinpassword1="ngModel">
+                </div>
+                <div class="form-group">
+                  <input type="password" [(ngModel)]="ConfirmPassword"
+                         class="form-control"
+                         id="Medecinpassword2"
+                         name="Medecinpassword2"
+                         placeholder="Confirm Password"
+                         (blur)="MedecinComfirmPassword()"
+                         #Medecinpassword2="ngModel">
+                </div>
+                <span [hidden]="verificationPassword" class="alert" name="ProviderComfirmAlert">*Les mots de passe ne correspondent pas</span>
+                <div class="form-group">
+                  <h2><label>Specialité :</label></h2>
+                  <select id="MedecinSpeciality" name="MedecinSpeciality" [(ngModel)]="MedecinSpecilality">
+                    <option *ngFor="let speciality of collection.Specialities ; index as i" [value]="speciality.id">{{speciality.name}}</option>
+                  </select>
+                </div>
+
+              </div>
+              <hr>
+              <div class="htc__login__btn">
+                <button type="submit" [disabled]="!MedecinForm.form.valid" >register</button>
               </div>
 
             </form>

@@ -4,6 +4,7 @@
   font-size:large;
 }
 
+
 @media screen and (max-width: 900px) {
 #mobile{
 float:left;
