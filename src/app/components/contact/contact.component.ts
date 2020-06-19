@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import{ImageModel} from '../../models/image.model';
 import{ProviderModel} from '../../models/provider.model';
 import{ComplaintModel} from '../../models/complaint.model';
+import{ProviderService} from '../../services/provider.service';
 import{ProductService} from '../../services/product.service';
 import{ComplaintService} from '../../services/complaint.service';
 import{SpecialityModel} from '../../models/speciality.model';
@@ -12,6 +13,8 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {DomSanitizer} from '@angular/platform-browser';
 import {MatDialog} from '@angular/material/dialog';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { LocalStorageService } from '../../services/localStorage.service';
+import { SessionStorageService } from '../../services/sessionStorage.service';
 
 @Component({
   selector: 'app-contact',
@@ -22,10 +25,11 @@ export class ContactComponent implements OnInit {
 
   Administrator= new ProviderModel({});
   Complaint= new ComplaintModel({'product':{'provider':{},'images': [],'speciality': {}}});
-  constructor(public ProductService : ProductService,public ComplaintService : ComplaintService, private router: Router) { }
+  constructor(private StorageService: LocalStorageService,public ProductService : ProductService,public ComplaintService : ComplaintService,private ProviderService: ProviderService, private router: Router) { }
 
   ngOnInit(): void {
-    this.ProductService.getAdmin().then(response => {
+    this.StorageService.storeAdminSpace('ClientSpace');
+    this.ProviderService.getAdmin().then(response => {
         this.Administrator = new ProviderModel(response);
     });
   }

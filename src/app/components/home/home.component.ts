@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import{ProductService} from '../../services/product.service';
+import{ProviderService} from '../../services/provider.service';
 import{ImageModel} from '../../models/image.model';
 import{ProviderModel} from '../../models/provider.model';
 import{ProductModel} from '../../models/product.model';
@@ -23,17 +24,21 @@ export class HomeComponent implements OnInit {
   config: any;
   collection = { count: 0, products: Array<ProductModel> (), specialities: Array<SpecialityModel> () };
   closeResult: string;
-  constructor(public ProductService : ProductService, private StorageService: LocalStorageService,  private router: Router, public sanitizer: DomSanitizer) {  }
+  constructor(public ProductService : ProductService, private ProviderService: ProviderService, private StorageService: LocalStorageService,  private router: Router, public sanitizer: DomSanitizer) {  }
 
   ngOnInit(): void {
-    this.ProductService.getAllSpecialities().then(response => {
+    this.StorageService.storeAdminSpace('ClientSpace');
+    this.ProviderService.getAllSpecialities().then(response => {
       for (const resp of response) {
         this.collection.specialities.push(new SpecialityModel (resp));
       }
     });
     this.ProductService.getAllProducts().then(response => {
       for (const resp of response) {
-        this.collection.products.push(new ProductModel (resp));
+        let productTemp = new ProductModel(resp);
+        if(!productTemp.blocked && (productTemp.provider.status==1)){
+          this.collection.products.push(productTemp);
+        }
       }
       this.customSort(3);
     });

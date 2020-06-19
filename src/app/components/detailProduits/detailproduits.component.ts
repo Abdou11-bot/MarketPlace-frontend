@@ -81,7 +81,7 @@ export class DetailProduitsComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.StorageService.storeAdminSpace('ClientSpace');
   }
 
    sane(imagrSrc: any) {

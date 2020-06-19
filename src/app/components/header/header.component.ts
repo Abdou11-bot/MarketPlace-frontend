@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, DoCheck} from '@angular/core';
 import { LocalStorageService } from '../../services/localStorage.service';
 import { SessionStorageService } from '../../services/sessionStorage.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import{ProductService} from '../../services/product.service';
+import{ProviderService} from '../../services/provider.service';
 import{ProviderModel} from '../../models/provider.model';
 import{ProductModel} from '../../models/product.model';
 import{SpecialityModel} from '../../models/speciality.model';
@@ -13,15 +14,39 @@ import {Router} from '@angular/router';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnChanges, DoCheck {
 
+  AdminSpace=false;
   researchFlag=true;
   researchParams = { 'product': '', 'provider' : '' , 'speciality': ''}
   collection = { count: 0, specialities: Array<SpecialityModel> () };
-  constructor(private ProductService: ProductService, private StorageService: LocalStorageService, private router:Router) { }
+  constructor(private ProductService: ProductService, private ProviderService: ProviderService, private StorageService: LocalStorageService, private router:Router) { }
 
+  ngOnChanges(){
+    let AdminSpaceResponse = this.StorageService.getAdminSpace();
+    if(AdminSpaceResponse.trim() == 'AdminSpace'){
+      this.AdminSpace = true;
+    }else{
+      this.AdminSpace = false;
+    }
+  }
+
+  ngDoCheck(){
+    let AdminSpaceResponse = this.StorageService.getAdminSpace();
+    if(AdminSpaceResponse.trim() == 'AdminSpace'){
+      this.AdminSpace = true;
+    }else{
+      this.AdminSpace = false;
+    }
+  }
   ngOnInit(): void {
-    this.ProductService.getAllSpecialities().then(response => {
+    let AdminSpaceResponse = this.StorageService.getAdminSpace();
+    if(AdminSpaceResponse.trim() == 'AdminSpace'){
+      this.AdminSpace = true;
+    }else{
+      this.AdminSpace = false;
+    }
+    this.ProviderService.getAllSpecialities().then(response => {
       for (const resp of response) {
         this.collection.specialities.push(new SpecialityModel(resp));
       }
@@ -81,16 +106,8 @@ export class HeaderComponent implements OnInit {
           this.researchParams.product = product;
           this.researchParams.provider = provider;
           this.researchParams.speciality = speciality;
-      /*    if(product != ''){
-            researchParams.product = Number(product);
-          }
-          if(provider != '' ){
-            researchParams.provider = Number(provider);
-          }*/
         }}).then((result) =>  {
           if (result.value) {
-//            this.router.navigate(['/produits'],{state:{'speciality': this.researchParams.speciality,'provider':this.researchParams.provider, 'product':this.researchParams.product,'type':'research'}});
-//            this.router.navigate(['/produits']).then(() => {window.location.reload(); });
             this.StorageService.storeType('research');
             this.StorageService.storeResearchParams(this.researchParams.speciality,this.researchParams.provider,this.researchParams.product);
             this.router.navigate(['/produits']).then(() => {window.location.reload(); });

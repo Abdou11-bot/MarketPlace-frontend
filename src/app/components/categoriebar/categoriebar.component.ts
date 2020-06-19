@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {SpecialityModel} from '../../models/speciality.model';
+import{ProviderService} from '../../services/provider.service';
 import{ProductService} from '../../services/product.service';
 import{ImageModel} from '../../models/image.model';
 import{ProviderModel} from '../../models/provider.model';
@@ -26,7 +27,7 @@ export class CategoriebarComponent implements OnInit {
   product= new ProductModel({'provider':{},'images': [{}],'speciality': {}});
    collection = { count: 0, specialities: Array<SpecialityModel> () };
    closeResult: string;
-   constructor(public ProductService : ProductService, public sanitizer: DomSanitizer,  private StorageService: LocalStorageService,  private router: Router) {   }
+   constructor(public ProductService : ProductService,private ProviderService: ProviderService, public sanitizer: DomSanitizer,  private StorageService: LocalStorageService,  private router: Router) {   }
     gotoListProductsOfSpeciality(id:number){
       this.StorageService.storeType('speciality');
       this.StorageService.storeSpeciality(''+id);
@@ -34,8 +35,8 @@ export class CategoriebarComponent implements OnInit {
     }
 
    ngOnInit(): void {
-
-        this.ProductService.getAllSpecialities().then(response => {
+    this.StorageService.storeAdminSpace('ClientSpace');
+        this.ProviderService.getAllSpecialities().then(response => {
            for (const resp of response) {
                  this.collection.specialities.push(new SpecialityModel (resp));
            }

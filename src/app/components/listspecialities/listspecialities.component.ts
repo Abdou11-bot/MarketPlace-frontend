@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import{ProductService} from '../../services/product.service';
+import{ProviderService} from '../../services/provider.service';
 import{ImageModel} from '../../models/image.model';
 import{ProviderModel} from '../../models/provider.model';
 import{SpecialityModel} from '../../models/speciality.model';
@@ -23,11 +24,12 @@ export class ListspecialitiesComponent implements OnInit {
 
   config: any;
   collection = { count: 0, specialities: Array<SpecialityModel> () };
-  constructor(public ProductService : ProductService, public sanitizer: DomSanitizer, private StorageService: LocalStorageService,  private router: Router) {
+  constructor(private ProviderService: ProviderService,public ProductService : ProductService, public sanitizer: DomSanitizer, private StorageService: LocalStorageService,  private router: Router) {
 
   }
   ngOnInit(): void {
-    this.ProductService.getAllSpecialities().then(response => {
+    this.StorageService.storeAdminSpace('ClientSpace');
+    this.ProviderService.getAllSpecialities().then(response => {
       for (const resp of response) {
         this.collection.specialities.push(new SpecialityModel(resp));
       }

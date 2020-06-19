@@ -80,12 +80,16 @@ export class ListproduitsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.StorageService.storeAdminSpace('ClientSpace');
     let type = ' ';
     type = this.StorageService.getType();
     if(type.trim() == 'speciality'){
       this.ProductService.getAllProductsForSpeciality(Number(this.StorageService.getSpeciality())).then(response => {
         for (const resp of response) {
-          this.collection.products.push(new ProductModel(resp));
+          let productTemp = new ProductModel(resp);
+          if(!productTemp.blocked && (productTemp.provider.status==1)){
+            this.collection.products.push(productTemp);
+          }
         }
         this.verifyError();
       });

@@ -41,6 +41,9 @@ export class WishlistComponent implements OnInit {
     this.getWishlist();
   }
 
+  ngOnInit() {
+    this.StorageService.storeAdminSpace('ClientSpace');
+  }
   empty(){
     this.StorageService.clearStorage();
     window.location.reload();
@@ -286,8 +289,6 @@ export class WishlistComponent implements OnInit {
   }
 
 
-  ngOnInit() {
-  }
 
  sane(imagrSrc: any) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(imagrSrc);

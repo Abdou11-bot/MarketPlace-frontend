@@ -16,6 +16,7 @@ export  class ProductModel {
   images: Array<ImageModel>;
   speciality: SpecialityModel;
   constructor(obj: any) {
+    if(obj != null){
       this.id = obj.id;
       this.name = obj.name;
       this.description = obj.description;
@@ -27,6 +28,6 @@ export  class ProductModel {
       this.provider = new ProviderModel(obj.provider);
       this.speciality = new SpecialityModel(obj.speciality);
       this.images = obj.images;
-//      this.images = new ImageModel({}).convertMultiImages(obj.images);
+    }
   }
 }

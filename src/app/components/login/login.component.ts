@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import{LoginService} from '../../services/login.service';
+import{ProviderService} from '../../services/provider.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {EventEmitter, Input, Output, TemplateRef, ViewEncapsulation} from '@angular/core';
 import {Router} from '@angular/router';
@@ -37,9 +38,10 @@ export class LoginComponent implements OnInit {
   SocietyData = new SocietyModel({});
   collection = { Specialities: Array<SpecialityModel> () };
   SpecialitiesSelectedPrice: number;
-  constructor(private router:Router,public LoginService : LoginService, public ProductService : ProductService,private StorageService: LocalStorageService) {}
+  constructor(private ProviderService: ProviderService,private router:Router,public LoginService : LoginService, public ProductService : ProductService,private StorageService: LocalStorageService) {}
   ngOnInit(): void {
-    this.ProductService.getAllSpecialities().then(response => {
+    this.StorageService.storeAdminSpace('ClientSpace');
+    this.ProviderService.getAllSpecialities().then(response => {
         for (const resp of response) {
           this.collection.Specialities.push(new SpecialityModel(resp));
         }
@@ -113,8 +115,12 @@ export class LoginComponent implements OnInit {
       Data.append('password', this.LoginData.password);
       this.LoginService.login(Data,this.ConnexionType).then(response => {
         if(response){
-          this.openSuccessModal('Reussi');
+          this.openSuccessModal('Bienvenue');
           this.verificationLogin = true;
+          if(this.AdminVerification){
+            this.router.navigate(['/admin/home']);
+          }else{
+          }
         }else{
           this.openFailedModal('Erreur','Reessayer');
           this.verificationLogin = false;

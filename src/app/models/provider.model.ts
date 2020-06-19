@@ -1,5 +1,6 @@
 import {SafeUrl} from '@angular/platform-browser';
 import {SocietyModel} from './society.model';
+import {SpecialityModel} from './speciality.model';
 
 export  class ProviderModel {
   id: number;
@@ -12,6 +13,7 @@ export  class ProviderModel {
   status: number;
   type: boolean;
   society: SocietyModel;
+  specialities:Array<SpecialityModel>;
   constructor(obj: any) {
       this.id = obj.id;
       this.lastname = obj.lastname;
@@ -22,5 +24,12 @@ export  class ProviderModel {
       this.tel = obj.tel;
       this.status = obj.status;
       this.type = obj.type;
+      this.society= new SocietyModel(obj.society);
+      if(obj.specialities != undefined &&obj.specialities != null ){
+        this.specialities= Array<SpecialityModel> ();
+        for(let speciality of obj.specialities){
+          this.specialities.push(new SpecialityModel(speciality));
+        }
+      }
   }
 }

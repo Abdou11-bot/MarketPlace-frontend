@@ -11,6 +11,14 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CategoriebarComponent } from './components/categoriebar/categoriebar.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { AdminHomeComponent } from './components/admin/components/admin-home/admin-home.component';
+import { AdminHeaderComponent } from './components/admin/components/admin-header/admin-header.component';
+import { AdminMainContentComponent } from './components/admin/components/admin-main-content/admin-main-content.component';
+import { AdminMessageContentComponent } from './components/admin/components/admin-message-content/admin-message-content.component';
+import { AdminProviderContentComponent } from './components/admin/components/admin-provider-content/admin-provider-content.component';
+import { AdminComplaintContentComponent } from './components/admin/components/admin-complaint-content/admin-complaint-content.component';
+import { AdminMedecinContentComponent } from './components/admin/components/admin-medecin-content/admin-medecin-content.component';
+import { AdminMenuBarComponent } from './components/admin/components/admin-menu-bar/admin-menu-bar.component';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { LoginComponent } from './components/login/login.component';
 import { ListproduitsComponent } from './components/listproduits/listproduits.component';
@@ -46,7 +54,12 @@ const routes: Routes = [
     { path: 'produits', component: ListproduitsComponent },
     { path: 'specialities', component: ListspecialitiesComponent },
     { path: 'produit/detail', component: DetailProduitsComponent },
-    { path: 'admin',  loadChildren: () => import('./components/admin/admin.module').then(m => m.AdminModule) },
+    { path: 'admin/home',  component: AdminHomeComponent },
+    { path: 'admin/messages',  component: AdminMessageContentComponent },
+    { path: 'admin/provider',  component: AdminProviderContentComponent },
+    { path: 'admin/medecin',  component: AdminMedecinContentComponent },
+    { path: 'admin/complaint',  component: AdminComplaintContentComponent },
+    { path: 'admin/**',  component: AdminHomeComponent },
     { path: '**', redirectTo: '/home', pathMatch: 'full' }
  ];
 @NgModule({
@@ -66,6 +79,14 @@ const routes: Routes = [
     DetailProduitsComponent,
     DevisComponent,
     DashboardComponent,
+    AdminHomeComponent,
+    AdminHeaderComponent,
+    AdminMenuBarComponent,
+    AdminMainContentComponent,
+    AdminMessageContentComponent,
+    AdminProviderContentComponent,
+    AdminMedecinContentComponent,
+    AdminComplaintContentComponent,
     CartdevisComponent
   ],
   imports: [
@@ -83,7 +104,8 @@ const routes: Routes = [
     MatIconModule,
     MatDialogModule,
     StorageServiceModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+
   ],
   providers: [LocalStorageService,SessionStorageService],
   bootstrap: [AppComponent]

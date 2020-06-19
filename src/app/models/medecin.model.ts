@@ -9,6 +9,7 @@ export  class MedecinModel {
   email: string;
   password: string;
   tel: string;
+  speciality: SpecialityModel;
   constructor(obj: any) {
       this.id = obj.id;
       this.lastname = obj.nom;
@@ -17,5 +18,6 @@ export  class MedecinModel {
       this.email = obj.email;
       this.password = obj.password;
       this.tel = obj.tel;
+      this.speciality = new SpecialityModel(obj.speciality);
   }
 }

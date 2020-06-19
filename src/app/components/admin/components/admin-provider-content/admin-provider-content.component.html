@@ -1,0 +1,278 @@
+
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+  <!-- Sidebar -->
+  <app-admin-menu-bar></app-admin-menu-bar>
+  <!-- End of Sidebar -->
+  <!-- Content Wrapper -->
+  <div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+      <!-- Topbar -->
+      <app-admin-header></app-admin-header>
+      <!-- End of Topbar -->
+
+      <!-- Begin Page Content -->
+      <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Fournisseurs</h1>
+
+        <!-- DataTales Example -->
+        <div [hidden] = "detailFlag || complaintFlag || !requestFlag" class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Liste des demandes :</h6>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered norme" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                  <th>Nom</th>
+                  <th>Prenom</th>
+                  <th>email</th>
+                  <th>tel</th>
+                  <th>type</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                  <th>Nom</th>
+                  <th>Prenom</th>
+                  <th>email</th>
+                  <th>tel</th>
+                  <th>type</th>
+                  <th></th>
+                </tr>
+                </tfoot>
+                <tbody>
+                <tr *ngFor="let provider of collection.providers, index as i ">
+                  <td *ngIf="provider.status == 0">{{provider.lastname}}</td>
+                  <td *ngIf="provider.status == 0">{{provider.firstname}}</td>
+                  <td *ngIf="provider.status == 0">{{provider.email}}</td>
+                  <td *ngIf="provider.status == 0">{{provider.tel}}</td>
+                  <td *ngIf="provider.type == true && provider.status == 0">responsable
+                  </td>
+                  <td *ngIf="provider.type == false && provider.status == 0">particulier</td>
+                  <td *ngIf="provider.status == 0" ><button class="btn btn-primary bnt-lg" (click)="loadData(i)">Voir</button></td>
+                </tr>
+                </tbody>
+              </table>
+              <div>
+                <button class="btn btn-primary bnt-lg" (click)="displayCompleteList()" >liste complete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div [hidden] = "detailFlag || complaintFlag || requestFlag" class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Liste des Fournisseurs :</h6>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered norme" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                  <th>Nom</th>
+                  <th>Prenom</th>
+                  <th>email</th>
+                  <th>tel</th>
+                  <th>type</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                  <th>Nom</th>
+                  <th>Prenom</th>
+                  <th>email</th>
+                  <th>tel</th>
+                  <th>type</th>
+                  <th></th>
+                </tr>
+                </tfoot>
+                <tbody>
+                <tr *ngFor="let provider of collection.providers, index as i ">
+                  <td>{{provider.lastname}}</td>
+                  <td >{{provider.firstname}}</td>
+                  <td >{{provider.email}}</td>
+                  <td>{{provider.tel}}</td>
+                  <td *ngIf="provider.type == true ">responsable
+                  </td>
+                  <td *ngIf="provider.type == false ">particulier</td>
+                  <td  ><button class="btn btn-primary bnt-lg" (click)="loadData(i)">Voir</button></td>
+                </tr>
+                </tbody>
+              </table>
+              <div>
+                <button class="btn btn-primary bnt-lg" (click)="displayRequestsList()" >liste des demandes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div [hidden] = "!detailFlag || complaintFlag" class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Detail du Fournisseur </h6>
+          </div>
+          <div class="card-body">
+            <form >
+              <div class="modal-body">
+                <div class="single-contact-form " >
+                  <div class="contact-box name">
+                    <label class="form-control form-input-size norme" >
+                      Nom : {{provider.lastname}}
+                    </label>
+                    <label class="form-control form-input-size norme"  >
+                      Prenom : {{provider.firstname}}
+                    </label>
+                  </div>
+                </div>
+                <div class="single-contact-form " >
+                  <div class="contact-box name">
+                    <label class="form-control form-input-size norme"  >
+                      Email : {{provider.email}}
+                    </label>
+                    <label class="form-control form-input-size norme"  >
+                      Tel : {{provider.tel}}
+                    </label>
+                  </div>
+                </div>
+                <div *ngIf="provider.type == true" class="single-contact-form">
+                  <div class="contact-box name">
+                    <label class="form-control form-input-size norme"  >
+                      Responsable de : {{provider.society.name}}
+                    </label>
+                  </div>
+                </div>
+                <div *ngIf="provider.type == true" class="single-contact-form">
+                  <div class="contact-box name">
+                    <label class="form-control form-input-size norme"  >
+                      Email : {{provider.society.email}}
+                    </label>
+                    <label class="form-control form-input-size norme"  >
+                      Tel : {{provider.society.tel}}
+                    </label>
+                  </div>
+                </div>
+                <div *ngIf="provider.type == true" class="single-contact-form">
+                  <div class="contact-box name">
+                    <label class="form-control form-input-size norme"  >
+                      {{provider.specialities.length}}  specialités  : </label>
+                    <select class="form-control form-input-size norme"   >
+                    <option *ngFor="let speciality of provider.specialities">{{speciality.name}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="single-contact-form">
+                  <div class="contact-box name">
+                    <label class="form-control form-input-size norme"  >
+                      {{ownedProducts.length}}  produits
+<!--                      <button class="btn btn-primary bnt-lg" style="float: right" [disabled]="ownedProducts.length == 0" (click)="loadData(1)">Voir</button>-->
+                    </label>
+                    <label class="form-control form-input-size norme"  >
+                      {{claimedProducts.length}}  produits reclamés
+                      <button class="btn btn-primary bnt-lg" style="float: right" [disabled]="ownedProducts.length == 0" (click)="displayListClaimedProducts()">Voir</button>
+                    </label>
+                  </div>
+                </div>
+                <div class="single-contact-form">
+                  <div class="contact-box name">
+                    <label class="form-control form-input-size norme"  >
+                      {{quotations.length}}  demandes de devis</label>
+<!--                    <button class="btn btn-primary bnt-lg" style="float: right" [disabled]="ownedProducts.length == 0" (click)="loadData(1)">Voir</button>-->
+                  </div>
+                </div>
+                <hr>
+                <div class="contact-btn">
+                  <button *ngIf="provider.status == 1" type="button" class="SendButton btn btn-lg btn-danger" (click)="blockprovider()" style="float: left">Bloquer</button>
+                  <button *ngIf="provider.status == 0" type="button" class="SendButton btn btn-lg btn-primary" (click)="activateprovider()" style="float: left">Activer</button>
+                  <button *ngIf="provider.status == -1" type="button" class="SendButton btn btn-lg btn-primary" (click)="activateprovider()"style="float: left">Re-activer</button>
+                  <button type="button" class="SendButton btn btn-lg btn-danger" (click)="displayRequestsList()" style="float: right">Revenir à la liste</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div [hidden] = "!complaintFlag" class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Liste des Produits reclamés </h6>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                  <th>Etat</th>
+                  <th>Name</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                  <th>Etat</th>
+                  <th>Name</th>
+                  <th></th>
+                </tr>
+                </tfoot>
+                <tbody>
+                <tr *ngFor="let product of claimedProducts , index as i ">
+                  <td *ngIf="product.blocked == true">Bloqué</td>
+                  <td *ngIf="product.blocked == false">Non Bloqué</td>
+                  <td >{{product.name}}</td>
+                  <td>
+                    <button class="btn btn-primary bnt-lg" style="float: left; margin-left:30%" [disabled]="product.blocked == false" (click)="activateProduct(i)">Activer</button>
+                    <button class="btn btn-danger bnt-lg" style="float: right; margin-right:30%" [disabled]="product.blocked == true" (click)="blockProduct(i)">Bloquer</button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+              <button class="btn btn-primary bnt-lg" (click)="displayDetailProvider()" >Retour au fournisseur</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+  </div>
+  <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+        <a class="btn btn-primary" href="login.html">Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

@@ -14,15 +14,19 @@ export class ProductService {
     return this.http.get<Array<ProductModel>>(environment.SERVER_API_URL + '/api/product').toPromise();
   }
 
-  getAllSpecialities(): Promise<Array<SpecialityModel>> {
-    return this.http.get<Array<SpecialityModel>>(environment.SERVER_API_URL + '/api/provider/specialities').toPromise();
-  }
   getAllProductsForSpeciality(id: number): Promise<Array<ProductModel>> {
     return this.http.get<Array<ProductModel>>(environment.SERVER_API_URL + '/api/product/productsforSpeciality/'+id).toPromise();
   }
 
   getProduct(id: number): Promise<ProductModel> {
     return this.http.get<ProductModel>(environment.SERVER_API_URL + '/api/provider/getproduct/'+id).toPromise();
+  }
+  blockProduct(id: number): Promise<any> {
+    return this.http.get<ProductModel>(environment.SERVER_API_URL + '/api/admin/blockproduct/'+id).toPromise();
+  }
+
+  activateProduct(id: number): Promise<any> {
+    return this.http.get<ProductModel>(environment.SERVER_API_URL + '/api/admin/activateproduct/'+id).toPromise();
   }
 
   incrementView(id: number): Promise<any> {
@@ -89,12 +93,6 @@ export class ProductService {
     }
   }
 
-  getProvider(id: number): Promise<ProviderModel> {
-    return this.http.get<ProviderModel>(environment.SERVER_API_URL + '/api/provider/getProfil/' + id).toPromise();
-  }
-  getAdmin(): Promise<ProviderModel> {
-    return this.http.get<ProviderModel>(environment.SERVER_API_URL + '/api/admin/getAdmin').toPromise();
-  }
 /*
   createProduct(uploadData: FormData,provider) {
     // @ts-ignore

@@ -206,5 +206,17 @@ export class LocalStorageService {
         this.storage.remove('type');
     }
     /* S E A R C H   E N D */
+    /* A D M I N   B E G I N */
+    storeAdminSpace(type:string){
+      this.storage.set('AdminSpace', type);
+    }
+    public getAdminSpace(): string {
+      if((this.storage.get('AdminSpace')==null)||(this.storage.get('AdminSpace')==undefined )){
+        return 'ClientSpace';
+      }
+      return this.storage.get('AdminSpace');
+    }    /* A D M I N   E N  D  */
+
+
 
 }
