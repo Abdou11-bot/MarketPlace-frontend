@@ -130,7 +130,7 @@ export class LocalStorageService {
       this.storage.set('login', login);
     }
     public getUserFromStorage(): string {
-      if((this.storage.get('login')===null)||(this.storage.get('login')===undefined )){
+      if((this.storage.get('login')==null)||(this.storage.get('login')==undefined )){
         return JSON.stringify([]);
       }
       return this.storage.get('login');
@@ -215,7 +215,8 @@ export class LocalStorageService {
         return 'ClientSpace';
       }
       return this.storage.get('AdminSpace');
-    }    /* A D M I N   E N  D  */
+    }
+    /* A D M I N   E N  D  */
 
 
 
