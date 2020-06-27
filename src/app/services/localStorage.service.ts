@@ -218,6 +218,15 @@ export class LocalStorageService {
     }
     /* A D M I N   E N  D  */
 
-
-
+    /* P R O V I D E R   B E G I N  */
+    storeProviderLogin(provider:string){
+      this.storage.set('providerLogin', provider);
+    }
+    public getProviderLogin(): string {
+      if((this.storage.get('providerLogin')==null)||(this.storage.get('providerLogin')==undefined )){
+        return '';
+      }
+      return this.storage.get('providerLogin');
+    }
+    /* P R O V I D E R   E N D */
 }

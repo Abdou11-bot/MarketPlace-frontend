@@ -30,7 +30,7 @@
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered norme" id="dataTable" width="100%" cellspacing="0">
-                <thead>
+                <thead class="card-header py-3">
                 <tr>
                   <th>vue</th>
                   <th>Name</th>
@@ -40,7 +40,7 @@
                   <th></th>
                 </tr>
                 </thead>
-                <tfoot>
+                <tfoot class="card-header py-3">
                 <tr>
                   <th>vue</th>
                   <th>Name</th>
@@ -57,7 +57,7 @@
                   <td *ngIf="message.product == null">{{message.objet}}</td>
                   <td *ngIf="message.product == null">{{message.email}}</td>
                   <td *ngIf="message.product == null">{{message.message}}</td>
-                  <td *ngIf="message.product == null" ><button class="btn btn-primary bnt-lg" (click)="loadMessage(i)">Voir</button></td>
+                  <td *ngIf="message.product == null" ><button class="btn btn-primary bnt-lg" (click)="loadMessage(i)"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                 </tr>
                 </tbody>
               </table>
@@ -90,10 +90,7 @@
                 </div>
                 <div class="single-contact-form">
                   <div class="contact-box message">
-                    <label></label>
-                    <p class="form-control" rows="2" cols="30" style="font-size:25px; border: 0px" >
-                      Message :
-                    </p>
+                    <label>Message :</label>
                     <p class="form-control" rows="10" cols="30" style="font-size:25px; border: 0px" >
                       {{Complaint.message}}
                     </p>

@@ -121,6 +121,9 @@ export class LoginComponent implements OnInit {
             this.StorageService.storeUserOnStorage('admin');
             this.router.navigate(['/admin/home']);
           }else{
+            this.StorageService.storeUserOnStorage('provider');
+            this.StorageService.storeProviderLogin(this.LoginData.Email);
+            this.router.navigate(['/provider/home']);
           }
         }else{
           this.openFailedModal('Erreur','Reessayer');

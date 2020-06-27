@@ -1,0 +1,208 @@
+
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+  <!-- Sidebar -->
+  <app-provider-menu-bar></app-provider-menu-bar>
+  <!-- End of Sidebar -->
+  <!-- Content Wrapper -->
+  <div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+      <!-- Topbar -->
+      <app-provider-header></app-provider-header>
+      <!-- End of Topbar -->
+
+      <!-- Begin Page Content -->
+      <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Demande de Devis</h1>
+
+        <!-- DataTales Example -->
+        <div [hidden] = "detailFlag" class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Liste des demande de devis</h6>
+          </div>
+          <div  class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered norme" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                  <th>Etat</th>
+                  <th>Nom</th>
+                  <th>Prenom</th>
+                  <th>email</th>
+                  <th>address</th>
+                  <th>postalCode</th>
+                  <th>date</th>
+                  <th>produit</th>
+                  <th>Quantité</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                  <th>Etat</th>
+                  <th>Nom</th>
+                  <th>Prenom</th>
+                  <th>email</th>
+                  <th>address</th>
+                  <th>postalCode</th>
+                  <th>date</th>
+                  <th>produit</th>
+                  <th>Quantité</th>
+                  <th></th>
+                </tr>
+                </tfoot>
+                <tbody>
+                <tr *ngFor="let quotation of collection.quotations, index as i ">
+                  <td *ngIf="quotation.traiter == true">Traité</td>
+                  <td *ngIf="quotation.traiter == false">Non traité</td>
+                  <td *ngIf="quotation.product != null">{{quotation.lastname}}</td>
+                  <td *ngIf="quotation.product != null">{{quotation.firstname}}</td>
+                  <td *ngIf="quotation.product != null">{{quotation.email}}</td>
+                  <td *ngIf="quotation.product != null">{{quotation.address}}</td>
+                  <td *ngIf="quotation.product != null">{{quotation.postalCode}}</td>
+                  <td *ngIf="quotation.product != null">{{getDate(quotation.date)}} {{getHour(quotation.date)}}</td>
+                  <td *ngIf="quotation.product != null">{{quotation.product.name}}</td>
+                  <td *ngIf="quotation.product != null">{{quotation.quantity}}</td>
+                  <td *ngIf="quotation.product != null" ><button class="btn btn-primary bnt-lg" (click)="loadQuotation(i)"><span class="glyphicon glyphicon-eye-open"></span></button></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div [hidden] = "!detailFlag " class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Detail de la demande </h6>
+          </div>
+          <div class="card-body">
+            <form class="norme">
+              <div class="modal-body">
+                <div class="single-contact-form " >
+                  <div class="contact-box name">
+                    <label class="form-control form-input-size norme">
+                      Nom : {{quotation.lastname}}
+                    </label>
+                    <label class="form-control form-input-size norme">
+                      Prenom : {{quotation.firstname}}
+                    </label>
+                  </div>
+                </div>
+                <div class="single-contact-form " >
+                  <div class="contact-box name">
+                    <label class="form-control form-input-size norme">
+                      Email : {{quotation.email}}
+                    </label>
+                    <label class="form-control form-input-size norme">
+                      Addresse : {{quotation.address}}
+                    </label>
+                  </div>
+                </div>
+                <div class="single-contact-form " >
+                  <div class="contact-box name">
+                    <label class="form-control form-input-size norme">
+                      PostalCode : {{quotation.postalCode}}
+                    </label>
+                    <label class="form-control form-input-size norme">
+                      Quantité : {{quotation.quantity}}
+                    </label>
+                  </div>
+                </div>
+                <div class="single-contact-form " >
+                  <div class="contact-box name">
+                    <label class="form-control form-input-size norme">
+                      Produit : {{quotation.product.name}}
+                    </label>
+                  </div>
+                </div>
+                <hr>
+                <div class="single-contact-form " >
+                  <div class="contact-box name">
+                    <div class="slider__container"  style=" width: 60%  !important; margin-left: 15%; float: left">
+                      <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators"  >
+                          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                          <li *ngFor="let image of quotation.product.images, index as i"data-target="#myCarousel" data-slide-to="i"></li>
+                        </ol>
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                          <div class="item active" >
+                            <img *ngIf="quotation.product.images[0] != null"[src]="sane(quotation.product.images[0].path)" style=" width: 100%  !important; height: 500px  !important;" alt="{{quotation.product.name}}">
+                          </div>
+
+                          <div class="item"  *ngFor="let image of quotation.product.images, index as i" >
+                            <img [src]="sane(image.path)" style=" width: 100%  !important; height: 500px  !important;" alt="{{quotation.product.name}}">
+                          </div>
+
+                        </div>
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                          <span class="glyphicon glyphicon-chevron-left"></span>
+                          <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                          <span class="glyphicon glyphicon-chevron-right"></span>
+                          <span class="sr-only">Next</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+                <div class="contact-btn">
+                  <button type="button" [hidden]="!quotation.traiter" [disabled]="quotation.traiter" class="SendButton btn btn-lg btn-primary" style="float: left">Traité</button>
+                  <button type="button" [hidden]="quotation.traiter" (click)="traiter(quotation.id)" class="SendButton btn btn-lg btn-primary" style="float: left">Non traité</button>
+                  <button type="button" class="SendButton btn btn-lg btn-danger" (click)="gotoList()" style="float: right">Revenir à la liste</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+      <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+  </div>
+  <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+        <a class="btn btn-primary" href="login.html">Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

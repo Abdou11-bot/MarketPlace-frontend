@@ -1,0 +1,410 @@
+
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+  <!-- Sidebar -->
+  <app-provider-menu-bar></app-provider-menu-bar>
+  <!-- End of Sidebar -->
+  <!-- Content Wrapper -->
+  <div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+      <!-- Topbar -->
+      <app-provider-header></app-provider-header>
+      <!-- End of Topbar -->
+
+      <!-- Begin Page Content -->
+      <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Produits</h1>
+
+        <!-- DataTales Example -->
+        <div [hidden] = "detailFlag" class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Liste des produits :</h6>
+<!--            <button class="btn btn-primary bnt-lg" (click)="loadData(0)">Ajouter</button>-->
+                            <button type="button" class="btn btn-success float-right btn-zoom" (click)="openAddProductModal()  ">
+                              <i class="fa fa-plus-square"></i>	</button>
+          </div>
+          <div  class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered norme" id="dataTable" width="100%" cellspacing="0">
+                <thead class="card-header py-3">
+                <tr>
+                  <th>Etat</th>
+                  <th>Nom</th>
+                  <th>reference</th>
+                  <th>marque</th>
+                  <th>nombreVue</th>
+                  <th>nombre de demande</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tfoot class="card-header py-3">
+                <tr>
+                  <th>Etat</th>
+                  <th>Nom</th>
+                  <th>reference</th>
+                  <th>marque</th>
+                  <th>nombre de Vue</th>
+                  <th>nombre de demande</th>
+                  <th></th>
+                </tr>
+                </tfoot>
+                <tbody>
+                <tr *ngFor="let product of collection.products | paginate: config ; let i = index" >
+                  <td *ngIf="product.blocked == true">Bloqué</td>
+                  <td *ngIf="product.blocked == false">Non bloqué</td>
+                  <td>{{product.name}}</td>
+                  <td>{{product.reference}}</td>
+                  <td>{{product.marque}}</td>
+                  <td>{{product.nombreVue}}</td>
+                  <td>{{product.nombreVue}}</td>
+                  <td>
+                    <button class="btn btn-primary bnt-lg" (click)="loadproduct(i)"><span class="glyphicon glyphicon-eye-open"></span></button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+              <div  class="align-items-center">
+                <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div [hidden] = "!detailFlag" class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Detail du produit </h6>
+          </div>
+          <div class="card-body">
+            <form >
+              <div class="modal-body">
+                <div class="single-contact-form " >
+                  <div class="contact-box name">
+                    <label class="form-control form-input-size norme" >
+                      Nom : {{product.name}}
+                    </label>
+                    <label class="form-control form-input-size norme"  >
+                      Marque : {{product.marque}}
+                    </label>
+                  </div>
+                </div>
+                <div class="single-contact-form " >
+                  <div class="contact-box name">
+                    <label class="form-control form-input-size norme"  >
+                      Reference : {{product.reference}}
+                    </label>
+                    <label class="form-control form-input-size norme"  >
+                      Catalogue : <a href="product.catalogue" download="{{getCatalogueName(product)}}">{{getCatalogueName(product)}}</a>
+                    </label>
+                  </div>
+                </div>
+                <div class="single-contact-form " >
+                  <div class="contact-box name">
+                    <label class="form-control form-input-size norme"  >
+                      Specialité : {{product.speciality.name}}
+                    </label>
+                    <label class="form-control form-input-size norme"  >
+                      Nombre de Vue : {{product.nombreVue}}
+                    </label>
+                  </div>
+                </div>
+                <div class="single-contact-form " >
+                  <div class="contact-box name">
+                    <label *ngIf="!product.blocked" class="form-control form-input-size norme"  >
+                      Etat : Non bloqué
+                    </label>
+                    <label *ngIf="product.blocked" class="form-control form-input-size norme" style="background-color: red">
+                      Etat : Bloqué
+                    </label>
+                  </div>
+                </div>
+                <div class="single-contact-form">
+                  <div class="contact-box message">
+                    <label class="form-control form-input-size norme">Description :</label>
+                    <p class="form-control" rows="10" cols="30" style="font-size:25px; border: 0px" >
+                      {{product.description}}
+                    </p>
+                  </div>
+                </div>
+                <hr>
+                <div class="single-contact-form " >
+                  <div class="contact-box name">
+                    <div class="slider__container"  style=" width: 60%  !important; margin-left: 15%; float: left">
+                      <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators"  >
+                          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                          <li *ngFor="let image of product.images, index as i"data-target="#myCarousel" data-slide-to="i"></li>
+                        </ol>
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                          <div class="item active" >
+                            <img *ngIf="product.images[0] != null" [src]="sane(product.images[0].path)" style=" width: 100%  !important; height: 500px  !important;" alt="{{product.name}}">
+                          </div>
+
+                          <div class="item"  *ngFor="let image of product.images, index as i" >
+                            <img [src]="sane(image.path)" style=" width: 100%  !important; height: 500px  !important;" alt="{{product.name}}">
+                          </div>
+
+                        </div>
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                          <span class="glyphicon glyphicon-chevron-left"></span>
+                          <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                          <span class="glyphicon glyphicon-chevron-right"></span>
+                          <span class="sr-only">Next</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+                <div class="contact-btn"  style=" margin-top:100px">
+                  <button type="button" class="SendButton btn btn-lg btn-primary" (click)="openUpdateProductModal()" style="float: left"><span class="glyphicon glyphicon-edit"></span></button>
+                  <button type="button" class="SendButton btn btn-lg btn-danger" (click)="deleteproduct(product.id)" style="float: left; margin-left:15px"><span class="glyphicon glyphicon-trash"></span></button>
+                  <button type="button" class="SendButton btn btn-lg btn-danger" (click)="displayList()" style="float: right">Revenir à la liste</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+      <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+  </div>
+  <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+        <a class="btn btn-primary" href="login.html">Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<!--<ng-template #addmodal let-modal >-->
+<!--  <div class="container custom-container text-uppercase text-xl-left text-large">-->
+<!--    <div class="col-md-auto">-->
+
+<!--      <form (ngSubmit)="onSubmit()" #productFormAdd="ngForm">-->
+<!--        <div class="modal-header">-->
+<!--          <h3 class="mb-3 text-center modal-title" id="modal-basic-title">Create Client</h3>-->
+<!--          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">-->
+<!--            <span aria-hidden="true">×</span>-->
+<!--          </button>-->
+<!--        </div>-->
+<!--        <div class="modal-body">-->
+<!--          <div class="form-group">-->
+<!--            <label for="nameAdd">Nom</label>-->
+<!--            <input type="text" [(ngModel)]="ProductAdd.name"-->
+<!--                   class="form-control"-->
+<!--                   id="nameAdd"-->
+<!--                   name="nameAdd"-->
+<!--                   placeholder="Enter your Name"-->
+<!--                   required #nameAdd="ngModel">-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label for="referenceAdd">LastName</label>-->
+<!--            <input type="text" [(ngModel)]="ProductAdd.reference"-->
+<!--                   class="form-control"-->
+<!--                   id="referenceAdd"-->
+<!--                   name="referenceAdd"-->
+<!--                   placeholder="Enter your reference"-->
+<!--                   required #referenceAdd="ngModel">-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label for="marqueAdd">Cin</label>-->
+<!--            <input type="text" [(ngModel)]="ProductAdd.marque"-->
+<!--                   class="form-control"-->
+<!--                   id="marqueAdd"-->
+<!--                   name="marqueAdd"-->
+<!--                   placeholder="Enter your marque"-->
+<!--                   required #marqueAdd="ngModel">-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label for="catalogueAdd">Catalogue</label>-->
+<!--            <input type="file" [(ngModel)]="ProductAdd.catalogue"-->
+<!--                   class="form-control"-->
+<!--                   id="catalogueAdd"-->
+<!--                   name="catalogueAdd"-->
+<!--                   placeholder="Choose your catalogue "-->
+<!--                   required #catalogueAdd="ngModel"-->
+<!--                   accept="application/pdf"-->
+<!--                   (change)="onFileChanged($event)">-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label for="specialityAdd">Specialité</label>-->
+<!--            <select class="form-control"-->
+<!--                   id="specialityAdd" (change)="onSpecialityChanged('add',$event.target.value)"-->
+<!--                   name="specialityAdd">-->
+<!--              <option *ngFor="let speciality of collection.specialities, index as i" [value]="i">{{speciality.name}}</option>-->
+<!--            </select>-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label for="descriptionAdd">Description</label>-->
+<!--            <textarea type="text" [(ngModel)]="ProductAdd.description"-->
+<!--                      class="form-control"-->
+<!--                      id="descriptionAdd"-->
+<!--                      name="descriptionAdd"-->
+<!--                      placeholder="Enter a description"-->
+<!--                      required #descriptionAdd="ngModel"></textarea>-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label for="imageAdd">Image</label>-->
+<!--            <input type="file" [(ngModel)]="ProductAdd.images"-->
+<!--                   class="form-control"-->
+<!--                   id="imageAdd"-->
+<!--                   name="imageAdd"-->
+<!--                   placeholder="Choose your imageAdd "-->
+<!--                   required #imageAdd="ngModel"-->
+<!--                   accept="image/*"-->
+<!--                   (change)="onFileChanged($event)">-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="form-group modal-footer">-->
+<!--          <button type="submit" class="btn btn-success btn-lg "  [disabled]="!productFormAdd.form.valid" >Create Client</button>-->
+<!--          <button type="button" class="btn btn-lg btn-danger" (click)="modal.close('Save click')">Cancel</button>-->
+<!--        </div>-->
+<!--      </form>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</ng-template>-->
+
+<!--<ng-template class="container " #deletemodel let-modal>-->
+<!--  <div class="container custom-container">-->
+<!--    <div class="col-md-12">-->
+<!--      <h2 class="mb-3 text-center">Delete Client ?</h2>-->
+<!--      <div class="form-group container pl-lg-5">-->
+<!--        <button class="btn btn-warning btn-lg  mr-lg-5 ml-lg-2 " type="button"  (click)="delete()">Delete </button>-->
+<!--        <button class="btn btn-lg ml-lg-5 btn-danger" type="button"  (click)="modal.close('Save click')" >Cancel</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</ng-template>-->
+
+<!--<ng-template #updatemodal let-modal>-->
+<!--  <div class="container custom-container">-->
+<!--    <div class="col-md-12">-->
+<!--      <form (ngSubmit)="update()" #clientFormUpdate="ngForm">-->
+<!--        <div class="modal-header">-->
+<!--          <h3 class="mb-3 text-center modal-title" id="modal-basic-title1">update Client</h3>-->
+<!--          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">-->
+<!--            <span aria-hidden="true">×</span>-->
+<!--          </button>-->
+<!--        </div>-->
+<!--        <div class="modal-body">-->
+<!--          <input type="hidden" [(ngModel)]="clientUpdate.id"-->
+<!--                 class="form-control"-->
+<!--                 id="idUpdate"-->
+<!--                 name="idUpdate"-->
+<!--                 required #id="ngModel" value="{{clientUpdate.id}}">-->
+<!--          <div class="form-group">-->
+<!--            <label for="firstNameUpdate">FirstName</label>-->
+<!--            <input pattern="[A-Za-z]*" type="text" [(ngModel)]="clientUpdate.firstName"-->
+<!--                   class="form-control"-->
+<!--                   id="firstNameUpdate"-->
+<!--                   name="firstNameUpdate"-->
+<!--                   placeholder="Enter your firstName"-->
+<!--                   required #firstNameUpdate="ngModel" value="{{clientUpdate.firstName}}">-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label for="lastNameUpdate">LastName</label>-->
+<!--            <input pattern="[A-Za-z]*" type="text" [(ngModel)]="clientUpdate.lastName"-->
+<!--                   class="form-control"-->
+<!--                   id="lastNameUpdate"-->
+<!--                   name="lastNameUpdate"-->
+<!--                   placeholder="Enter your lastName"-->
+<!--                   required #lastNameUpdate="ngModel" value="{{clientUpdate.lastName}}">-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label for="cinUpdate">Cin</label>-->
+<!--            <input pattern="[A-Z][0-9]{6}[A-Z]" type="text" [(ngModel)]="clientUpdate.cin"-->
+<!--                   class="form-control"-->
+<!--                   id="cinUpdate"-->
+<!--                   name="cinUpdate"-->
+<!--                   placeholder="Enter your cin"-->
+<!--                   required #cinUpdate="ngModel" value="{{clientUpdate.cin}}">-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label for="adresseUpdate">Adresse</label>-->
+<!--            <input pattern="[A-Za-z0-9]*" type="text" [(ngModel)]="clientUpdate.adresse"-->
+<!--                   class="form-control"-->
+<!--                   id="adresseUpdate"-->
+<!--                   name="adresseUpdate"-->
+<!--                   placeholder="Enter your adresse"-->
+<!--                   required #adresseUpdate="ngModel">-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label for="emailUpdate">Email</label>-->
+<!--            <input pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" type="email" [(ngModel)]="clientUpdate.mail"-->
+<!--                   class="form-control"-->
+<!--                   id="emailUpdate"-->
+<!--                   name="emailUpdate"-->
+<!--                   placeholder="Enter your email address"-->
+<!--                   required #emailUpdate="ngModel" value="{{clientUpdate.mail}}">-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label for="descriptionUpdate">Description</label>-->
+<!--            <textarea type="text" [(ngModel)]="clientUpdate.description"-->
+<!--                      class="form-control"-->
+<!--                      id="descriptionUpdate"-->
+<!--                      name="descriptionUpdate"-->
+<!--                      placeholder="Enter a description"-->
+<!--                      required #descriptionUpdate="ngModel"></textarea>-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label for="imageUpdate">Image</label>-->
+<!--            <input type="file" [(ngModel)]="clientUpdate.imageSrc"-->
+<!--                   class="form-control"-->
+<!--                   id="imageUpdate"-->
+<!--                   accept="image/*"-->
+<!--                   name="imageUpdate"-->
+<!--                   placeholder="Choose your imageAdd "-->
+<!--                   required #imageUpdate="ngModel"-->
+<!--                   (change)="onFileChanged($event)">-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="form-group modal-footer">-->
+<!--          <button class="btn btn-success btn-lg "  [disabled]="!clientFormUpdate.form.valid" >update Client</button>-->
+<!--          <button type="button" class="btn btn-danger btn-lg" (click)="modal.close('Save click')">Cancel</button>-->
+<!--        </div>-->
+<!--      </form>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</ng-template>-->

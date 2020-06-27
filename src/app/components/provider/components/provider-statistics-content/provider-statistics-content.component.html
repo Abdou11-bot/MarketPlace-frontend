@@ -1,0 +1,249 @@
+<!-- Page Wrapper -->
+<div id="wrapper">
+  <!-- Sidebar -->
+  <app-provider-menu-bar></app-provider-menu-bar>
+  <!-- End of Sidebar -->
+  <!-- Content Wrapper -->
+  <div id="content-wrapper" class="d-flex flex-column">
+    <!-- Main Content -->
+    <div id="content">
+      <!-- Topbar -->
+      <app-provider-header></app-provider-header>
+      <!-- End of Topbar -->
+      <!-- Begin Page Content -->
+      <div class="container-fluid">
+        <div class="navbar d-inline-flex  justify-content-center " style="margin-left: 20%; wight: 100%">
+          <div [hidden]="subMenuFlag1" (click)="setSubMenu(1)" class="card m--2 subNavBar bg-primary">
+            <div class="card-body">
+              <h5 class="card-title">Vues</h5>
+            </div>
+          </div>
+          <div [hidden]="!subMenuFlag1"  class="card m--5 subNavBar bg-info">
+            <div class="card-body">
+              <h5 class="card-title">Vues</h5>
+            </div>
+          </div>
+          <div [hidden]="subMenuFlag2" (click)="setSubMenu(2)" class="card m--2 subNavBar bg-primary">
+            <div class="card-body">
+              <h5 class="card-title">Demandes</h5>
+            </div>
+          </div>
+          <div [hidden]="!subMenuFlag2"  class="card m--5 subNavBar bg-info">
+            <div class="card-body">
+              <h5 class="card-title">Demandes</h5>
+            </div>
+          </div>
+          <div [hidden]="subMenuFlag3" (click)="setSubMenu(3)" class="card m--2 subNavBar bg-primary">
+            <div class="card-body">
+              <h5 class="card-title">Reclamations</h5>
+            </div>
+          </div>
+          <div [hidden]="!subMenuFlag3"  class="card m--5 subNavBar subNavBar bg-info">
+            <div class="card-body">
+              <h5 class="card-title">Reclamations</h5>
+            </div>
+          </div>
+        </div>
+        <!-- Content Row -->
+        <div [hidden]="!subMenuFlag1" class="row">
+          <div class="col-xl-8 col-lg-7">
+            <div class="card shadow mb-4">
+              <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Diagramme</h6>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+<!--                  <canvas id="myAreaChart"></canvas>-->
+                  <div style="display: block">
+                    <canvas mdbChart
+                            [chartType]="chartType"
+                            [datasets]="chartDatasets"
+                            [labels]="chartLabels"
+                            [colors]="chartColors"
+                            [options]="chartOptions"
+                            [legend]="true"
+                            (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)">
+                    </canvas>
+                  </div>
+                </div>
+                <hr>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-md-6 mb-4 " style="height: 40%">
+            <div class="card border-left-primary shadow h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Plus vu</div><hr>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{MostViewedProduct.name}} <br><i class=" fa-2x text-gray-300">{{MostViewedProduct.nombreVue}} fois</i></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div [hidden]="!subMenuFlag2" class="row">
+          <div [hidden]="quotationEvolutionFlag" class="col-xl-8 col-lg-7">
+            <div class="card shadow mb-4">
+              <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Diagramme</h6>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+<!--                  <canvas id="myAreaChart"></canvas>-->
+                  <div style="display: block">
+                    <canvas mdbChart
+                            [chartType]="chartType"
+                            [datasets]="chartDatasets"
+                            [labels]="chartLabels"
+                            [colors]="chartColors"
+                            [options]="chartOptions"
+                            [legend]="true"
+                            (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)">
+                    </canvas>
+                  </div>
+                </div>
+                <hr>
+              </div>
+            </div>
+          </div>
+          <div [hidden]="!quotationEvolutionFlag" class="col-xl-8 col-lg-7">
+            <div class="card shadow mb-4">
+              <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Diagramme</h6>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <div style="display: block">
+                    <canvas mdbChart
+                            [chartType]="evolutionChartType"
+                            [datasets]="evolutionChartDatasets"
+                            [labels]="evolutionChartLabels"
+                            [colors]="evolutionChartColors"
+                            [options]="evolutionChartOptions"
+                            [legend]="true"
+                            (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)">
+                    </canvas>
+                  </div>
+                </div>
+                <hr>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-md-6 mb-4 " style="height: 40%">
+            <div class="card border-left-primary shadow h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Plus demandé</div><hr>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{MostRequestProduct.name}} <br><i class=" fa-2x text-gray-300">{{getNBQuotation(MostRequestProduct)}} fois</i></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-10">
+              <button [hidden]="quotationEvolutionFlag" type="button" class="btn btn-lg btn-primary" (click)="displayEvolution(1)">Evolution</button>
+              <button [hidden]="!quotationEvolutionFlag" type="button" class="btn btn-lg btn-primary" (click)="cancelDisplayEvolution(1)">Nombre</button>
+            </div>
+          </div>
+        </div>
+        <div [hidden]="!subMenuFlag3" class="row">
+          <div [hidden]="complaintEvolutionFlag" class="col-xl-8 col-lg-7">
+            <div class="card shadow mb-4">
+              <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Diagramme</h6>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+<!--                  <canvas id="myAreaChart"></canvas>-->
+                  <div style="display: block">
+                    <canvas mdbChart
+                            [chartType]="chartType"
+                            [datasets]="chartDatasets"
+                            [labels]="chartLabels"
+                            [colors]="chartColors"
+                            [options]="chartOptions"
+                            [legend]="true"
+                            (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)">
+                    </canvas>
+                  </div>
+                </div>
+                <hr>
+              </div>
+            </div>
+          </div>
+          <div [hidden]="!complaintEvolutionFlag" class="col-xl-8 col-lg-7">
+            <div class="card shadow mb-4">
+              <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Diagramme</h6>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <div style="display: block">
+                    <canvas mdbChart
+                            [chartType]="evolutionChartType"
+                            [datasets]="evolutionChartDatasets"
+                            [labels]="evolutionChartLabels"
+                            [colors]="evolutionChartColors"
+                            [options]="evolutionChartOptions"
+                            [legend]="true"
+                            (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)">
+                    </canvas>
+                  </div>
+                </div>
+                <hr>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-md-6 mb-4 " style="height: 40%">
+            <div class="card border-left-primary shadow h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Plus réclamé</div><hr>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{MostClaimedProduct.name}} <br><i class=" fa-2x text-gray-300">{{getNBComplaint(MostClaimedProduct)}} fois</i></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-10">
+              <button [hidden]="complaintEvolutionFlag" type="button" class="btn btn-lg btn-primary" (click)="displayEvolution(2)">Evolution</button>
+              <button [hidden]="!complaintEvolutionFlag" type="button" class="btn btn-lg btn-primary" (click)="cancelDisplayEvolution(2)">Nombre</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End of Main Content -->
+  </div>
+  <!-- End of Content Wrapper -->
+</div>
+<!-- End of Page Wrapper -->
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+        <a class="btn btn-primary" href="login.html">Logout</a>
+      </div>
+    </div>
+  </div>
+</div>

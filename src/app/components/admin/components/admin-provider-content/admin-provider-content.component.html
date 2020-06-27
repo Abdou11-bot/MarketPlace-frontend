@@ -30,23 +30,23 @@
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered norme" id="dataTable" width="100%" cellspacing="0">
-                <thead>
+                <thead class="card-header py-3">
                 <tr>
                   <th>Nom</th>
                   <th>Prenom</th>
-                  <th>email</th>
-                  <th>tel</th>
-                  <th>type</th>
+                  <th>Email</th>
+                  <th>Tel</th>
+                  <th>Type</th>
                   <th></th>
                 </tr>
                 </thead>
-                <tfoot>
+                <tfoot class="card-header py-3">
                 <tr>
                   <th>Nom</th>
                   <th>Prenom</th>
-                  <th>email</th>
-                  <th>tel</th>
-                  <th>type</th>
+                  <th>Email</th>
+                  <th>Tel</th>
+                  <th>Type</th>
                   <th></th>
                 </tr>
                 </tfoot>
@@ -59,7 +59,7 @@
                   <td *ngIf="provider.type == true && provider.status == 0">responsable
                   </td>
                   <td *ngIf="provider.type == false && provider.status == 0">particulier</td>
-                  <td *ngIf="provider.status == 0" ><button class="btn btn-primary bnt-lg" (click)="loadData(i)">Voir</button></td>
+                  <td *ngIf="provider.status == 0" ><button class="btn btn-primary bnt-lg" (click)="loadData(i)"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                 </tr>
                 </tbody>
               </table>
@@ -76,23 +76,23 @@
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered norme" width="100%" cellspacing="0">
-                <thead>
+                <thead class="card-header py-3">
                 <tr>
                   <th>Nom</th>
                   <th>Prenom</th>
-                  <th>email</th>
-                  <th>tel</th>
-                  <th>type</th>
+                  <th>Email</th>
+                  <th>Tel</th>
+                  <th>Type</th>
                   <th></th>
                 </tr>
                 </thead>
-                <tfoot>
+                <tfoot class="card-header py-3">
                 <tr>
                   <th>Nom</th>
                   <th>Prenom</th>
-                  <th>email</th>
-                  <th>tel</th>
-                  <th>type</th>
+                  <th>Email</th>
+                  <th>Tel</th>
+                  <th>Type</th>
                   <th></th>
                 </tr>
                 </tfoot>
@@ -105,7 +105,7 @@
                   <td *ngIf="provider.type == true ">responsable
                   </td>
                   <td *ngIf="provider.type == false ">particulier</td>
-                  <td  ><button class="btn btn-primary bnt-lg" (click)="loadData(i)">Voir</button></td>
+                  <td  ><button class="btn btn-primary bnt-lg" (click)="loadData(i)"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                 </tr>
                 </tbody>
               </table>
@@ -176,7 +176,7 @@
                     </label>
                     <label class="form-control form-input-size norme"  >
                       {{claimedProducts.length}}  produits reclamés
-                      <button class="btn btn-primary bnt-lg" style="float: right" [disabled]="ownedProducts.length == 0" (click)="displayListClaimedProducts()">Voir</button>
+                      <button class="btn btn-primary bnt-lg" style="float: right" [disabled]="ownedProducts.length == 0" (click)="displayListClaimedProducts()"><span class="glyphicon glyphicon-eye-open"></span></button>
                     </label>
                   </div>
                 </div>
@@ -204,15 +204,15 @@
           </div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered" width="100%" cellspacing="0">
-                <thead>
+              <table class="table table-bordered norme" width="100%" cellspacing="0">
+                <thead class="card-header py-3">
                 <tr>
                   <th>Etat</th>
                   <th>Name</th>
                   <th></th>
                 </tr>
                 </thead>
-                <tfoot>
+                <tfoot class="card-header py-3">
                 <tr>
                   <th>Etat</th>
                   <th>Name</th>

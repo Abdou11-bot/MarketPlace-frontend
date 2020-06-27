@@ -30,7 +30,7 @@
           <div  class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered norme" id="dataTable" width="100%" cellspacing="0">
-                <thead>
+                <thead class="card-header py-3">
                 <tr>
                   <th>Etat</th>
                   <th>Name</th>
@@ -42,7 +42,7 @@
                   <th></th>
                 </tr>
                 </thead>
-                <tfoot>
+                <tfoot class="card-header py-3">
                 <tr>
                   <th>Etat</th>
                   <th>Name</th>
@@ -64,7 +64,7 @@
                   <td *ngIf="complaint.product != null">{{complaint.message}}</td>
                   <td *ngIf="complaint.product != null">{{complaint.product.name}}</td>
                   <td *ngIf="complaint.product != null">{{complaint.product.provider.lastname}} {{complaint.product.provider.firstname}}</td>
-                  <td *ngIf="complaint.product != null" ><button class="btn btn-primary bnt-lg" (click)="loadComplaint(i)">Voir</button></td>
+                  <td *ngIf="complaint.product != null" ><button class="btn btn-primary bnt-lg" (click)="loadComplaint(i)"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                 </tr>
                 </tbody>
               </table>

@@ -20,6 +20,9 @@ export class ProviderService {
   getOwnedProductsByProvider(id: number): Promise<Array<ProductModel>> {
     return this.http.get<Array<ProductModel>>(environment.SERVER_API_URL + '/api/provider/getownedproducts/'+id).toPromise();
   }
+  getOwnedProductsByProviderLogin(login: string): Promise<Array<ProductModel>> {
+    return this.http.get<Array<ProductModel>>(environment.SERVER_API_URL + '/api/provider/getownedproductsbylogin/'+login).toPromise();
+  }
   getClaimedProductsToProvider(id: number): Promise<Array<ProductModel>> {
     return this.http.get<Array<ProductModel>>(environment.SERVER_API_URL + '/api/provider/getclaimedproducts/'+id).toPromise();
   }
@@ -42,38 +45,20 @@ export class ProviderService {
   getProvider(id: number): Promise<ProviderModel> {
     return this.http.get<ProviderModel>(environment.SERVER_API_URL + '/api/provider/getProfil/' + id).toPromise();
   }
+
+  getProfil(login: string): Promise<ProviderModel> {
+    return this.http.get<ProviderModel>(environment.SERVER_API_URL + '/api/provider/getProfilData/' + login).toPromise();
+  }
   getAdmin(): Promise<ProviderModel> {
     return this.http.get<ProviderModel>(environment.SERVER_API_URL + '/api/admin/getAdmin').toPromise();
   }
-/*
-  createProduct(uploadData: FormData,provider) {
-    // @ts-ignore
-   return this.http.post('http://localhost:8080/api/provider/addproduct/'+provider, uploadData)
-      .subscribe(res => {console.log(res); },
-        err => console.log('Error Occured duringng uploading: ' + err)
-      );
+  deleteproduct(id: number): Promise<any> {
+    return this.http.delete<any>(environment.SERVER_API_URL + '/api/provider/deleteproduct/'+id).toPromise();
   }
-  updateProduct(id: number, Product: ProductModel): Observable<any> {
-    // @ts-ignore
-    return this.http.put(environment.SERVER_API_URL + '/api/clients/edit/' + id, Product);
+  addProduct(data,login): Promise<ProductModel> {
+    return this.http.post<ProductModel>(environment.SERVER_API_URL + '/api/provider/addproduct/'+login,data).toPromise();
   }
-
-  deleteProduct(id: number): Observable<any> {
-    return this.http.delete(environment.SERVER_API_URL + '/api/clients/delete/' + id);
+  updateClient(data): Promise<ProductModel> {
+    return this.http.put<ProductModel>(environment.SERVER_API_URL + '/api/provider/updateproduct',data).toPromise();
   }
-
-  onUpLoad(uploadData, id: number) {
-    return this.http.post('http://localhost:8080/api/image/uploadImage/' + id, uploadData)
-      .subscribe(res => {console.log(res); },
-        err => console.log('Error Occured duringng uploading: ' + err)
-      );
-
-  }
-
-  getProductImage(id: number) {
-    // @ts-ignore
-    return this.http.get<string>('http://localhost:8080/api/image/uploadImage/' + id, {responseType: 'text'})
-      .toPromise();
-  }
-*/
 }

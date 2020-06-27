@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,8 +18,17 @@ import { AdminMainContentComponent } from './components/admin/components/admin-m
 import { AdminMessageContentComponent } from './components/admin/components/admin-message-content/admin-message-content.component';
 import { AdminProviderContentComponent } from './components/admin/components/admin-provider-content/admin-provider-content.component';
 import { AdminComplaintContentComponent } from './components/admin/components/admin-complaint-content/admin-complaint-content.component';
+import { AdminStatisticsContentComponent } from './components/admin/components/admin-statistics-content/admin-statistics-content.component';
 import { AdminMedecinContentComponent } from './components/admin/components/admin-medecin-content/admin-medecin-content.component';
 import { AdminMenuBarComponent } from './components/admin/components/admin-menu-bar/admin-menu-bar.component';
+import { ProviderHomeComponent } from './components/provider/components/provider-home/provider-home.component';
+import { ProviderHeaderComponent } from './components/provider/components/provider-header/provider-header.component';
+import { ProviderMainContentComponent } from './components/provider/components/provider-main-content/provider-main-content.component';
+import { ProviderQuotationContentComponent } from './components/provider/components/provider-quotation-content/provider-quotation-content.component';
+import { ProviderStatisticsContentComponent } from './components/provider/components/provider-statistics-content/provider-statistics-content.component';
+import { ProviderProductContentComponent } from './components/provider/components/provider-product-content/provider-product-content.component';
+import { ProviderComplaintContentComponent } from './components/provider/components/provider-complaint-content/provider-complaint-content.component';
+import { ProviderMenuBarComponent } from './components/provider/components/provider-menu-bar/provider-menu-bar.component';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { LoginComponent } from './components/login/login.component';
 import { ListproduitsComponent } from './components/listproduits/listproduits.component';
@@ -59,7 +69,14 @@ const routes: Routes = [
     { path: 'admin/provider',  component: AdminProviderContentComponent },
     { path: 'admin/medecin',  component: AdminMedecinContentComponent },
     { path: 'admin/complaint',  component: AdminComplaintContentComponent },
+    { path: 'admin/statistics',  component: AdminStatisticsContentComponent },
     { path: 'admin/**',  component: AdminHomeComponent },
+    { path: 'provider/home',  component: ProviderHomeComponent },
+    { path: 'provider/quotation',  component: ProviderQuotationContentComponent },
+    { path: 'provider/statistics',  component: ProviderStatisticsContentComponent },
+    { path: 'provider/product',  component: ProviderProductContentComponent},
+    { path: 'provider/complaint',  component: ProviderComplaintContentComponent },
+    { path: 'provider/**',  component: ProviderHomeComponent },
     { path: '**', redirectTo: '/home', pathMatch: 'full' }
  ];
 @NgModule({
@@ -87,11 +104,21 @@ const routes: Routes = [
     AdminProviderContentComponent,
     AdminMedecinContentComponent,
     AdminComplaintContentComponent,
+    AdminStatisticsContentComponent,
+    ProviderStatisticsContentComponent,
+    ProviderQuotationContentComponent,
+    ProviderProductContentComponent,
+    ProviderMenuBarComponent,
+    ProviderHeaderComponent,
+    ProviderMainContentComponent,
+    ProviderComplaintContentComponent,
+    ProviderHomeComponent,
     CartdevisComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
+    MDBBootstrapModule,
     AppRoutingModule,
     CommonModule,
     NgxPaginationModule,

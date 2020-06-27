@@ -9,6 +9,7 @@ export  class ProviderModel {
   admin: boolean;
   email: string;
   password: string;
+  date: string;
   tel: string;
   status: number;
   type: boolean;
@@ -16,6 +17,7 @@ export  class ProviderModel {
   specialities:Array<SpecialityModel>;
   constructor(obj: any) {
       this.id = obj.id;
+      this.date = obj.date;
       this.lastname = obj.lastname;
       this.firstname = obj.firstname;
       this.admin = obj.admin;

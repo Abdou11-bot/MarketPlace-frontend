@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit, OnChanges, DoCheck {
 
   ngOnChanges(){
     let AdminSpaceResponse = this.StorageService.getAdminSpace();
-    if(AdminSpaceResponse.trim() == 'AdminSpace'){
+    if((AdminSpaceResponse.trim() == 'AdminSpace') || (AdminSpaceResponse.trim() == 'ProviderSpace')){
       this.AdminSpace = true;
     }else{
       this.AdminSpace = false;
@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit, OnChanges, DoCheck {
 
   ngDoCheck(){
     let AdminSpaceResponse = this.StorageService.getAdminSpace();
-    if(AdminSpaceResponse.trim() == 'AdminSpace'){
+    if((AdminSpaceResponse.trim() == 'AdminSpace') || (AdminSpaceResponse.trim() == 'ProviderSpace')){
       this.AdminSpace = true;
     }else{
       this.AdminSpace = false;
@@ -41,7 +41,7 @@ export class HeaderComponent implements OnInit, OnChanges, DoCheck {
   }
   ngOnInit(): void {
     let AdminSpaceResponse = this.StorageService.getAdminSpace();
-    if(AdminSpaceResponse.trim() == 'AdminSpace'){
+    if((AdminSpaceResponse.trim() == 'AdminSpace') || (AdminSpaceResponse.trim() == 'ProviderSpace')){
       this.AdminSpace = true;
     }else{
       this.AdminSpace = false;

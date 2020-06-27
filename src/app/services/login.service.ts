@@ -24,11 +24,11 @@ export class LoginService {
   }
   register(data:string,society:string,collection:any): Promise<any>  {
     const Data = new FormData();
-        Data.append('data', data);
-        Data.append('society', society);
-        for(let i=0; i<collection.Specialities.length;i++){
-          Data.append('specialities', JSON.stringify(collection.Specialities[i]));
-        }
+    Data.append('data', data);
+    Data.append('society', society);
+    for(let i=0; i<collection.Specialities.length;i++){
+      Data.append('specialities', JSON.stringify(collection.Specialities[i]));
+    }
     return this.http.post<any>(environment.SERVER_API_URL + '/api/provider/register',Data).toPromise();
   }
   loginMedecin(login:string,password:string): Promise<MedecinModel> {

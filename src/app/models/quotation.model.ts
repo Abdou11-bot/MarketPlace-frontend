@@ -10,6 +10,7 @@ export  class QuotationModel {
   quantity: number;
   postalCode: string;
   date: string;
+  traiter: boolean;
   locality: string;
   product: ProductModel;
   constructor(obj: any) {
@@ -21,6 +22,7 @@ export  class QuotationModel {
       this.quantity = obj.quantity;
       this.postalCode = obj.postalCode;
       this.date = obj.date;
+      this.traiter = Boolean(obj.traiter);
       this.locality = obj.locality;
       this.product = new ProductModel(obj.product);
   }

@@ -6,6 +6,7 @@ export  class ComplaintModel {
   objet: string;
   name: string;
   message: string;
+  date: string;
   email: string;
   product: ProductModel;
   vue: boolean;
@@ -15,6 +16,7 @@ export  class ComplaintModel {
       this.objet = obj.objet;
       this.message = obj.message;
       this.email = obj.email;
+      this.date = obj.date;
       this.vue = obj.vue;
       this.product = new ProductModel(obj.product);
   }
