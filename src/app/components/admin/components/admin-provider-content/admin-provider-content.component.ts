@@ -26,6 +26,9 @@ export class AdminProviderContentComponent implements OnInit , OnDestroy {
   detailFlag = false;
   complaintFlag = false;
   requestFlag = true;
+  config1: any;
+  config2: any;
+  config: any;
   provider = new ProviderModel({'society':{}});
   ownedProducts = Array<ProductModel>();
   quotations= Array<QuotationModel> ();
@@ -42,7 +45,31 @@ export class AdminProviderContentComponent implements OnInit , OnDestroy {
         for(let resp of response){
           this.collection.providers.push(new ProviderModel(resp));
         }
+        this.config1 = {
+          itemsPerPage: 5,
+          currentPage: 1,
+          totalItems: this.getProvidersRequests()
+        };
+        this.config2 = {
+          itemsPerPage: 5,
+          currentPage: 1,
+          totalItems: this.claimedProducts.length
+        };
+        this.config = {
+          itemsPerPage: 5,
+          currentPage: 1,
+          totalItems: this.collection.providers.length
+        };
     });
+  }
+  pageChanged1(event) {
+    this.config1.currentPage = event;
+  }
+  pageChanged2(event) {
+    this.config2.currentPage = event;
+  }
+  pageChanged(event) {
+    this.config.currentPage = event;
   }
   getProvidersRequests(): number{
     if(this.collection.providers.length == 0){
@@ -134,6 +161,53 @@ export class AdminProviderContentComponent implements OnInit , OnDestroy {
           this.collection.providers[i].status = 1;
       }
     });
+  }
+
+  customSort(filter:number){
+    if(filter==1)
+     this.collection.providers.sort((a,b) => a.lastname.localeCompare(b.lastname));
+    if(filter==2)
+     this.collection.providers.sort((a,b) => a.firstname.localeCompare(b.firstname));
+    if(filter==3)
+      this.collection.providers.sort((a,b) => a.email.localeCompare(b.email));
+    if(filter==4)
+      this.collection.providers.sort((a,b) => a.tel.localeCompare(b.tel));
+    if(filter==5)
+      this.collection.providers.sort((a,b) => Number(a.type) - Number(b.type));
+    if(filter==6)
+      this.claimedProducts.sort((a,b) => Number(a.blocked) - Number(b.blocked));
+    if(filter == 7)
+      this.claimedProducts.sort((a,b) => a.name.localeCompare(b.name));
+  }
+  reverseCustomSort(filter:number){
+    if(filter==1){
+      this.customSort(1);
+      this.collection.providers.reverse();
+    }
+    if(filter==2){
+      this.customSort(2);
+      this.collection.providers.reverse();
+    }
+    if(filter==3){
+      this.customSort(3);
+      this.collection.providers.reverse();
+    }
+    if(filter==4){
+      this.customSort(4);
+      this.collection.providers.reverse();
+    }
+    if(filter==5){
+      this.customSort(5);
+      this.collection.providers.reverse();
+    }
+    if(filter==6){
+      this.customSort(6);
+      this.claimedProducts.reverse();
+    }
+    if(filter==7){
+      this.customSort(7);
+      this.claimedProducts.reverse();
+    }
   }
 }
 

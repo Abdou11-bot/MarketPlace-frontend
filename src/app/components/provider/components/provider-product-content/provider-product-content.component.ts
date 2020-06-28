@@ -9,6 +9,7 @@ import { SessionStorageService } from '../../../../services/sessionStorage.servi
 import{ProviderService} from '../../../../services/provider.service';
 import{ProductService} from '../../../../services/product.service';
 import{ComplaintService} from '../../../../services/complaint.service';
+import{QuotationService} from '../../../../services/quotation.service';
 import{ProviderModel} from '../../../../models/provider.model';
 import{ProductModel} from '../../../../models/product.model';
 import{QuotationModel} from '../../../../models/quotation.model';
@@ -34,12 +35,11 @@ export class ProviderProductContentComponent implements OnInit , OnDestroy {
   detailFlag = false;
   provider = new ProviderModel({'society':{}});
   ownedProducts = Array<ProductModel>();
-  quotations= Array<QuotationModel> ();
   claimedProducts = Array<ProductModel> ();
   product= new ProductModel({'provider':{},'images': [],'speciality': {}});
-  collection = { count: 0, products: Array<ProductModel> (), specialities: Array<SpecialityModel> ()};
+  collection = { count: 0, products: Array<ProductModel> (), specialities: Array<SpecialityModel> (), quotations : Array<QuotationModel>(), complaints : Array<ComplaintModel>()};
   constructor(private StorageService: LocalStorageService, private router: Router, public sanitizer: DomSanitizer, public dialog: MatDialog,
-              private ProviderService: ProviderService, private ComplaintService : ComplaintService, private modalService: NgbModal) {  }
+              private ProviderService: ProviderService, private QuotationService : QuotationService, private ComplaintService : ComplaintService, private modalService: NgbModal) {  }
   ngOnDestroy(){
   }
 
@@ -56,12 +56,22 @@ export class ProviderProductContentComponent implements OnInit , OnDestroy {
           this.collection.products.push(new ProductModel(resp));
         }
     });
+    this.ComplaintService.getOwnedComplaint(this.StorageService.getProviderLogin()).then(response => {
+        for(let resp of response){
+          this.collection.complaints.push(new ComplaintModel(resp));
+        }
+    });
+    this.QuotationService.getAllQuotationSendToProvider(this.StorageService.getProviderLogin()).then(response => {
+        for(let resp of response){
+          this.collection.quotations.push(new QuotationModel(resp));
+        }
+    });
     this.collection.count = this.collection.products.length;
-        this.config = {
-          itemsPerPage: 3,
-          currentPage: 1,
-          totalItems: this.collection.count
-        };
+    this.config = {
+      itemsPerPage: 5,
+      currentPage: 1,
+      totalItems: this.collection.count
+    };
   }
   getCatalogueName(productTemp) : string{
     if(productTemp == undefined || productTemp == null || productTemp.catalogue == '' || productTemp.catalogue == undefined || productTemp.catalogue == null ){
@@ -380,76 +390,62 @@ export class ProviderProductContentComponent implements OnInit , OnDestroy {
   {
     Swal.fire(error, message, 'error')
   }
-
-  async onUpload(id: number) {
-    const uploadData = new FormData();
-    uploadData.append('file', this.selectedCatalogue);
- /*   await this.ProviderService.onUpLoad(uploadData, id);
-  */}
-
-
-
-
-  delete() {
-   /* this.ProviderService.deleteClient(this.id).subscribe(data => console.log(data), error => console.log(error));
-    */this.goToList();
-  }
-
-  save() {
-  /*  this.ProviderService.createClient(this.ProductAdd)
-        .subscribe(data => {
-          console.log(data);
-          this.ProductAdd = new ProductModel(data);
-          this.onUpload(this.ProductAdd.id).then(response =>{
-            this.ProductAdd = new ProductModel({});
-            this.goToList();
-          });
-        }, error => console.log(error));
-  */}
-
-  onSubmit() {
-    this.save();
-  }
-  update() {
-    /*this.ProviderService.updateClient(this.id, this.ProductUpdate)
-      .subscribe(data => {
-      console.log(data);
-      this.ProductUpdate = new ProductModel(data);
-      this.onUpload(this.ProductUpdate.id).then(response =>{
-        this.ProductUpdate = new ProductModel({});
-        this.goToList();
-      });
-      }, error => console.log(error));
- */ }
-  goToList() {
-    this.router.navigate(['provider/product']).then(() => {window.location.reload(); });
-  }
-
-  modalUpdate(updatemodal: TemplateRef<any>, id: number) {
-   /* this.ProviderService.getClient(id).then( async response => this.ProductUpdate = await response);
-    */this.open(updatemodal, id);
-  }
-  open(content, id: number) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true, size: 'xl', scrollable: true})
-      .result.then((result) => {this.closeResult = `Closed with: ${result}`;}, (reason) => {
-    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`; });
-    this.id = id;
-}
-
-private getDismissReason(reason: any): string {
-  if (reason === ModalDismissReasons.ESC) {
-    return 'by pressing ESC';
-  } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-    return 'by clicking on a backdrop';
-  } else {
-    return  `with: ${reason}`;
-  }
-}
   pageChanged(event) {
     this.config.currentPage = event;
   }
   sane(imagrSrc: any) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(imagrSrc);
+  }
+
+  customSort(filter:number){
+    if(filter==1)
+      this.collection.products.sort((a,b) => Number(a.blocked) - Number(b.blocked));
+    if(filter==2)
+     this.collection.products.sort((a,b) => a.name.localeCompare(b.name));
+    if(filter==3)
+      this.collection.products.sort((a,b) => a.reference.localeCompare(b.reference));
+    if(filter==4)
+      this.collection.products.sort((a,b) => a.marque.localeCompare(b.marque));
+    if(filter==5)
+      this.collection.products.sort((a,b) => (a.nombreVue) - (b.nombreVue));
+  }
+  reverseCustomSort(filter:number){
+    if(filter==1){
+      this.customSort(1);
+      this.collection.products.reverse();
+    }
+    if(filter==2){
+      this.customSort(2);
+      this.collection.products.reverse();
+    }
+    if(filter==3){
+      this.customSort(3);
+      this.collection.products.reverse();
+    }
+    if(filter==4){
+      this.customSort(4);
+      this.collection.products.reverse();
+    }
+    if(filter==5){
+      this.customSort(5);
+      this.collection.products.reverse();
+    }
+  }
+  getNbQuotationsOfProduct(product : ProviderModel){
+    let nb= 0;
+    for(let quotation of this.collection.quotations){
+      if(quotation.product.id == product.id)
+        nb += 1;
+    }
+    return nb;
+  }
+  getNbComplaintsOfProduct(product : ProviderModel){
+    let nb= 0;
+    for(let complaint of this.collection.complaints){
+      if(complaint.product.id == product.id)
+        nb += 1;
+    }
+    return nb;
   }
 }
 

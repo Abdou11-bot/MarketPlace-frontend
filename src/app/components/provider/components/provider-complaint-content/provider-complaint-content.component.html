@@ -32,13 +32,13 @@
               <table class="table table-bordered norme" id="dataTable" width="100%" cellspacing="0">
                 <thead class="card-header py-3">
                 <tr>
-                  <th>Etat</th>
-                  <th>Name</th>
-                  <th>objet</th>
-                  <th>email</th>
-                  <th>message</th>
-                  <th>produit</th>
-                  <th>fournisseurs</th>
+                  <th>Etat  <span class="glyphicon glyphicon-triangle-top " (click)="customSort(1)"></span><span (click)="reverseCustomSort(1)" class="glyphicon glyphicon-triangle-bottom"></span></th>
+                  <th>Name  <span class="glyphicon glyphicon-triangle-top" (click)="customSort(2)"></span><span (click)="reverseCustomSort(2)" class="glyphicon glyphicon-triangle-bottom"></span></th>
+                  <th>Objet  <span class="glyphicon glyphicon-triangle-top" (click)="customSort(3)"></span><span (click)="reverseCustomSort(3)" class="glyphicon glyphicon-triangle-bottom"></span></th>
+                  <th>Email  <span class="glyphicon glyphicon-triangle-top" (click)="customSort(4)"></span><span (click)="reverseCustomSort(4)" class="glyphicon glyphicon-triangle-bottom"></span></th>
+                  <th>Message</th>
+                  <th>Produit  <span class="glyphicon glyphicon-triangle-top" (click)="customSort(5)"></span><span (click)="reverseCustomSort(5)" class="glyphicon glyphicon-triangle-bottom"></span></th>
+                  <th>Fournisseurs  <span class="glyphicon glyphicon-triangle-top" (click)="customSort(6)"></span><span (click)="reverseCustomSort(6)" class="glyphicon glyphicon-triangle-bottom"></span></th>
                   <th></th>
                 </tr>
                 </thead>
@@ -46,28 +46,31 @@
                 <tr>
                   <th>Etat</th>
                   <th>Name</th>
-                  <th>objet</th>
-                  <th>email</th>
-                  <th>message</th>
-                  <th>produit</th>
-                  <th>fournisseurs</th>
+                  <th>Objet</th>
+                  <th>Email</th>
+                  <th>Message</th>
+                  <th>Produit</th>
+                  <th>Fournisseurs</th>
                   <th></th>
                 </tr>
                 </tfoot>
                 <tbody>
-                <tr *ngFor="let complaint of collection.complaints, index as i ">
+                <tr *ngFor="let complaint of collection.complaints | paginate: config , index as i ">
                   <td  *ngIf="complaint.product != null" [hidden]="!complaint.vue">Lu</td>
                   <td  *ngIf="complaint.product != null" [hidden]="complaint.vue">Non lu</td>
                   <td *ngIf="complaint.product != null">{{complaint.name}}</td>
                   <td *ngIf="complaint.product != null">{{complaint.objet}}</td>
                   <td *ngIf="complaint.product != null">{{complaint.email}}</td>
-                  <td *ngIf="complaint.product != null">{{complaint.message}}</td>
+                  <td *ngIf="complaint.product != null"><textarea disabled rows ="7" class="norme bg-white">{{complaint.message}}{{complaint.message}}{{complaint.message}}{{complaint.message}}{{complaint.message}}{{complaint.message}}{{complaint.message}}</textarea></td>
                   <td *ngIf="complaint.product != null">{{complaint.product.name}}</td>
                   <td *ngIf="complaint.product != null">{{complaint.product.provider.lastname}} {{complaint.product.provider.firstname}}</td>
                   <td *ngIf="complaint.product != null" ><button class="btn btn-primary bnt-lg" (click)="loadComplaint(i)"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                 </tr>
                 </tbody>
               </table>
+              <div  class="align-items-center">
+                <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+              </div>
             </div>
           </div>
         </div>

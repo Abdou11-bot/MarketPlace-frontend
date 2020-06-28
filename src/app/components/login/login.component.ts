@@ -13,6 +13,8 @@ import{ProductService} from '../../services/product.service';
 import{SocietyModel} from '../../models/society.model';
 import{MedecinModel} from '../../models/medecin.model';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import{ComplaintModel} from '../../models/complaint.model';
+import{ComplaintService} from '../../services/complaint.service';
 
 import { LocalStorageService } from '../../services/localStorage.service';
 import { SessionStorageService } from '../../services/sessionStorage.service';
@@ -36,9 +38,11 @@ export class LoginComponent implements OnInit {
   RegisterData = new ProviderModel({});
   MedecinData = new MedecinModel({});
   SocietyData = new SocietyModel({});
+  Complaint= new ComplaintModel({'product':{'provider':{},'images': [],'speciality': {}}});
   collection = { Specialities: Array<SpecialityModel> () };
   SpecialitiesSelectedPrice: number;
-  constructor(private ProviderService: ProviderService,private router:Router,public LoginService : LoginService, public ProductService : ProductService,private StorageService: LocalStorageService) {}
+  constructor(private ProviderService: ProviderService,private router:Router,private StorageService: LocalStorageService,
+             public LoginService : LoginService, public ComplaintService : ComplaintService, public ProductService : ProductService) {}
   ngOnInit(): void {
     this.StorageService.storeAdminSpace('ClientSpace');
     this.ProviderService.getAllSpecialities().then(response => {
@@ -90,18 +94,12 @@ export class LoginComponent implements OnInit {
 
   public SocietyRepChanged(value:boolean){
       this.SocietyRepVerification = value;
-  //    if(value)
-   //     this.ConnexionType = 'admin';
-   //   else
-   //     this.ConnexionType = 'provider';
   }
 
   public onFormSubmited(value:boolean){
     this.verificationLogin = value;
   }
   onSubmit(event: any){
-//    alert(event.target.login.value);
-//    alert(event.target.password.value);
     if(this.LoginData.password.trim()===''){
       this.openFailedModal('Erreur','Verifier le password');
       this.verificationLogin = false;
@@ -134,14 +132,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmitRegister(event: any){
-    //    alert(JSON.stringify(this.product));
-  /*  const Data = new FormData();
-    Data.append('data', JSON.stringify(this.RegisterData));
-    Data.append('society', JSON.stringify(this.SocietyData));
-    for(let i=0; i<this.collection.Specialities.length;i++){
-      Data.append('specialities', JSON.stringify(this.collection.Specialities[i]));
-    }
-    */
     this.LoginService.register(JSON.stringify(this.RegisterData),JSON.stringify(this.SocietyData),this.collection).then(async response => {
       if(response!=null){
         this.verificationRegister = true;
@@ -168,9 +158,6 @@ export class LoginComponent implements OnInit {
   }
 
   ProviderComfirmPassword(){
-  //alert(this.RegisterData.password);
-  //alert(this.ConfirmPassword);
-  //alert(this.RegisterData.password===this.ConfirmPassword);
     if(this.RegisterData.password==this.ConfirmPassword){
       this.verificationPassword = true;
     }else{
@@ -178,13 +165,69 @@ export class LoginComponent implements OnInit {
     }
   }
   MedecinComfirmPassword(){
-  //alert(this.RegisterData.password);
-  //alert(this.ConfirmPassword);
-  //alert(this.RegisterData.password===this.ConfirmPassword);
     if(this.MedecinData.password==this.ConfirmPassword){
       this.verificationPassword = true;
     }else{
       this.verificationPassword = false;
     }
+  }
+  ForgetPaswordModal(){
+    Swal.fire({
+        title: ``,
+        html: `
+            <form  #ComplaintFormAdd="ngForm">
+              <div class="modal-body">
+                <div class="single-contact-form form-group" >
+                  <div class="contact-box">
+                    <input type="email" [(ngModel)]="Complaint.email"
+                      class="form-control form-input-size"
+                      style=" height:25%; font-size:25px;"
+                      id="emailAdd"
+                      name="emailAdd"
+                      placeholder="Entrer votre email"
+                      required #emailAdd="ngModel">
+                  </div>
+                </div>
+              </div>
+            </form>
+            `,
+        showCancelButton: true,
+        confirmButtonText: 'Envoyé',
+        width: '60%',
+        cancelButtonText: 'Annuler',
+        preConfirm: async () => {
+          let email = ((<HTMLInputElement>document.getElementById('emailAdd')).value.trim());
+          this.Complaint.name = 'Mot de passe oublié';
+          this.Complaint.objet = 'Mot de passe oublié';
+          if(email == "" ){
+            await this.openFailedModal('Erreur...', 'Vérifier l\'email ');
+            this.ForgetPaswordModal();
+            return false;
+          }
+          this.Complaint.email = email;
+          this.Complaint.message = 'Mot de passe oublié';
+      }}).then((result) =>  {
+        if (result.value) {
+            this.onSubmitForgetPasword();
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire(
+              'Annuler',
+        )
+      }
+    })
+  }
+  onSubmitForgetPasword(){
+    const Data = new FormData();
+    Data.append('message', this.Complaint.message);
+    Data.append('objet', this.Complaint.objet);
+    Data.append('email', this.Complaint.email);
+    Data.append('name', this.Complaint.name);
+    this.ComplaintService.contactUs(Data).then(response => {
+      if(response!=null){
+        this.openSuccessModal('Réussi!');
+      }else{
+        this.openFailedModal('Erreur', 'Réessayer');
+      }
+    });
   }
 }

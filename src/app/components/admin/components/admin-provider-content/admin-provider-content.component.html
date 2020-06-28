@@ -32,11 +32,11 @@
               <table class="table table-bordered norme" id="dataTable" width="100%" cellspacing="0">
                 <thead class="card-header py-3">
                 <tr>
-                  <th>Nom</th>
-                  <th>Prenom</th>
-                  <th>Email</th>
-                  <th>Tel</th>
-                  <th>Type</th>
+                  <th>Nom  <span class="glyphicon glyphicon-triangle-top " (click)="customSort(1)"></span><span (click)="reverseCustomSort(1)" class="glyphicon glyphicon-triangle-bottom"></span></th>
+                  <th>Prenom  <span class="glyphicon glyphicon-triangle-top " (click)="customSort(2)"></span><span (click)="reverseCustomSort(2)" class="glyphicon glyphicon-triangle-bottom"></span></th>
+                  <th>Email  <span class="glyphicon glyphicon-triangle-top " (click)="customSort(3)"></span><span (click)="reverseCustomSort(3)" class="glyphicon glyphicon-triangle-bottom"></span></th>
+                  <th>Tel  <span class="glyphicon glyphicon-triangle-top " (click)="customSort(4)"></span><span (click)="reverseCustomSort(4)" class="glyphicon glyphicon-triangle-bottom"></span></th>
+                  <th>Type  <span class="glyphicon glyphicon-triangle-top " (click)="customSort(5)"></span><span (click)="reverseCustomSort(5)" class="glyphicon glyphicon-triangle-bottom"></span></th>
                   <th></th>
                 </tr>
                 </thead>
@@ -51,18 +51,20 @@
                 </tr>
                 </tfoot>
                 <tbody>
-                <tr *ngFor="let provider of collection.providers, index as i ">
+                <tr *ngFor="let provider of collection.providers | paginate: config1 , index as i ">
                   <td *ngIf="provider.status == 0">{{provider.lastname}}</td>
                   <td *ngIf="provider.status == 0">{{provider.firstname}}</td>
                   <td *ngIf="provider.status == 0">{{provider.email}}</td>
                   <td *ngIf="provider.status == 0">{{provider.tel}}</td>
-                  <td *ngIf="provider.type == true && provider.status == 0">responsable
-                  </td>
+                  <td *ngIf="provider.type == true && provider.status == 0">responsable</td>
                   <td *ngIf="provider.type == false && provider.status == 0">particulier</td>
                   <td *ngIf="provider.status == 0" ><button class="btn btn-primary bnt-lg" (click)="loadData(i)"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                 </tr>
                 </tbody>
               </table>
+              <div  class="align-items-center">
+                <pagination-controls (pageChange)="pageChanged1($event)"></pagination-controls>
+              </div>
               <div>
                 <button class="btn btn-primary bnt-lg" (click)="displayCompleteList()" >liste complete</button>
               </div>
@@ -78,11 +80,11 @@
               <table class="table table-bordered norme" width="100%" cellspacing="0">
                 <thead class="card-header py-3">
                 <tr>
-                  <th>Nom</th>
-                  <th>Prenom</th>
-                  <th>Email</th>
-                  <th>Tel</th>
-                  <th>Type</th>
+                  <th>Nom  <span class="glyphicon glyphicon-triangle-top " (click)="customSort(1)"></span><span (click)="reverseCustomSort(1)" class="glyphicon glyphicon-triangle-bottom"></span></th>
+                  <th>Prenom  <span class="glyphicon glyphicon-triangle-top " (click)="customSort(2)"></span><span (click)="reverseCustomSort(2)" class="glyphicon glyphicon-triangle-bottom"></span></th>
+                  <th>Email  <span class="glyphicon glyphicon-triangle-top " (click)="customSort(3)"></span><span (click)="reverseCustomSort(3)" class="glyphicon glyphicon-triangle-bottom"></span></th>
+                  <th>Tel  <span class="glyphicon glyphicon-triangle-top " (click)="customSort(4)"></span><span (click)="reverseCustomSort(4)" class="glyphicon glyphicon-triangle-bottom"></span></th>
+                  <th>Type  <span class="glyphicon glyphicon-triangle-top " (click)="customSort(5)"></span><span (click)="reverseCustomSort(5)" class="glyphicon glyphicon-triangle-bottom"></span></th>
                   <th></th>
                 </tr>
                 </thead>
@@ -97,18 +99,21 @@
                 </tr>
                 </tfoot>
                 <tbody>
-                <tr *ngFor="let provider of collection.providers, index as i ">
+                <tr *ngFor="let provider of collection.providers | paginate: config , index as i ">
                   <td>{{provider.lastname}}</td>
                   <td >{{provider.firstname}}</td>
                   <td >{{provider.email}}</td>
                   <td>{{provider.tel}}</td>
-                  <td *ngIf="provider.type == true ">responsable
+                  <td *ngIf="provider.type == true ">represantant
                   </td>
                   <td *ngIf="provider.type == false ">particulier</td>
                   <td  ><button class="btn btn-primary bnt-lg" (click)="loadData(i)"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                 </tr>
                 </tbody>
               </table>
+              <div  class="align-items-center">
+                <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+              </div>
               <div>
                 <button class="btn btn-primary bnt-lg" (click)="displayRequestsList()" >liste des demandes</button>
               </div>
@@ -207,8 +212,8 @@
               <table class="table table-bordered norme" width="100%" cellspacing="0">
                 <thead class="card-header py-3">
                 <tr>
-                  <th>Etat</th>
-                  <th>Name</th>
+                  <th>Etat  <span class="glyphicon glyphicon-triangle-top " (click)="customSort(6)"></span><span (click)="reverseCustomSort(6)" class="glyphicon glyphicon-triangle-bottom"></span></th>
+                  <th>Name  <span class="glyphicon glyphicon-triangle-top " (click)="customSort(7)"></span><span (click)="reverseCustomSort(7)" class="glyphicon glyphicon-triangle-bottom"></span></th>
                   <th></th>
                 </tr>
                 </thead>
@@ -220,7 +225,7 @@
                 </tr>
                 </tfoot>
                 <tbody>
-                <tr *ngFor="let product of claimedProducts , index as i ">
+                <tr *ngFor="let product of claimedProducts  | paginate: config2 , index as i ">
                   <td *ngIf="product.blocked == true">Bloqué</td>
                   <td *ngIf="product.blocked == false">Non Bloqué</td>
                   <td >{{product.name}}</td>
@@ -231,6 +236,9 @@
                 </tr>
                 </tbody>
               </table>
+              <div  class="align-items-center">
+                <pagination-controls (pageChange)="pageChanged2($event)"></pagination-controls>
+              </div>
               <button class="btn btn-primary bnt-lg" (click)="displayDetailProvider()" >Retour au fournisseur</button>
             </div>
           </div>

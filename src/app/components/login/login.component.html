@@ -19,7 +19,7 @@
             <form (ngSubmit)="onSubmit($event)" #LoginForm="ngForm">
               <div class="login">
                 <label [hidden]="verificationLogin" class="alert">* Vérifier les informations données</label>
-                <label [hidden]="!AdminVerification" class="notif">* Pour l'administrateur l'Email n'est pas necessaire</label>
+                <label [hidden]="!AdminVerification" class="notif">* L'Email n'est pas necessaire</label>
                 <div class="form-group">
                   <input type="email" [(ngModel)]="LoginData.Email"
                          class="form-control"
@@ -47,7 +47,7 @@
                 <hr>
                 <input type="checkbox">
                 <span> Remember me</span>
-                <span class="forget"><a href="#">Forget Pasword?</a></span>
+                <span class="forget"><a (click)="ForgetPaswordModal()">Mot de passe oublié?</a></span>
               </div>
               <div class="htc__login__btn mt--30">
                 <button type="submit" [disabled]="!LoginForm.form.valid" (click)="onFormSubmited(!LoginForm.form.valid)">Login</button>

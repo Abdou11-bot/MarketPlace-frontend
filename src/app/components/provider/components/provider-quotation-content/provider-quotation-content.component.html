@@ -30,40 +30,37 @@
           <div  class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered norme" id="dataTable" width="100%" cellspacing="0">
-                <thead>
+                <thead class="card-header py-3">
                 <tr>
-                  <th>Etat</th>
-                  <th>Nom</th>
-                  <th>Prenom</th>
-                  <th>email</th>
-                  <th>address</th>
-                  <th>postalCode</th>
-                  <th>date</th>
-                  <th>produit</th>
-                  <th>Quantité</th>
+                  <th>Etat  <span class="glyphicon glyphicon-triangle-top " (click)="customSort(1)"></span><span (click)="reverseCustomSort(1)" class="glyphicon glyphicon-triangle-bottom"></span></th>
+                  <th>Nom  <span class="glyphicon glyphicon-triangle-top " (click)="customSort(2)"></span><span (click)="reverseCustomSort(2)" class="glyphicon glyphicon-triangle-bottom"></span></th>
+                  <th>Email  <span class="glyphicon glyphicon-triangle-top " (click)="customSort(3)"></span><span (click)="reverseCustomSort(3)" class="glyphicon glyphicon-triangle-bottom"></span></th>
+                  <th>Addr  <span class="glyphicon glyphicon-triangle-top " (click)="customSort(4)"></span><span (click)="reverseCustomSort(4)" class="glyphicon glyphicon-triangle-bottom"></span></th>
+                  <th>PostalCode  <span class="glyphicon glyphicon-triangle-top " (click)="customSort(5)"></span><span (click)="reverseCustomSort(5)" class="glyphicon glyphicon-triangle-bottom"></span></th>
+                  <th>Date  <span class="glyphicon glyphicon-triangle-top " (click)="customSort(6)"></span><span (click)="reverseCustomSort(6)" class="glyphicon glyphicon-triangle-bottom"></span></th>
+                  <th>Produit  <span class="glyphicon glyphicon-triangle-top " (click)="customSort(7)"></span><span (click)="reverseCustomSort(7)" class="glyphicon glyphicon-triangle-bottom"></span></th>
+                  <th>Quantité  <span class="glyphicon glyphicon-triangle-top " (click)="customSort(8)"></span><span (click)="reverseCustomSort(8)" class="glyphicon glyphicon-triangle-bottom"></span></th>
                   <th></th>
                 </tr>
                 </thead>
-                <tfoot>
+                <tfoot class="card-header py-3">
                 <tr>
                   <th>Etat</th>
                   <th>Nom</th>
-                  <th>Prenom</th>
-                  <th>email</th>
-                  <th>address</th>
-                  <th>postalCode</th>
-                  <th>date</th>
-                  <th>produit</th>
+                  <th>Email</th>
+                  <th>Addr</th>
+                  <th>PostalCode</th>
+                  <th>Date</th>
+                  <th>Produit</th>
                   <th>Quantité</th>
                   <th></th>
                 </tr>
                 </tfoot>
                 <tbody>
-                <tr *ngFor="let quotation of collection.quotations, index as i ">
+                <tr *ngFor="let quotation of collection.quotations | paginate: config , index as i ">
                   <td *ngIf="quotation.traiter == true">Traité</td>
                   <td *ngIf="quotation.traiter == false">Non traité</td>
-                  <td *ngIf="quotation.product != null">{{quotation.lastname}}</td>
-                  <td *ngIf="quotation.product != null">{{quotation.firstname}}</td>
+                  <td *ngIf="quotation.product != null">{{quotation.lastname}} {{quotation.firstname}}</td>
                   <td *ngIf="quotation.product != null">{{quotation.email}}</td>
                   <td *ngIf="quotation.product != null">{{quotation.address}}</td>
                   <td *ngIf="quotation.product != null">{{quotation.postalCode}}</td>
@@ -74,6 +71,9 @@
                 </tr>
                 </tbody>
               </table>
+              <div  class="align-items-center">
+                <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+              </div>
             </div>
           </div>
         </div>

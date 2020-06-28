@@ -79,17 +79,12 @@
             <hr>
             <div [hidden]="medecinFlag">
               <label >Connecté vous pour voir les details </label><br>
-<!--              <button class="btn btn-info" (click)="openLoginModal()">Se Connecter</button>-->
               <button class="btn btn-lg quotationButton" (click)="openLoginModal()">Se Connecter</button>
             </div>
             <div [hidden]="!medecinFlag" class="">
               <p>Nom & Prenom : {{product.provider.firstname}} {{product.provider.lastname}}</p><br>
               <p>Email : {{product.provider.email}}</p><br>
               <p>Tel : {{product.provider.tel}}</p>
-<!--              <label>Represantant de la societé:</label>-->
-<!--              <label>{{product.provider.society.name}}</label>-->
-<!--              <label>{{product.provider.society.email}}</label>-->
-<!--              <label>{{product.provider.society.tel}}</label>-->
             </div>
           </div>
           <ul  class="pro__dtl__btn">
@@ -99,8 +94,6 @@
             <li [hidden] = "!wishlistFlag" ><button class="btn btn-info" title="Retirer de la wishlist"  (click)="setWishlistOperation('delete',product.id)" ><span class="ti-heart"></span></button></li>
             <li [hidden] = "medecinFlag" ><button class="btn quotationButton" title="Signaler"  (click)="openSendComplaintModal()" ><span class="glyphicon glyphicon-flag"></span> </button></li>
             <li [hidden] = "!medecinFlag" ><button class="btn quotationButton" title="Signaler"  (click)="openSendComplaintModalLogged()" ><span class="glyphicon glyphicon-flag"></span></button></li>
-<!--            <li [hidden] = "complaintFlag" class="quotationButton"><a title="Signaler"  (click)="openSendComplaintModal()" ><span class="glyphicon glyphicon-flag"></span> </a></li>-->
-<!--            <li [hidden] = "!complaintFlag" class="quotationButton" style="background: #ff4136"><a title="Retirer Signalement"  (click)="sendComplaint('delete',product.id)" ><span class="glyphicon glyphicon-flag"></span></a></li>-->
           </ul>
         </div>
       </div>

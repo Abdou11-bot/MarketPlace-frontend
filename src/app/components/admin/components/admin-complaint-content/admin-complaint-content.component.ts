@@ -21,6 +21,7 @@ import{SpecialityModel} from '../../../../models/speciality.model';
 })
 export class AdminComplaintContentComponent implements OnInit , OnDestroy {
   detailFlag = false;
+  config: any;
   Complaint= new ComplaintModel({'product':{'provider':{},'images': [],'speciality': {}}});
   collection = { nbSpecialities: 0, complaints: Array<ComplaintModel> () };
   constructor(private StorageService: LocalStorageService, private router: Router, public sanitizer: DomSanitizer,
@@ -34,6 +35,15 @@ export class AdminComplaintContentComponent implements OnInit , OnDestroy {
           this.collection.complaints.push(new ComplaintModel(resp));
         }
     });
+    this.config = {
+      itemsPerPage: 5,
+      currentPage: 1,
+      totalItems: this.collection.complaints.length
+    };
+  }
+
+  pageChanged(event) {
+    this.config.currentPage = event;
   }
   setVue(id:number) {
     this.ComplaintService.setComplaintvue(id).then(response => {
@@ -77,6 +87,47 @@ export class AdminComplaintContentComponent implements OnInit , OnDestroy {
   }
   gotoList(){
     this.detailFlag = false;
+  }
+
+  customSort(filter:number){
+    if(filter==1)
+      this.collection.complaints.sort((a,b) => Number(a.vue) - Number(b.vue));
+    if(filter==2)
+     this.collection.complaints.sort((a,b) => a.name.localeCompare(b.name));
+    if(filter==3)
+      this.collection.complaints.sort((a,b) => a.objet.localeCompare(b.objet));
+    if(filter==4)
+      this.collection.complaints.sort((a,b) => a.email.localeCompare(b.email));
+    if(filter==5)
+      this.collection.complaints.sort((a,b) => a.product.name.localeCompare(b.product.name));
+    if(filter == 6)
+      this.collection.complaints.sort((a,b) => a.product.provider.lastname.localeCompare(b.product.provider.lastname));
+  }
+  reverseCustomSort(filter:number){
+    if(filter==1){
+      this.customSort(1);
+      this.collection.complaints.reverse();
+    }
+    if(filter==2){
+      this.customSort(2);
+      this.collection.complaints.reverse();
+    }
+    if(filter==3){
+      this.customSort(3);
+      this.collection.complaints.reverse();
+    }
+    if(filter==4){
+      this.customSort(4);
+      this.collection.complaints.reverse();
+    }
+    if(filter==5){
+      this.customSort(5);
+      this.collection.complaints.reverse();
+    }
+    if(filter==6){
+      this.customSort(6);
+      this.collection.complaints.reverse();
+    }
   }
 }
 

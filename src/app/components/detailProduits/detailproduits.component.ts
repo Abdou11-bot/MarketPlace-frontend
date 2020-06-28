@@ -35,7 +35,6 @@ export class DetailProduitsComponent implements OnInit {
   quotation= new QuotationModel({'product':{'provider':{},'images': [],'speciality': {}}});
   constructor( private router:Router, private ProductService: ProductService, private LoginService: LoginService, private QuotationService: QuotationService,
      public sanitizer: DomSanitizer,private StorageService: LocalStorageService, public ComplaintService : ComplaintService) {
-  //  this.StorageService.clearStorage();
     this.ProductService.getProduct(this.router.getCurrentNavigation().extras.state.id).then(
       response => {
         this.product= new ProductModel(response);
@@ -112,7 +111,6 @@ export class DetailProduitsComponent implements OnInit {
     this.quotation.date = today;
     this.quotation.product=this.product;
     let medecin = await this.LoginService.getMedecin(this.StorageService.getMedecin());
-//    let medecin = await this.LoginService.getMedecin(Number(this.StorageService.getMedecin()));
     this.quotation.firstname = medecin.firstname;
     this.quotation.lastname = medecin.lastname;
     this.quotation.email = medecin.email;
@@ -143,7 +141,6 @@ export class DetailProduitsComponent implements OnInit {
 
   async onSubmitComplaintLogged(){
     this.Complaint.product=this.product;
-//    let medecin = await this.LoginService.getMedecin(Number(this.StorageService.getMedecin()));
     let medecin = await this.LoginService.getMedecin(this.StorageService.getMedecin());
     this.Complaint.name = medecin.lastname+' '+medecin.firstname;
     this.Complaint.email = medecin.email;
@@ -438,7 +435,7 @@ export class DetailProduitsComponent implements OnInit {
                       name="nameAdd"
                       placeholder="Entrer votre name"
                       required #nameAdd="ngModel">
-                    <input type="text" [(ngModel)]="Complaint.email"
+                    <input type="email" [(ngModel)]="Complaint.email"
                       class="form-control form-input-size"
                       style=" height:25%; font-size:25px;"
                       id="emailAdd"

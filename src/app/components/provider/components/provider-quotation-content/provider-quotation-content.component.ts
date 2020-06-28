@@ -21,6 +21,7 @@ import{SpecialityModel} from '../../../../models/speciality.model';
 })
 export class ProviderQuotationContentComponent implements OnInit , OnDestroy {
   detailFlag = false;
+  config: any;
   quotation= new QuotationModel({'product':{'provider':{},'images': [],'speciality': {}}});
   collection = { nbSpecialities: 0, quotations: Array<QuotationModel> () };
   constructor(private StorageService: LocalStorageService, private router: Router, public sanitizer: DomSanitizer,
@@ -34,8 +35,16 @@ export class ProviderQuotationContentComponent implements OnInit , OnDestroy {
           this.collection.quotations.push(new QuotationModel(resp));
         }
     });
+    this.config = {
+      itemsPerPage: 5,
+      currentPage: 1,
+      totalItems: this.collection.quotations.length
+    };
   }
 
+  pageChanged(event) {
+    this.config.currentPage = event;
+  }
   traiter(id:number) {
     this.QuotationService.traiterQuotation(id).then(response => {
        this.quotation= new QuotationModel(response);
@@ -65,5 +74,57 @@ export class ProviderQuotationContentComponent implements OnInit , OnDestroy {
   sane(imagrSrc: any) {
      return this.sanitizer.bypassSecurityTrustResourceUrl(imagrSrc);
    }
- }
 
+  customSort(filter:number){
+    if(filter==1)
+      this.collection.quotations.sort((a,b) => Number(a.traiter) - Number(b.traiter));
+    if(filter==2)
+     this.collection.quotations.sort((a,b) => a.lastname.localeCompare(b.lastname));
+    if(filter==3)
+      this.collection.quotations.sort((a,b) => a.email.localeCompare(b.email));
+    if(filter==4)
+      this.collection.quotations.sort((a,b) => a.address.localeCompare(b.address));
+    if(filter==5)
+      this.collection.quotations.sort((a,b) => a.postalCode.localeCompare(b.postalCode));
+    if(filter==6)
+      this.collection.quotations.sort((a,b) => a.date.localeCompare(b.date));
+    if(filter==7)
+      this.collection.quotations.sort((a,b) => a.product.name.localeCompare(b.product.name));
+    if(filter == 8)
+      this.collection.quotations.sort((a,b) => (a.quantity) - (b.quantity));
+  }
+  reverseCustomSort(filter:number){
+    if(filter==1){
+      this.customSort(1);
+      this.collection.quotations.reverse();
+    }
+    if(filter==2){
+      this.customSort(2);
+      this.collection.quotations.reverse();
+    }
+    if(filter==3){
+      this.customSort(3);
+      this.collection.quotations.reverse();
+    }
+    if(filter==4){
+      this.customSort(4);
+      this.collection.quotations.reverse();
+    }
+    if(filter==5){
+      this.customSort(5);
+      this.collection.quotations.reverse();
+    }
+    if(filter==6){
+      this.customSort(6);
+      this.collection.quotations.reverse();
+    }
+    if(filter==7){
+      this.customSort(7);
+      this.collection.quotations.reverse();
+    }
+    if(filter==8){
+      this.customSort(8);
+      this.collection.quotations.reverse();
+    }
+  }
+}
