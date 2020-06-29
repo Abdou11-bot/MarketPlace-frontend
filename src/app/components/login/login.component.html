@@ -53,26 +53,6 @@
                 <button type="submit" [disabled]="!LoginForm.form.valid" (click)="onFormSubmited(!LoginForm.form.valid)">Login</button>
               </div>
             </form>
-
-<!--            <form #LoginForm="ngForm">-->
-<!--              <div class="login">-->
-<!--                <label [hidden]="verificationLogin" class="alert">* Vérifier les informations données</label>-->
-<!--                <input name="login" type="email" placeholder="Email" [disabled]="AdminVerification">-->
-<!--                <label [hidden]="!AdminVerification" class="alert">* Pour l'administrateur le login n'est pas necessaire</label>-->
-<!--                <input name="password" type="password" placeholder="Password*" required>-->
-<!--              </div>-->
-<!--              <hr>-->
-<!--              <div class=" tabs__checkbox">-->
-<!--                <input type="checkbox" #logintypecheckbox (change)="onConnexionTypeChanged(logintypecheckbox.checked)" /><label>Administrateur</label>-->
-<!--                <hr>-->
-<!--                <input type="checkbox">-->
-<!--                <span> Remember me</span>-->
-<!--                <span class="forget"><a href="#">Forget Pasword?</a></span>-->
-<!--              </div>-->
-<!--              <div class="htc__login__btn mt&#45;&#45;30">-->
-<!--                <button type="submit" [disabled]="!LoginForm.form.valid" (click)="onFormSubmited(!LoginForm.form.valid)">Login</button>-->
-<!--              </div>-->
-<!--            </form>-->
           </div>
           <!-- End Single Content -->
           <!-- Start Single Content -->

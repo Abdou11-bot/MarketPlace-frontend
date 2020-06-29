@@ -52,6 +52,12 @@ export class ProviderService {
   getAdmin(): Promise<ProviderModel> {
     return this.http.get<ProviderModel>(environment.SERVER_API_URL + '/api/admin/getAdmin').toPromise();
   }
+  updateProfil(data,login: string): Promise<ProviderModel> {
+    return this.http.put<ProviderModel>(environment.SERVER_API_URL + '/api/provider/updateProfil/'+login, data).toPromise();
+  }
+  updateAdmin(data): Promise<ProviderModel> {
+    return this.http.put<ProviderModel>(environment.SERVER_API_URL + '/api/admin/updateAdmin',data).toPromise();
+  }
   deleteproduct(id: number): Promise<any> {
     return this.http.delete<any>(environment.SERVER_API_URL + '/api/provider/deleteproduct/'+id).toPromise();
   }

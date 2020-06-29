@@ -229,4 +229,15 @@ export class LocalStorageService {
       return this.storage.get('providerLogin');
     }
     /* P R O V I D E R   E N D */
+    /* A D M I N   B E G I N  */
+    storeAdminLogin(admin:string){
+      this.storage.set('adminLogin', admin);
+    }
+    public getAdminLogin(): string {
+      if((this.storage.get('adminLogin')==null)||(this.storage.get('adminLogin')==undefined )){
+        return '';
+      }
+      return this.storage.get('adminLogin');
+    }
+    /* A D M I N   E N D */
 }

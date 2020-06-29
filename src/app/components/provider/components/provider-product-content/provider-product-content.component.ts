@@ -356,7 +356,6 @@ export class ProviderProductContentComponent implements OnInit , OnDestroy {
             const Data = new FormData();
             Data.append('product', JSON.stringify(this.ProductUpdate));
             if(this.selectedImages.length!=0){
-            alert('images');
               for(let i=0; i<this.selectedImages.length;i++){
                 Data.append('images', this.selectedImages[i]);
               }

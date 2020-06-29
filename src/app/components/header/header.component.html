@@ -1,7 +1,7 @@
 <header [hidden]="AdminSpace" id="header" class="htc-header header--3 bg__white " >
   <!-- Start Mainmenu Area -->
   <div id="sticky-header-with-topbar" class="mainmenu__area sticky__header">
-    <div class="container">
+    <div class="container" >
       <div class="row">
         <div class="col-md-2 col-lg-2 col-sm-3 col-xs-3">
           <div class="logo">
@@ -15,14 +15,7 @@
           <nav class="mainmenu__nav hidden-xs hidden-sm">
             <ul class="main__menu">
               <li class="drop main__menu__color"><a routerLink="/home">Accueil</a></li>
-              <li class="drop main__menu__color"><a routerLink="/specialities" >Catégorie</a>
-              </li>
-              <li class="drop main__menu__color"><a href="/blog">Blog</a>
-<!--                <ul class="dropdown">-->
-<!--                  <li><a href="/blog">blog 3 column</a></li>-->
-<!--                  <li><a href="blog-details.html">Blog details</a></li>-->
-<!--                </ul>-->
-              </li>
+              <li class="drop main__menu__color"><a routerLink="/specialities" >Catégorie</a></li>
               <li class="drop main__menu__color"><a href="/about">À propos de nous</a></li>
 
               <li class="drop main__menu__color"><a href="customer-review.html">Avis client</a></li>
@@ -54,10 +47,71 @@
         <div class="col-md-2 col-sm-4 col-xs-3">
           <ul class="menu-extra">
             <li class="search search__open hidden-xs" (click)="openResearchModal()"><span class="ti-search"></span></li>
-            <li><a href="/login"><span class="ti-user"></span></a></li>
+<!--            <li><a href="/login"><span class="ti-user"></span></a></li>-->
+            <li [hidden]="loginFlag"><a href="/login"><span class="ti-user"></span></a></li>
             <li><a title="Voir la wishlist" routerLink="/wishlist" [state]="{ operation: 'list'}"><span class="ti-heart"></span></a></li>
 <!--            <li class="cart__menu"><span class="ti-heart"></span></li>-->
-            <li class="toggle__menu hidden-xs hidden-sm"><span class="ti-menu"></span></li>
+<!--            <li class="toggle__menu hidden-xs hidden-sm"><span class="ti-menu"></span></li>-->
+            <li [hidden]="!adminLogged" style="float:right">
+              <nav class="navbar navbar-expand navbar-light bg-white topbar mt-3 static-top  ">
+                <!-- Topbar Navbar -->
+                <ul class="navbar-nav ml-auto">
+                  <!-- Nav Item - User Information -->
+                  <li class="nav-item dropdown no-arrow">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class=" d-none d-lg-inline text-gray-150 small" style="color:blue; font-size:15px">Admin</span>
+                      <img class="img-profile rounded-circle" style="background-color:aquamarine">
+                    </a>
+                    <!-- Dropdown - User Information -->
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                      <a class="dropdown-item" routerLink="/admin/profile" style="color:blue; font-size:15px">
+                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-150"></i>
+                        Profile
+                      </a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" (click)="logoutAdmin()" data-toggle="modal" data-target="#logoutModal" style="color:blue; font-size:15px">
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-150"></i>
+                        Logout
+                      </a>
+                    </div>
+                  </li>
+<!---->
+                </ul>
+              </nav>
+            </li>
+            <li [hidden]="!providerLogged" style="float:right">
+              <nav class="navbar navbar-expand navbar-light bg-white topbar mt-3 static-top  ">
+                <!-- Topbar Navbar -->
+                <ul class="navbar-nav ml-auto">
+                  <!-- Nav Item - User Information -->
+                  <li class="nav-item dropdown no-arrow">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class=" d-none d-lg-inline text-gray-150 small" style="color:blue; font-size:15px">Connecté</span>
+                      <img class="img-profile rounded-circle" style="background-color:aquamarine">
+                    </a>
+                    <!-- Dropdown - User Information -->
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                      <a class="dropdown-item" routerLink="/provider/profile" style="color:blue; font-size:15px">
+                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-150"></i>
+                        {{login}}
+                      </a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" routerLink="/provider/profile" style="color:blue; font-size:15px">
+                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-150"></i>
+                        Profile
+                      </a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" (click)="logoutProvider()" data-toggle="modal" data-target="#logoutModal" style="color:blue; font-size:15px">
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-150"></i>
+                        Logout
+                      </a>
+                    </div>
+                  </li>
+<!---->
+                </ul>
+              </nav>
+            </li>
+
           </ul>
         </div>
       </div>

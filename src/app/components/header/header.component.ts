@@ -18,6 +18,10 @@ export class HeaderComponent implements OnInit, OnChanges, DoCheck {
 
   AdminSpace=false;
   researchFlag=true;
+  providerLogged=false;
+  loginFlag=false;
+  login;
+  adminLogged=false;
   researchParams = { 'product': '', 'provider' : '' , 'speciality': ''}
   collection = { count: 0, specialities: Array<SpecialityModel> () };
   constructor(private ProductService: ProductService, private ProviderService: ProviderService, private StorageService: LocalStorageService, private router:Router) { }
@@ -29,6 +33,22 @@ export class HeaderComponent implements OnInit, OnChanges, DoCheck {
     }else{
       this.AdminSpace = false;
     }
+    let adminLoggedResponse = this.StorageService.getAdminLogin();
+    if(adminLoggedResponse.trim() == 'admin'){
+      this.adminLogged = true;
+      this.providerLogged = false;
+    }else{
+      this.adminLogged = false;
+    }
+    let providerLoggedResponse = this.StorageService.getProviderLogin();
+    if(providerLoggedResponse.trim() == ''){
+      this.providerLogged = false;
+    }else{
+      this.providerLogged = true;
+      this.login = this.StorageService.getProviderLogin();
+      this.adminLogged = false;
+    }
+    this.loginFlag = this.loginIsHidden();
   }
 
   ngDoCheck(){
@@ -38,6 +58,22 @@ export class HeaderComponent implements OnInit, OnChanges, DoCheck {
     }else{
       this.AdminSpace = false;
     }
+    let adminLoggedResponse = this.StorageService.getAdminLogin();
+    if(adminLoggedResponse.trim() == 'admin'){
+      this.adminLogged = true;
+      this.providerLogged = false;
+    }else{
+      this.adminLogged = false;
+    }
+    let providerLoggedResponse = this.StorageService.getProviderLogin();
+    if(providerLoggedResponse.trim() == ''){
+      this.providerLogged = false;
+    }else{
+      this.providerLogged = true;
+      this.adminLogged = false;
+      this.login = this.StorageService.getProviderLogin();
+    }
+    this.loginFlag = this.loginIsHidden();
   }
   ngOnInit(): void {
     let AdminSpaceResponse = this.StorageService.getAdminSpace();
@@ -46,13 +82,35 @@ export class HeaderComponent implements OnInit, OnChanges, DoCheck {
     }else{
       this.AdminSpace = false;
     }
+    let adminLoggedResponse = this.StorageService.getAdminLogin();
+    if(adminLoggedResponse.trim() == 'admin'){
+      this.adminLogged = true;
+      this.providerLogged = false;
+    }else{
+      this.adminLogged = false;
+    }
+    let providerLoggedResponse = this.StorageService.getProviderLogin();
+    if(providerLoggedResponse.trim() == ''){
+      this.providerLogged = false;
+    }else{
+      this.providerLogged = true;
+      this.adminLogged = false;
+      this.login = this.StorageService.getProviderLogin();
+    }
     this.ProviderService.getAllSpecialities().then(response => {
       for (const resp of response) {
         this.collection.specialities.push(new SpecialityModel(resp));
       }
     });
+    this.loginFlag = this.loginIsHidden();
  }
 
+  loginIsHidden(){
+    if(this.adminLogged || this.providerLogged){
+      return true;
+    }
+    return false;
+  }
   openSuccessModal(message)
   {
     Swal.fire({text: message,icon: 'success'});
@@ -116,4 +174,15 @@ export class HeaderComponent implements OnInit, OnChanges, DoCheck {
           }
       })
     }
+
+  logoutAdmin(){
+    this.StorageService.storeUserOnStorage('client');
+    this.StorageService.storeAdminLogin('');
+    this.router.navigate(['/home']).then(() => {window.location.reload(); });
+  }
+  logoutProvider(){
+    this.StorageService.storeUserOnStorage('client');
+    this.StorageService.storeProviderLogin('');
+    this.router.navigate(['/home']).then(() => {window.location.reload(); });
+  }
 }

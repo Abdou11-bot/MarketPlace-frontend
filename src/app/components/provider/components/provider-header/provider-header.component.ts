@@ -19,6 +19,7 @@ import{ComplaintModel} from '../../../../models/complaint.model';
 
 })
 export class ProviderHeaderComponent implements OnInit, OnDestroy {
+  provider: ProviderModel;
   collection = { nbSpecialities: 0, products: Array<ProductModel> (), complaints: Array<ComplaintModel> () };
   constructor( private StorageService: LocalStorageService, private router:Router, public sanitizer: DomSanitizer,
               private ProviderService: ProviderService, private ComplaintService : ComplaintService) {  }
@@ -30,6 +31,11 @@ export class ProviderHeaderComponent implements OnInit, OnDestroy {
     if(AdminSpaceResponse.trim() != 'provider'){
       this.router.navigate(['/home']);
     }
+    this.ProviderService.getProfil(this.StorageService.getProviderLogin()).then(response => {
+      if(response!=null){
+        this.provider = new ProviderModel(response);
+      }
+    });
     this.ComplaintService.getOwnedComplaint(this.StorageService.getProviderLogin()).then(response => {
         for(let resp of response){
           this.collection.complaints.push(new ComplaintModel(resp));
@@ -45,6 +51,7 @@ export class ProviderHeaderComponent implements OnInit, OnDestroy {
   }
   logout(){
     this.StorageService.storeUserOnStorage('client');
+    this.StorageService.storeProviderLogin('');
     this.router.navigate(['/home']);
   }
 

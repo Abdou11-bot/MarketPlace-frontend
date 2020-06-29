@@ -117,6 +117,7 @@ export class LoginComponent implements OnInit {
           this.verificationLogin = true;
           if(this.AdminVerification){
             this.StorageService.storeUserOnStorage('admin');
+            this.StorageService.storeAdminLogin('admin');
             this.router.navigate(['/admin/home']);
           }else{
             this.StorageService.storeUserOnStorage('provider');

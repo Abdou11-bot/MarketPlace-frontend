@@ -49,6 +49,7 @@ export class AdminHeaderComponent implements OnInit, OnDestroy {
   }
   logout(){
     this.StorageService.storeUserOnStorage('client');
+    this.StorageService.storeAdminLogin('');
     this.router.navigate(['/home']);
   }
 
