@@ -26,13 +26,13 @@
         <div [hidden] = "detailFlag" class="card shadow mb-4">
           <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Liste des produits :</h6>
-<!--            <button class="btn btn-primary bnt-lg" (click)="loadData(0)">Ajouter</button>-->
-                            <button type="button" class="btn btn-success float-right btn-zoom" (click)="openAddProductModal()  ">
-                              <i class="fa fa-plus-square"></i>	</button>
+            <!--            <button class="btn btn-primary bnt-lg" (click)="loadData(0)">Ajouter</button>-->
+            <button type="button" class="btn btn-success float-right btn-zoom" (click)="openAddProductModal()  ">
+              <i class="fa fa-plus-square"></i>	</button>
           </div>
           <div  class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered norme" id="dataTable" width="100%" cellspacing="0">
+              <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                 <thead class="card-header py-3">
                 <tr>
                   <th>Etat  <span class="glyphicon glyphicon-triangle-top " (click)="customSort(1)"></span><span (click)="reverseCustomSort(1)" class="glyphicon glyphicon-triangle-bottom"></span></th>
@@ -45,18 +45,6 @@
                   <th></th>
                 </tr>
                 </thead>
-                <tfoot class="card-header py-3">
-                <tr>
-                  <th>Etat</th>
-                  <th>Nom</th>
-                  <th>Reference</th>
-                  <th>Marque</th>
-                  <th>Nombre de Vue</th>
-                  <th>Nombre de demande</th>
-                  <th>Nombre de reclamations </th>
-                  <th></th>
-                </tr>
-                </tfoot>
                 <tbody>
                 <tr *ngFor="let product of collection.products | paginate: config ; let i = index" >
                   <td *ngIf="product.blocked == true">Bloqué</td>
@@ -87,54 +75,78 @@
           <div class="card-body">
             <form >
               <div class="modal-body">
-                <div class="single-contact-form " >
-                  <div class="contact-box name">
-                    <label class="form-control form-input-size norme" >
-                      Nom : {{product.name}}
-                    </label>
-                    <label class="form-control form-input-size norme"  >
-                      Marque : {{product.marque}}
-                    </label>
-                  </div>
-                </div>
-                <div class="single-contact-form " >
-                  <div class="contact-box name">
-                    <label class="form-control form-input-size norme"  >
-                      Reference : {{product.reference}}
-                    </label>
-                    <label class="form-control form-input-size norme"  >
-                      Catalogue : <a href="product.catalogue" download="{{getCatalogueName(product)}}">{{getCatalogueName(product)}}</a>
-                    </label>
-                  </div>
-                </div>
-                <div class="single-contact-form " >
-                  <div class="contact-box name">
-                    <label class="form-control form-input-size norme"  >
-                      Specialité : {{product.speciality.name}}
-                    </label>
-                    <label class="form-control form-input-size norme"  >
-                      Nombre de Vue : {{product.nombreVue}}
-                    </label>
-                  </div>
-                </div>
-                <div class="single-contact-form " >
-                  <div class="contact-box name">
-                    <label *ngIf="!product.blocked" class="form-control form-input-size norme"  >
-                      Etat : Non bloqué
-                    </label>
-                    <label *ngIf="product.blocked" class="form-control form-input-size norme" style="background-color: red">
-                      Etat : Bloqué
-                    </label>
-                  </div>
-                </div>
-                <div class="single-contact-form">
-                  <div class="contact-box message">
-                    <label class="form-control form-input-size norme">Description :</label>
-                    <p class="form-control" rows="10" cols="30" style="font-size:25px; border: 0px" >
-                      {{product.description}}
-                    </p>
-                  </div>
-                </div>
+                <table class="w-100">
+                  <tr>
+                    <td>
+                      <div class="single-contact-form " >
+                        <div class="contact-box name">
+                          <label class="form-control-custom form-input-size norme" >
+                            Nom : {{product.name}}
+                          </label>
+                        </div>
+                      </div>
+                      <div class="single-contact-form " >
+                        <div class="contact-box name">
+                          <label class="form-control-custom form-input-size norme"  >
+                            Marque : {{product.marque}}
+                          </label>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="single-contact-form " >
+                        <div class="contact-box name">
+                          <label class="form-control-custom form-input-size norme"  >
+                            Nombre de Vue : {{product.nombreVue}}
+                          </label>
+                        </div>
+                      </div>
+                      <div class="single-contact-form " >
+                        <div class="contact-box name">
+                          <label *ngIf="!product.blocked" class="form-control-custom form-input-size norme"  >
+                            Etat : Non bloqué
+                          </label>
+                          <label *ngIf="product.blocked" class="form-control-custom form-input-size norme" style="color: red">
+                            Etat : Bloqué
+                          </label>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="single-contact-form " >
+                        <div class="contact-box name">
+                          <label class="form-control-custom form-input-size norme"  >
+                            Reference : {{product.reference}}
+                          </label>
+                        </div>
+                      </div>
+                      <div class="single-contact-form " >
+                        <div class="contact-box name">
+                          <label class="form-control-custom form-input-size norme"  >
+                            Catalogue : <a href="product.catalogue" download="{{getCatalogueName(product)}}">{{getCatalogueName(product)}}</a>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="single-contact-form " >
+                        <div class="contact-box name">
+                          <label class="form-control-custom form-input-size norme"  >
+                            Specialité : {{product.speciality.name}}
+                          </label>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="single-contact-form ">
+                        <div class="contact-box message ">
+                          <label class="form-control-custom form-input-size norme ">Description :</label><br>
+                          <p class="form-control-custom " rows="10" cols="30" >{{product.description}}</p>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
                 <hr>
                 <div class="single-contact-form " >
                   <div class="contact-box name">
@@ -147,12 +159,12 @@
                         </ol>
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner">
-                          <div class="item active" >
-                            <img *ngIf="product.images[0] != null" [src]="sane(product.images[0].path)" style=" width: 100%  !important; height: 500px  !important;" alt="{{product.name}}">
+                          <div class="item active " >
+                            <img *ngIf="product.images[0] != null" [src]="sane(product.images[0].path)" style=" width: 100%  !important; height: 300px !important;" alt="{{product.name}}">
                           </div>
 
-                          <div class="item"  *ngFor="let image of product.images, index as i" >
-                            <img [src]="sane(image.path)" style=" width: 100%  !important; height: 500px  !important;" alt="{{product.name}}">
+                          <div class="item "  *ngFor="let image of product.images, index as i" >
+                            <img [src]="sane(image.path)" style=" width: 100%  !important; height: 300px  !important;" alt="{{product.name}}">
                           </div>
 
                         </div>
@@ -173,7 +185,7 @@
                 <div class="contact-btn"  style=" margin-top:100px">
                   <button type="button" class="SendButton btn btn-lg btn-primary" (click)="openUpdateProductModal()" style="float: left"><span class="glyphicon glyphicon-edit"></span></button>
                   <button type="button" class="SendButton btn btn-lg btn-danger" (click)="deleteproduct(product.id)" style="float: left; margin-left:15px"><span class="glyphicon glyphicon-trash"></span></button>
-                  <button type="button" class="SendButton btn btn-lg btn-danger" (click)="displayList()" style="float: right">Revenir à la liste</button>
+                  <button type="button" class="SendButton btn btn-lg btn-secondary" (click)="displayList()" style="float: right">Revenir à la liste</button>
                 </div>
               </div>
             </form>

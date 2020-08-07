@@ -6,7 +6,7 @@ import{ProviderModel} from '../../models/provider.model';
 import{ProductModel} from '../../models/product.model';
 import{SpecialityModel} from '../../models/speciality.model';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
+import {environment} from '../../../environments/environment';
 import {EventEmitter, Input, Output, TemplateRef, ViewEncapsulation} from '@angular/core';
 import {Router} from '@angular/router';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -64,12 +64,12 @@ export class HomeComponent implements OnInit {
 
 
   sane(imagrSrc: any) {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(imagrSrc);
+    return this.sanitizer.bypassSecurityTrustResourceUrl(environment.SERVER_RESOURCE_URL+imagrSrc);
   }
    gotoListProductsOfSpeciality(id:number){
       this.StorageService.storeType('speciality');
       this.StorageService.storeSpeciality(''+id);
-      this.router.navigate(['/produits']).then(() => {window.location.reload(); });
+      this.router.navigate(['/produits/',id]);
     }
 
   SpecialityExists(id: number){
@@ -78,6 +78,10 @@ export class HomeComponent implements OnInit {
         return true;
     }
     return false;
+  }
+
+  public gotoProductDetails(url, id) {
+      this.router.navigate([url, id]);
   }
 }
 

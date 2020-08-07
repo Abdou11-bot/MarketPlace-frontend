@@ -6,11 +6,18 @@ import {ProductModel} from '../models/product.model';
 import {MedecinModel} from '../models/medecin.model';
 import {ProviderModel} from '../models/provider.model';
 import {SpecialityModel} from '../models/speciality.model';
-
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json',
+    Authorization: 'user:10419e44-5261-4c7b-811a-8bff2742ce51'
+  })
+};
 @Injectable({providedIn: 'root'})
 export class ProviderService {
+  public httpOptions= 'Basic ' + window.btoa( 'user:10419e44-5261-4c7b-811a-8bff2742ce51');
   constructor(private http: HttpClient) {
   }
+
   getAllProviders(): Promise<Array<MedecinModel>> {
     return this.http.get<Array<MedecinModel>>(environment.SERVER_API_URL + '/api/provider/getAllProviders').toPromise();
   }
@@ -35,8 +42,9 @@ export class ProviderService {
   activateprovider(id: number): Promise<any> {
     return this.http.get<ProductModel>(environment.SERVER_API_URL + '/api/admin/activateprovider/'+id).toPromise();
   }
+
   getAllSpecialities(): Promise<Array<SpecialityModel>> {
-    return this.http.get<Array<SpecialityModel>>(environment.SERVER_API_URL + '/api/provider/specialities').toPromise();
+    return this.http.get<Array<SpecialityModel>>(environment.SERVER_API_URL + '/api/provider/specialities',httpOptions).toPromise();
   }
   getAllSpecialitiesSuscribed(): Promise<Array<SpecialityModel>> {
     return this.http.get<Array<SpecialityModel>>(environment.SERVER_API_URL + '/api/provider/getallspecialitiessuscribed').toPromise();

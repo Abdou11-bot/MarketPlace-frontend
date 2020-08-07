@@ -63,7 +63,7 @@
           </div>
           <div class="contact-form-wrap">
             <div class="contact-title">
-              <h2 class="contact__title">Get In Touch</h2>
+              <h2 class="contact__title">Contacter</h2>
             </div>
             <form (ngSubmit)="onSubmit()" #productFormAdd="ngForm">
               <div class="modal-body">
@@ -74,14 +74,14 @@
                       style=" height:25%; font-size:25px;"
                       id="nameAdd"
                       name="nameAdd"
-                      placeholder="Enter product name"
+                      placeholder="Entrer votre nom"
                       required #nameAdd="ngModel">
                     <input type="text" [(ngModel)]="Complaint.email"
                       class="form-control form-input-size"
                       style=" height:25%; font-size:25px;"
                       id="emailAdd"
                       name="emailAdd"
-                      placeholder="Enter product email"
+                      placeholder="Entrer votre email"
                       required #emailAdd="ngModel">
                   </div>
                 </div>
@@ -92,7 +92,7 @@
                            style=" height:25%; font-size:25px;"
                            id="objetAdd"
                            name="objetAdd"
-                           placeholder="Enter product objet"
+                           placeholder="Entrer l' objet"
                            required #objetAdd="ngModel">
                   </div>
                 </div>
@@ -104,7 +104,7 @@
                       style="font-size:25px;"
                       id="messageAdd"
                       name="messageAdd"
-                      placeholder="Enter a message"
+                      placeholder="Entrer votre message"
                       required #messageAdd="ngModel">{{Complaint.message}}</textarea>
                   </div>
                 </div>

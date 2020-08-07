@@ -32,7 +32,10 @@ export class AdminMessageContentComponent implements OnInit , OnDestroy {
   ngOnInit(): void {
     this.ComplaintService.getAllComplaint().then(response => {
         for(let resp of response){
-          this.collection.complaints.push(new ComplaintModel(resp));
+		let message = new ComplaintModel(resp);
+		if(message.product == null){
+			this.collection.complaints.push(message);	
+		}
         }
     });
     this.config = {
@@ -55,32 +58,6 @@ export class AdminMessageContentComponent implements OnInit , OnDestroy {
           }
        }
     });
-  }
-  getComplaintsRequests(): number{
-    if(this.collection.complaints.length == 0){
-      return 0;
-    }else{
-      let nbrequest = 0;
-      for(let request of this.collection.complaints){
-        if((!request.vue) && (request.product != null) ){
-          nbrequest += 1;
-        }
-      }
-      return nbrequest;
-    }
-  }
-  getMessages(): number{
-    if(this.collection.complaints.length == 0){
-      return 0;
-    }else{
-      let nbrequest = 0;
-      for(let request of this.collection.complaints){
-        if((!request.vue) && (request.product == null) ){
-          nbrequest += 1;
-        }
-      }
-      return nbrequest;
-    }
   }
 
   loadMessage(i:number){

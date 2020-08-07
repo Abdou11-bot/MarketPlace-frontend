@@ -6,7 +6,6 @@ import{ImageModel} from '../../models/image.model';
 import{ProviderModel} from '../../models/provider.model';
 import{ProductModel} from '../../models/product.model';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
 import {EventEmitter, Input, Output, TemplateRef, ViewEncapsulation} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -16,6 +15,8 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { LocalStorageService } from '../../services/localStorage.service';
 import { SessionStorageService } from '../../services/sessionStorage.service';
+import {environment} from '../../../environments/environment';
+
 @Component({
   selector: 'app-categoriebar',
   templateUrl: './categoriebar.component.html',
@@ -27,11 +28,13 @@ export class CategoriebarComponent implements OnInit {
   product= new ProductModel({'provider':{},'images': [{}],'speciality': {}});
    collection = { count: 0, specialities: Array<SpecialityModel> () };
    closeResult: string;
-   constructor(public ProductService : ProductService,private ProviderService: ProviderService, public sanitizer: DomSanitizer,  private StorageService: LocalStorageService,  private router: Router) {   }
-    gotoListProductsOfSpeciality(id:number){
+   constructor(public ProductService : ProductService,private ProviderService: ProviderService, public sanitizer: DomSanitizer,
+    private StorageService: LocalStorageService,  private router: Router, private activatedRoute: ActivatedRoute) {   }
+
+  gotoListProductsOfSpeciality(id:number){
       this.StorageService.storeType('speciality');
       this.StorageService.storeSpeciality(''+id);
-      this.router.navigate(['/produits']);
+      this.router.navigate(['/produits/',id]);
     }
 
    ngOnInit(): void {
@@ -52,6 +55,10 @@ export class CategoriebarComponent implements OnInit {
         };
    }
   sane(imagrSrc: any) {
-     return this.sanitizer.bypassSecurityTrustResourceUrl(imagrSrc);
+    return this.sanitizer.bypassSecurityTrustResourceUrl(environment.SERVER_RESOURCE_URL+imagrSrc);
    }
- }
+
+  public gotoProductDetails(url, id) {
+      this.router.navigate([url, id]);
+  }
+}

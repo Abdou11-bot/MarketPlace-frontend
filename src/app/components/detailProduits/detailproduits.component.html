@@ -26,7 +26,7 @@
         <div class="product__details__container">
           <div class="product__big__images">
             <div class="portfolio-full-image tab-content">
-              <div role="tabpanel" class="tab-pane fade in active product-video-position" id="img-tab-1" >
+              <div role="tabpanel" class="" id="img-tab-1" >
 
                 <!-- Start Slider Area -->
                 <div class="slider__container">
@@ -34,7 +34,7 @@
                     <!-- Indicators -->
                     <ol class="carousel-indicators"  >
                       <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                      <li *ngFor="let image of product.images, index as i"data-target="#myCarousel" data-slide-to="i"></li>
+                      <li *ngFor="let image of product.images, index as i" data-target="#myCarousel" data-slide-to="i"></li>
                     </ol>
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner">
@@ -68,10 +68,20 @@
       </div>
       <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 smt-30 xmt-30">
         <div class="htc__product__details__inner">
-          <div class="pro__detl__title mb--100  ">
+          <div class="pro__detl__title mb--20  ">
             <h2>{{product.name}}</h2>
           </div>
-          <div class="pro__details mb--20">
+          <div class="pro__detl__title mb--20">
+            <p>Reference: {{product.reference}} </p>
+          </div>
+          <div class="pro__detl__title mb--20">
+            <p>Marque:{{product.marque}} </p>
+          </div>
+          <div class="pro__detl__title mb--20  ">
+            <ul><li>Catalogue: <a href="product.catalogue" download="{{getCatalogueName(product)}}">{{getCatalogueName(product)}}</a></li></ul>
+          </div>
+          <div class="pro__detl__title mb--20">
+            <h3>Description: </h3>
             <p>{{product.description}} </p>
           </div>
           <div  class=" mb--30 mt--40">
@@ -90,8 +100,8 @@
           <ul  class="pro__dtl__btn">
             <li [hidden] = "!medecinFlag"><button class="btn quotationButton" (click)="openRequestQuotationMedecinModal()">Devis</button></li>
             <li [hidden] = "medecinFlag" ><button class="btn quotationButton" (click)="openRequestQuotationModal()">Devis</button></li>
-            <li [hidden] = "wishlistFlag" ><button class="btn quotationButton" title="Ajouter à la wishlist"  (click)="setWishlistOperation('add',product.id)" ><span class="ti-heart"></span></button></li>
-            <li [hidden] = "!wishlistFlag" ><button class="btn btn-info" title="Retirer de la wishlist"  (click)="setWishlistOperation('delete',product.id)" ><span class="ti-heart"></span></button></li>
+            <li [hidden] = "wishlistFlag" ><button class="btn quotationButton" title="Ajouter à la wishlist"  (click)="setWishlistOperation('add',product.id)" ><span class="glyphicon glyphicon-heart-empty"></span></button></li>
+            <li [hidden] = "!wishlistFlag" ><button class="btn btn-info" title="Retirer de la wishlist"  (click)="setWishlistOperation('delete',product.id)" ><span class="glyphicon glyphicon-heart"></span></button></li>
             <li [hidden] = "medecinFlag" ><button class="btn quotationButton" title="Signaler"  (click)="openSendComplaintModal()" ><span class="glyphicon glyphicon-flag"></span> </button></li>
             <li [hidden] = "!medecinFlag" ><button class="btn quotationButton" title="Signaler"  (click)="openSendComplaintModalLogged()" ><span class="glyphicon glyphicon-flag"></span></button></li>
           </ul>
@@ -110,49 +120,49 @@
           <li role="presentation" class="active">
             <a href="#description" role="tab" data-toggle="tab">Description</a>
           </li>
-          <li role="presentation">
-            <a href="#sheet" role="tab" data-toggle="tab">Data sheet</a>
-          </li>
-          <li role="presentation">
-            <a href="#reviews" role="tab" data-toggle="tab">Reviews</a>
-          </li>
+<!--          <li role="presentation">-->
+<!--            <a href="#sheet" role="tab" data-toggle="tab">Data sheet</a>-->
+<!--          </li>-->
+<!--          <li role="presentation">-->
+<!--            <a href="#reviews" role="tab" data-toggle="tab">Reviews</a>-->
+<!--          </li>-->
         </ul>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
         <div class="product__details__tab__content">
-          <!-- Start Single Content -->
-          <div role="tabpanel" id="description" class="product__tab__content fade in active">
-            <div class="product__description__wrap">
-              <div class="product__desc">
-                <h2 class="title__6">Details</h2>
-                <p> {{product.description}}</p>
-              </div>
-              <div class="pro__feature">
-                <h2 class="title__6">Features</h2>
-                <ul class="feature__list">
-                  <li><a href="#"><i class="zmdi zmdi-play-circle"></i>{{product.catalogue}}</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
+          <!-- Start Single Content -->                <p> {{product.description}}</p>
+
+<!--          <div role="tabpanel" id="description" class="product__tab__content fade in active">-->
+<!--            <div class="product__description__wrap">-->
+<!--              <div class="product__desc">-->
+<!--&lt;!&ndash;                <h2 class="title__6">Details</h2>&ndash;&gt;-->
+<!--              </div>-->
+<!--&lt;!&ndash;              <div class="pro__feature">&ndash;&gt;-->
+<!--&lt;!&ndash;                <h2 class="title__6">Features</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;                <ul class="feature__list">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <li><a href="#"><i class="zmdi zmdi-play-circle"></i>{{product.catalogue}}</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;              </div>&ndash;&gt;-->
+<!--            </div>-->
+<!--          </div>-->
           <!-- End Single Content -->
           <!-- Start Single Content -->
-          <div role="tabpanel" id="sheet" class="product__tab__content fade">
-            <div class="pro__feature">
-              <h2 class="title__6">Data sheet</h2>
-              <ul class="feature__list">
-                <li><a href="#"><i class="zmdi zmdi-play-circle"></i>Duis aute irure dolor in reprehenderit in voluptate velit esse</a></li>
-                <li><a href="#"><i class="zmdi zmdi-play-circle"></i>Irure dolor in reprehenderit in voluptate velit esse</a></li>
-                <li><a href="#"><i class="zmdi zmdi-play-circle"></i>Irure dolor in reprehenderit in voluptate velit esse</a></li>
-                <li><a href="#"><i class="zmdi zmdi-play-circle"></i>Sed do eiusmod tempor incididunt ut labore et </a></li>
-                <li><a href="#"><i class="zmdi zmdi-play-circle"></i>Sed do eiusmod tempor incididunt ut labore et </a></li>
-                <li><a href="#"><i class="zmdi zmdi-play-circle"></i>Nisi ut aliquip ex ea commodo consequat.</a></li>
-                <li><a href="#"><i class="zmdi zmdi-play-circle"></i>Nisi ut aliquip ex ea commodo consequat.</a></li>
-              </ul>
-            </div>
-          </div>
+<!--          <div role="tabpanel" id="sheet" class="product__tab__content fade">-->
+<!--            <div class="pro__feature">-->
+<!--              <h2 class="title__6">Data sheet</h2>-->
+<!--              <ul class="feature__list">-->
+<!--                <li><a href="#"><i class="zmdi zmdi-play-circle"></i>Duis aute irure dolor in reprehenderit in voluptate velit esse</a></li>-->
+<!--                <li><a href="#"><i class="zmdi zmdi-play-circle"></i>Irure dolor in reprehenderit in voluptate velit esse</a></li>-->
+<!--                <li><a href="#"><i class="zmdi zmdi-play-circle"></i>Irure dolor in reprehenderit in voluptate velit esse</a></li>-->
+<!--                <li><a href="#"><i class="zmdi zmdi-play-circle"></i>Sed do eiusmod tempor incididunt ut labore et </a></li>-->
+<!--                <li><a href="#"><i class="zmdi zmdi-play-circle"></i>Sed do eiusmod tempor incididunt ut labore et </a></li>-->
+<!--                <li><a href="#"><i class="zmdi zmdi-play-circle"></i>Nisi ut aliquip ex ea commodo consequat.</a></li>-->
+<!--                <li><a href="#"><i class="zmdi zmdi-play-circle"></i>Nisi ut aliquip ex ea commodo consequat.</a></li>-->
+<!--              </ul>-->
+<!--            </div>-->
+<!--          </div>-->
           <!-- End Single Content -->
         </div>
       </div>

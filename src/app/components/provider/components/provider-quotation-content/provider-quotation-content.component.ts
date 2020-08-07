@@ -12,6 +12,7 @@ import{QuotationService} from '../../../../services/quotation.service';
 import{ProviderModel} from '../../../../models/provider.model';
 import{QuotationModel} from '../../../../models/quotation.model';
 import{SpecialityModel} from '../../../../models/speciality.model';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-provider-quotation-content',
@@ -72,7 +73,7 @@ export class ProviderQuotationContentComponent implements OnInit , OnDestroy {
     this.detailFlag = false;
   }
   sane(imagrSrc: any) {
-     return this.sanitizer.bypassSecurityTrustResourceUrl(imagrSrc);
+    return this.sanitizer.bypassSecurityTrustResourceUrl(environment.SERVER_RESOURCE_URL+imagrSrc);
    }
 
   customSort(filter:number){

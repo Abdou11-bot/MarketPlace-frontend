@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
   ConnexionType : string = 'provider';
   AdminVerification : boolean;
   displayLoginForm : boolean = true;
+  displayRegister : boolean = false;
   SocietyRepVerification : boolean = false;
   verificationLogin : boolean = true;
   verificationRegister : boolean = true;
@@ -39,7 +40,7 @@ export class LoginComponent implements OnInit {
   MedecinData = new MedecinModel({});
   SocietyData = new SocietyModel({});
   Complaint= new ComplaintModel({'product':{'provider':{},'images': [],'speciality': {}}});
-  collection = { Specialities: Array<SpecialityModel> () };
+  collection = { Specialities: Array<SpecialityModel> (), selectedSpecialities: Array<SpecialityModel> ()  };
   SpecialitiesSelectedPrice: number;
   constructor(private ProviderService: ProviderService,private router:Router,private StorageService: LocalStorageService,
              public LoginService : LoginService, public ComplaintService : ComplaintService, public ProductService : ProductService) {}
@@ -60,6 +61,13 @@ export class LoginComponent implements OnInit {
       this.displayLoginForm = false;
     }
   }
+  changeDisplayRegister(index:number){
+    if(index==2){
+      this.displayRegister = true;
+    }else{
+      this.displayRegister = false;
+    }
+  }
   openSuccessModal(message)
   {
     Swal.fire({text: message,icon: 'success'});
@@ -69,11 +77,18 @@ export class LoginComponent implements OnInit {
     Swal.fire(error, message, 'error')
   }
 
-  SpecialityChecked(value:boolean, id:number){
+  SpecialityChecked(value:boolean, speciality:SpecialityModel){
     if(value){
-      this.SpecialitiesSelectedPrice+=this.getSpecialityPrice(id);
+      this.SpecialitiesSelectedPrice += speciality.price;
+      this.collection.selectedSpecialities.push(speciality)
     }else{
-      this.SpecialitiesSelectedPrice-=this.getSpecialityPrice(id);
+      this.SpecialitiesSelectedPrice -= speciality.price;
+      let specialitiesTemp = [];
+      for(let specialityTemp of this.collection.selectedSpecialities){
+        if(speciality.id != specialityTemp.id)
+          specialitiesTemp.push(specialityTemp);
+      }
+      this.collection.selectedSpecialities = specialitiesTemp;
     }
   }
   getSpecialityPrice(id:number): number{
@@ -100,7 +115,7 @@ export class LoginComponent implements OnInit {
     this.verificationLogin = value;
   }
   onSubmit(event: any){
-    if(this.LoginData.password.trim()===''){
+     if(this.LoginData.password.trim()===''){
       this.openFailedModal('Erreur','Verifier le password');
       this.verificationLogin = false;
     }else{
@@ -133,7 +148,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmitRegister(event: any){
-    this.LoginService.register(JSON.stringify(this.RegisterData),JSON.stringify(this.SocietyData),this.collection).then(async response => {
+    this.LoginService.register(this.RegisterData.email,JSON.stringify(this.RegisterData),JSON.stringify(this.SocietyData),this.collection.selectedSpecialities).then(async response => {
       if(response!=null){
         this.verificationRegister = true;
         await this.openSuccessModal('Reussi');

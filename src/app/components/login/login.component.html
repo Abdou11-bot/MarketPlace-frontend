@@ -1,28 +1,28 @@
 <!-- Start Login Register Area -->
-<div class="htc__login__register bg__white ptb--130" style="background: rgba(0, 0, 0, 0) url(assets/images/bg/5.jpg) no-repeat scroll center center / cover ; ">
+<div class="htc__login__register bg__white ptb--130" >
+<!--<div class="htc__login__register bg__white ptb&#45;&#45;130" style="background: rgba(0, 0, 0, 0) url(assets/images/bg/5.jpg) no-repeat scroll center center / cover ; ">-->
   <div class="container">
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
         <ul class="login__register__menu " role="tablist">
-          <li role="presentation" class="login active loginTitle" style="" ><a  class="loginTitle" href="#login" role="tab" data-toggle="tab">Login</a></li>
-          <li role="presentation" class="register"><a href="#register" role="tab" data-toggle="tab">Register</a></li>
+          <li role="presentation" class="login active loginTitle" style="" ><a  class="loginTitle" href="#login" (click)="changeDisplayRegister(1)" role="tab" data-toggle="tab">Login</a></li>
+          <li role="presentation" class="register"><a href="#register" role="tab" data-toggle="tab" (click)="changeDisplayRegister(2)">Register</a></li>
         </ul>
       </div>
     </div>
     <!-- Start Login Register Content -->
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
-        <div class="htc__login__register__wrap ">
+        <div class=" ">
           <!-- Start Single Content -->
-          <div id="login" role="tabpanel" class="single__tabs__panel tab-pane fade in active">
-
+          <div [hidden]="displayRegister" class=" table table-bordered norme card-header py-3 single__tabs__panel tab-pane  in active">
             <form (ngSubmit)="onSubmit($event)" #LoginForm="ngForm">
               <div class="login">
                 <label [hidden]="verificationLogin" class="alert">* Vérifier les informations données</label>
                 <label [hidden]="!AdminVerification" class="notif">* L'Email n'est pas necessaire</label>
                 <div class="form-group">
                   <input type="email" [(ngModel)]="LoginData.Email"
-                         class="form-control"
+                         class="form-control-custom "
                          id="loginEmail"
                          name="loginEmail"
                          placeholder="Email"
@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-group">
                   <input type="password" [(ngModel)]="LoginData.password"
-                         class="form-control"
+                         class="form-control-custom "
                          id="loginpassword"
                          name="loginpassword"
                          placeholder="Password"
@@ -56,7 +56,7 @@
           </div>
           <!-- End Single Content -->
           <!-- Start Single Content -->
-          <div id="register" role="tabpanel" class="register-width single__tabs__panel tab-pane fade" style="width: 200%; ">
+          <div [hidden]="!displayRegister" class=" register-width single__tabs__panel tab-pane in active" style="width: 200%; ">
             <label class="specialities-label"> Fournisseur
               <input name="TypeProvider" type="radio"  (change)="changeDisplayForm(1)" checked >
               <span class="checkmark"></span>
@@ -66,52 +66,53 @@
               <span class="checkmark"></span>
             </label>
             <hr>
+<label style="color:red">(*) obligatoire</label>
             <form [hidden]="!displayLoginForm" (ngSubmit)="onSubmitRegister($event)" #RegisterForm="ngForm">
               <div class="login">
                 <label [hidden]="verificationRegister" class="alert">* Vérifier les informations données</label>
                 <div class="form-group">
-                  <input type="text" [(ngModel)]="RegisterData.firstname"
-                         class="form-control"
+                 * <input type="text" [(ngModel)]="RegisterData.firstname"
+                         class="form-control-custom "
                          id="Registerfirstname"
                          name="Registerfirstname"
                          placeholder="firstname"
                          required #Registerfirstname="ngModel">
                 </div>
                 <div class="form-group">
-                  <input type="text" [(ngModel)]="RegisterData.lastname"
-                         class="form-control"
+                 * <input type="text" [(ngModel)]="RegisterData.lastname"
+                         class="form-control-custom "
                          id="Registerlastname"
                          name="Registerfirstname"
                          placeholder="lastname"
                          required #Registerlastname="ngModel">
                 </div>
                 <div class="form-group">
-                  <input type="text" [(ngModel)]="RegisterData.tel"
-                         class="form-control"
+                 * <input type="text" [(ngModel)]="RegisterData.tel"
+                         class="form-control-custom "
                          id="Registertel"
                          name="Registertel"
                          placeholder="tel"
                          required #Registertel="ngModel">
                 </div>
                 <div class="form-group">
-                  <input type="email" [(ngModel)]="RegisterData.email"
-                         class="form-control"
+                 * <input type="email" [(ngModel)]="RegisterData.email"
+                         class="form-control-custom "
                          id="RegisterEmail"
                          name="RegisterEmail"
                          placeholder="Email"
                          required #RegisterEmail="ngModel">
                 </div>
                 <div class="form-group">
-                  <input type="password" [(ngModel)]="RegisterData.password"
-                         class="form-control"
+                 * <input type="password" [(ngModel)]="RegisterData.password"
+                         class="form-control-custom "
                          id="password1"
                          name="password1"
                          placeholder="Password"
                          #Registerpassword1="ngModel">
                 </div>
                 <div class="form-group">
-                  <input type="password" [(ngModel)]="ConfirmPassword"
-                         class="form-control"
+                 * <input type="password" [(ngModel)]="ConfirmPassword"
+                         class="form-control-custom "
                          id="password2"
                          name="password2"
                          placeholder="Confirm Password"
@@ -124,39 +125,37 @@
 
               <hr>
               <div>
-                <label class="specialities-label"> Representant d'une societé
-                  <input name="TypeProvider" type="checkbox"  #SocietyRepcheckbox (change)="SocietyRepChanged(SocietyRepcheckbox.checked)" >
-                  <span class="checkmark"></span>
-                </label>
-                <hr>
-                <div class="login" [hidden]="!SocietyRepcheckbox.checked">
+<!--                <label class="specialities-label"> Representant d'une societé-->
+<!--                  <input name="TypeProvider" type="checkbox"  #SocietyRepcheckbox (change)="SocietyRepChanged(SocietyRepcheckbox.checked)" >-->
+<!--                  <span class="checkmark"></span>-->
+<!--                </label>-->
+<!--                <hr>-->
+                <div class="login" >
+<!--                <div class="login" [hidden]="!SocietyRepcheckbox.checked">-->
                   <label>Informations Societé</label>
                   <hr>
                   <div class="form-group">
-                    <input type="text" [(ngModel)]="SocietyData.name"
-                           class="form-control"
+                 *   <input type="text" [(ngModel)]="SocietyData.name"
+                           class="form-control-custom "
                            id="RegisterSocietyname"
                            name="RegisterSocietyname"
                            placeholder="Societyname"
-                           [disabled]="!SocietyRepcheckbox.checked"
                            required #RegisterSocietyname="ngModel">
                   </div>
                   <div class="form-group">
-                    <input type="text" [(ngModel)]="SocietyData.tel"
-                           class="form-control"
+                  *  <input type="text" [(ngModel)]="SocietyData.tel"
+                           class="form-control-custom "
                            id="RegisterSocietytel"
                            name="RegisterSocietytel"
                            placeholder="Societytel"
-                           [disabled]="!SocietyRepcheckbox.checked"
                            required #RegisterSocietytel="ngModel">
                   </div>
                   <div class="form-group">
-                    <input type="email" [(ngModel)]="SocietyData.email"
-                           class="form-control"
+                   * <input type="email" [(ngModel)]="SocietyData.email"
+                           class="form-control-custom "
                            id="RegisterSocietyemail"
                            name="RegisterSocietyemail"
                            placeholder="Societyemail"
-                           [disabled]="!SocietyRepcheckbox.checked"
                            required #RegisterSocietyemail="ngModel">
                   </div>
                 </div>
@@ -166,8 +165,8 @@
                     <div class="flex-container">
                       <label class="specialities-label" *ngFor="let speciality of collection.Specialities ; index as i" >
                         {{speciality.name}}
-                        <input type="checkbox" name="specialities" #SpecialityElement
-                             value="{{speciality.id}}" (change)="SpecialityChecked(SpecialityElement.checked,speciality.id)">
+                       * <input type="checkbox" name="specialities" #SpecialityElement
+                             value="{{speciality.id}}" (change)="SpecialityChecked(SpecialityElement.checked,speciality)">
                         <span class="checkmark"></span>
                       </label>
                     </div>
@@ -185,48 +184,48 @@
               <div class="login">
                 <label [hidden]="verificationRegister" class="alert">* Vérifier les informations données</label>
                 <div class="form-group">
-                  <input type="text" [(ngModel)]="MedecinData.firstname"
-                         class="form-control"
+                *  <input type="text" [(ngModel)]="MedecinData.firstname"
+                         class="form-control-custom "
                          id="Medecinfirstname"
                          name="Medecinfirstname"
                          placeholder="firstname"
                          required #Medecinfirstname="ngModel">
                 </div>
                 <div class="form-group">
-                  <input type="text" [(ngModel)]="MedecinData.lastname"
-                         class="form-control"
+                *  <input type="text" [(ngModel)]="MedecinData.lastname"
+                         class="form-control-custom "
                          id="Medecinlastname"
                          name="Medecinfirstname"
                          placeholder="lastname"
                          required #Medecinlastname="ngModel">
                 </div>
                 <div class="form-group">
-                  <input type="text" [(ngModel)]="MedecinData.tel"
-                         class="form-control"
+                *  <input type="text" [(ngModel)]="MedecinData.tel"
+                         class="form-control-custom "
                          id="Medecintel"
                          name="Medecintel"
                          placeholder="tel"
                          required #Medecintel="ngModel">
                 </div>
                 <div class="form-group">
-                  <input type="email" [(ngModel)]="MedecinData.email"
-                         class="form-control"
+                *  <input type="email" [(ngModel)]="MedecinData.email"
+                         class="form-control-custom "
                          id="MedecinEmail"
                          name="MedecinEmail"
                          placeholder="Email"
                          required #MedecinEmail="ngModel">
                 </div>
                 <div class="form-group">
-                  <input type="password" [(ngModel)]="MedecinData.password"
-                         class="form-control"
+                *  <input type="password" [(ngModel)]="MedecinData.password"
+                         class="form-control-custom "
                          id="Medecinpassword1"
                          name="Medecinpassword1"
                          placeholder="Password"
                          #Medecinpassword1="ngModel">
                 </div>
                 <div class="form-group">
-                  <input type="password" [(ngModel)]="ConfirmPassword"
-                         class="form-control"
+                 * <input type="password" [(ngModel)]="ConfirmPassword"
+                         class="form-control-custom "
                          id="Medecinpassword2"
                          name="Medecinpassword2"
                          placeholder="Confirm Password"

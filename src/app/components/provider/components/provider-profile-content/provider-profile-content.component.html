@@ -27,70 +27,69 @@
               <div class="modal-body">
                 <div class="single-contact-form " >
                   <div class="contact-box name">
-                    <label class="form-control form-input-size norme" >
+                    <label class="form-control-custom  form-input-size norme" >
                       Nom : {{provider.lastname}}
                     </label>
-                    <label class="form-control form-input-size norme"  >
+                    <label class="form-control-custom  form-input-size norme"  >
                       Prenom : {{provider.firstname}}
                     </label>
                   </div>
                 </div>
                 <div class="single-contact-form " >
                   <div class="contact-box name">
-                    <label class="form-control form-input-size norme"  >
+                    <label class="form-control-custom  form-input-size norme"  >
                       Tel : {{provider.tel}}
                     </label>
-                    <label class="form-control form-input-size norme"  >
+                    <label class="form-control-custom  form-input-size norme"  >
                       Email : {{provider.email}}
                     </label>
                   </div>
                 </div>
                 <div  *ngIf="!provider.type" class="single-contact-form " >
                   <div class="contact-box name">
-                    <label class="form-control form-input-size norme"  >
+                    <label class="form-control-custom  form-input-size norme"  >
                       Date d'abonnement : {{provider.date}}
                     </label>
-                    <label class="form-control form-input-size norme"  >
+                    <label class="form-control-custom  form-input-size norme"  >
                       Type : Particulier
                     </label>
                   </div>
                 </div>
                 <div  *ngIf="provider.type" class="single-contact-form " >
                   <div class="contact-box name">
-                    <label class="form-control form-input-size norme"  >
+                    <label class="form-control-custom  form-input-size norme"  >
                       Date d'abonnement : {{getDate(provider.date)}} à {{getHour(provider.date)}}
                     </label>
-                    <label class="form-control form-input-size norme"  >
+                    <label class="form-control-custom  form-input-size norme"  >
                       Represantant de {{provider.society.name}}
                     </label>
                   </div>
                 </div>
                 <div  *ngIf="provider.type" class="single-contact-form " >
                   <div class="contact-box name">
-                    <label class="form-control form-input-size norme"  >
+                    <label class="form-control-custom  form-input-size norme"  >
                       Email Societé : {{provider.society.email}}
                     </label>
-                    <label class="form-control form-input-size norme"  >
+                    <label class="form-control-custom  form-input-size norme"  >
                       Tel Societé : {{provider.society.tel}}
                     </label>
                   </div>
                 </div>
-                <hr>
                 <div *ngIf="provider.type == true" class="single-contact-form">
                   <div class="contact-box name">
-                    <label class="form-control form-input-size norme"  >
+                    <label class="form-control-custom  form-input-size norme"  >
                       {{collection.ownedSpecialities.length}}  specialités  : </label>
-                    <select class="form-control form-input-size norme"   >
+                    <select class="form-control-custom  form-input-size norme"   >
                       <option *ngFor="let speciality of collection.ownedSpecialities">{{speciality.name}}</option>
                     </select>
                   </div>
                 </div>
                 <hr>
-                <label class="form-control form-input-size norme">Prix Total : {{SpecialitiesSelectedPrice}}</label>
+                <label class="form-control-custom  form-input-size norme">Prix Total : {{SpecialitiesSelectedPrice}}</label>
                 <hr>
                 <div class="contact-btn">
-                  <button type="button" class="SendButton btn btn-lg btn-danger" (click)="changeUpdateFlag(true)" style="float: left">Modifier</button>
-                  <button type="button" class="SendButton btn btn-lg btn-danger" style="float: right"><a roulerLink="/provider/home">Retour</a></button>
+                  <button type="button" class="SendButton btn btn-lg btn-primary" (click)="changeUpdateFlag(true)" style="float: left"><span class="glyphicon glyphicon-edit"></span></button>
+                  <button type="button" class="SendButton btn btn-lg btn-secondary" style="float: right"><a roulerLink="/provider/home">Retour</a></button>
                 </div>
               </div>
             </form>
@@ -100,15 +99,15 @@
               <div class="modal-body">
                 <div class="single-contact-form " >
                   <div class=" contact-box name ">
-                      <label class=" form-control  norme " style="width: 30%">Nom : </label>
+                      <label class=" form-control-custom   norme " style="width: 30%">Nom : </label>
                       <input type="text" [(ngModel)]="provider.lastname"
-                             class="form-control form-input-size "
+                             class="form-control-custom  form-input-size "
                              id="lastname" style="width: 70%"
                              name="lastname" required
                              #lastname="ngModel">
-                      <label class="  form-control  norme" style="width: 30%">Prenom :</label>
+                      <label class="  form-control-custom   norme" style="width: 30%">Prenom :</label>
                       <input type="text" [(ngModel)]="provider.firstname"
-                             class="form-control form-input-size "
+                             class="form-control-custom  form-input-size "
                              id="firstname" style="width: 70%"
                              name="firstname" required
                              #firstname="ngModel">
@@ -116,15 +115,15 @@
                 </div>
                 <div class="single-contact-form " >
                   <div class=" contact-box name ">
-                    <label class=" form-control  norme " style="width: 30%">Email : </label>
+                    <label class=" form-control-custom   norme " style="width: 30%">Email : </label>
                     <input type="email" [(ngModel)]="provider.email"
-                           class="form-control form-input-size "
+                           class="form-control-custom  form-input-size "
                            id="email" style="width: 70%"
                            name="email" required
                            #email="ngModel">
-                    <label class="  form-control  norme" style="width: 30%">Tel :</label>
+                    <label class="  form-control-custom   norme" style="width: 30%">Tel :</label>
                     <input type="text" [(ngModel)]="provider.tel"
-                           class="form-control form-input-size "
+                           class="form-control-custom  form-input-size "
                            id="tel" style="width: 70%"
                            name="tel" required
                            #tel="ngModel">
@@ -132,15 +131,15 @@
                 </div>
                 <div class="single-contact-form " >
                   <div class=" contact-box name ">
-                      <label class=" form-control  norme " style="width: 30%">Nom Societé : </label>
+                      <label class=" form-control-custom   norme " style="width: 30%">Nom Societé : </label>
                       <input type="text" [(ngModel)]="societyData.name"
-                             class="form-control form-input-size "
+                             class="form-control-custom  form-input-size "
                              id="societyname" style="width: 70%; float: left"
                              name="societyname" required
                              #societyname="ngModel">
-                    <label class=" form-control  norme " style="width: 30%">Email Societé : </label>
+                    <label class=" form-control-custom   norme " style="width: 30%">Email Societé : </label>
                     <input type="email" [(ngModel)]="societyData.email"
-                           class="form-control form-input-size "
+                           class="form-control-custom  form-input-size "
                            id="societyemail" style="width: 70%"
                            name="societyemail" required
                            #societyemail="ngModel">
@@ -148,18 +147,18 @@
                 </div>
                 <div class="single-contact-form " >
                   <div class=" contact-box name ">
-                      <label class="  form-control  norme" style="width: 15%">Tel Societé :</label>
+                      <label class="  form-control-custom   norme" style="width: 15%">Tel Societé :</label>
                       <input type="text" [(ngModel)]="societyData.tel"
-                             class="form-control form-input-size "
+                             class="form-control-custom  form-input-size "
                              id="societytel" style="width: 85%"
                              name="societytel" required
                              #societytel="ngModel">
                   </div>
                 </div>
                 <fieldset>
-                  <legend class="form-control form-input-size norme">Ajouter des specialités : </legend>
+                  <legend class="form-control-custom  form-input-size norme">Ajouter des specialités : </legend>
                   <div class="flex-container">
-                    <label class="form-control form-input-size norme" *ngFor="let speciality of collection.specialities " style="font-size: 20px" >
+                    <label class="form-control-custom  form-input-size norme" *ngFor="let speciality of collection.specialities " style="font-size: 20px" >
                       <input type="checkbox" [checked]="specialityExists(speciality.id)" id="specialitiesSelected" name="specialities" #SpecialityElement
                              value="{{speciality.id}}" (change)="SpecialityChecked(SpecialityElement.checked,speciality)">
                       <span class="checkmark"></span>
@@ -167,11 +166,11 @@
                     </label>
                   </div>
                 </fieldset>
-                <label class="form-control form-input-size norme">Prix Total : {{SpecialitiesSelectedPrice}}</label>
+                <label class="form-control-custom  form-input-size norme">Prix Total : {{SpecialitiesSelectedPrice}}</label>
                 <hr>
                 <div class="contact-btn">
-                  <button type="button" class="SendButton btn btn-lg btn-primary" (click)="updateProfile()" style="float: left">Valider</button>
-                  <button type="button" class="SendButton btn btn-lg btn-danger" (click)="changeUpdateFlag(false)" style="float: right">Annuler</button>
+                  <button type="button" class="SendButton btn btn-lg btn-success" (click)="updateProfile()" style="float: left">Valider</button>
+                  <button type="button" class="SendButton btn btn-lg btn-secondary" (click)="changeUpdateFlag(false)" style="float: right">Annuler</button>
                 </div>
               </div>
             </form>

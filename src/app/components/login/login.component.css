@@ -1,3 +1,18 @@
+.norme{
+margin-left: 2px;
+border: none;
+}
+.form-control-custom {
+    display: block;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.15;
+    color: #6e707e;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: none;
+}
 *{
 /*  font-family: "Comic Sans MS", cursive, sans-serif;*/
 }

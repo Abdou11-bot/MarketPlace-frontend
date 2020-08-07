@@ -1,4 +1,5 @@
-import { Component, OnInit, OnChanges, DoCheck} from '@angular/core';
+import { Component, OnInit, OnChanges} from '@angular/core';
+//import { Component, OnInit, OnChanges, DoCheck} from '@angular/core';
 import { LocalStorageService } from '../../services/localStorage.service';
 import { SessionStorageService } from '../../services/sessionStorage.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -50,7 +51,7 @@ export class HeaderComponent implements OnInit, OnChanges, DoCheck {
     }
     this.loginFlag = this.loginIsHidden();
   }
-
+/*
   ngDoCheck(){
     let AdminSpaceResponse = this.StorageService.getAdminSpace();
     if((AdminSpaceResponse.trim() == 'AdminSpace') || (AdminSpaceResponse.trim() == 'ProviderSpace')){
@@ -74,7 +75,7 @@ export class HeaderComponent implements OnInit, OnChanges, DoCheck {
       this.login = this.StorageService.getProviderLogin();
     }
     this.loginFlag = this.loginIsHidden();
-  }
+  }*/
   ngOnInit(): void {
     let AdminSpaceResponse = this.StorageService.getAdminSpace();
     if((AdminSpaceResponse.trim() == 'AdminSpace') || (AdminSpaceResponse.trim() == 'ProviderSpace')){
@@ -131,7 +132,6 @@ export class HeaderComponent implements OnInit, OnChanges, DoCheck {
   }
 
   getSpecialitiesString(){
-//    let result:string ='<div><form ><div> <label for="product">Produit: </label><input type="text" class="form-control" id="product" placeholder="" #product="ngModel"><label for="provider">Fournisseur: </label><input type="text" class="form-control" id="provider" placeholder="" #provider="ngModel"></div><div><label >Specialitées</label><select> <option value="0" selected>--------</option>';
     let result:string ='<div><form ><div><input type="text" class="form-control" id="product" placeholder="Recherche produit" #product="ngModel" style="align: center; margin: 3%; width: 90%;height:50px; font-size: 25px;"><input type="text" class="form-control " id="provider" placeholder="Recherche fournisseur" #provider="ngModel" style="align: center; margin: 3%; width: 90%;height:50px; font-size: 25px;"></div><select id="speciality" class="form-control " style="align: center; margin: 3%; width: 90%; height:50px;font-size: 25px;"> <option value="0" selected>Selectionner la specialité</option>';
     for(const speciality of this.collection.specialities){
       result+='<option value="'+speciality.id+'"> '+speciality.name+'</option>';
@@ -168,7 +168,7 @@ export class HeaderComponent implements OnInit, OnChanges, DoCheck {
           if (result.value) {
             this.StorageService.storeType('research');
             this.StorageService.storeResearchParams(this.researchParams.speciality,this.researchParams.provider,this.researchParams.product);
-            this.router.navigate(['/produits']).then(() => {window.location.reload(); });
+            this.router.navigate(['/produits',0]);
           } else if (result.dismiss === Swal.DismissReason.cancel) {
             Swal.fire('Annuler','error')
           }
@@ -178,11 +178,11 @@ export class HeaderComponent implements OnInit, OnChanges, DoCheck {
   logoutAdmin(){
     this.StorageService.storeUserOnStorage('client');
     this.StorageService.storeAdminLogin('');
-    this.router.navigate(['/home']).then(() => {window.location.reload(); });
+    this.router.navigate(['/home']);
   }
   logoutProvider(){
     this.StorageService.storeUserOnStorage('client');
     this.StorageService.storeProviderLogin('');
-    this.router.navigate(['/home']).then(() => {window.location.reload(); });
+    this.router.navigate(['/home']);
   }
 }

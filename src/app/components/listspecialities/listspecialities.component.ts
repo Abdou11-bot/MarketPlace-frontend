@@ -14,6 +14,7 @@ import {MatDialog} from '@angular/material/dialog';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { LocalStorageService } from '../../services/localStorage.service';
 import { SessionStorageService } from '../../services/sessionStorage.service';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-listspecialities',
@@ -24,7 +25,8 @@ export class ListspecialitiesComponent implements OnInit {
 
   config: any;
   collection = { count: 0, specialities: Array<SpecialityModel> () };
-  constructor(private ProviderService: ProviderService,public ProductService : ProductService, public sanitizer: DomSanitizer, private StorageService: LocalStorageService,  private router: Router) {
+  constructor(private ProviderService: ProviderService,public ProductService : ProductService, public sanitizer: DomSanitizer,
+  private StorageService: LocalStorageService,  private router: Router) {
 
   }
   ngOnInit(): void {
@@ -36,22 +38,19 @@ export class ListspecialitiesComponent implements OnInit {
     });
     this.collection.count = this.collection.specialities.length;
     this.config = {
-      itemsPerPage: 30,
+      itemsPerPage: 10,
       currentPage: 1,
       totalItems: this.collection.count
     };
   }
  sane(imageSrc: any) {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(imageSrc);
+    return this.sanitizer.bypassSecurityTrustResourceUrl(environment.SERVER_RESOURCE_URL+imageSrc);
   }
-
-   gotoListProductsOfSpeciality(id:number){
+  gotoListProductsOfSpeciality(id:number){
       this.StorageService.storeType('speciality');
       this.StorageService.storeSpeciality(''+id);
-      this.router.navigate(['/produits']).then(() => {window.location.reload(); });
+      this.router.navigate(['/produits/',id]);
     }
-
-
   customSort(filter:number){
     if(filter==1)
       this.collection.specialities.sort((a,b) => a.name.localeCompare(b.name));
@@ -61,190 +60,8 @@ export class ListspecialitiesComponent implements OnInit {
       this.collection.specialities.sort((a,b) => a.price - b.price);
   }
 
-/*
-opensweetalert()
-  {
-    Swal.fire({
-        text: 'Hello!',
-        icon: 'success'
-      });
+  pageChanged(event) {
+    this.config.currentPage = event;
   }
-  opensweetalertdng()
-  {
-   Swal.fire('Oops...', 'Something went wrong!', 'error')
-  }
-
-  opensweetalertcst(){
-    Swal.fire({
-      title: 'Are you sure?',
-      text: 'You will not be able to recover this imaginary file!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, keep it'
-    }).then((result) => {
-      if (result.value) {
-      Swal.fire(
-        'Deleted!',
-        'Your imaginary file has been deleted.',
-        'success'
-      )
-      // For more information about handling dismissals please visit
-      // https://sweetalert2.github.io/#handling-dismissals
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-      Swal.fire(
-        'Cancelled',
-        'Your imaginary file is safe :)',
-        'error'
-      )
-      }
-    })
-  }
-
-  openAddproductModal(){
-    Swal.fire({
-      title: 'Ajouter un produit',
-      html: `<div>
-             <div class="container custom-container text-uppercase text-xl-left text-large float-left text-left">
-               <div class="col-md-auto">
-                 <form (ngSubmit)="onSubmit()" #productFormAdd="ngForm">
-                   <div class="modal-body">
-                     <div class="form-group">
-                       <label class="float-left" for="nameAdd">Name</label>
-                       <input type="text" [(ngModel)]="product.name"
-                              class="form-control"
-                              id="nameAdd"
-                              name="nameAdd"
-                              placeholder="Enter product name"
-                              required #nameAdd="ngModel">
-                     </div>
-                     <div class="form-group">
-                       <label for="referenceAdd">Reference</label>
-                       <input type="text" [(ngModel)]="product.reference"
-                              class="form-control"
-                              id="referenceAdd"
-                              name="referenceAdd"
-                              placeholder="Enter your reference"
-                              required #referenceAdd="ngModel">
-                     </div>
-                     <div class="form-group">
-                       <label for="marqueAdd">Marque</label>
-                       <input type="text" [(ngModel)]="product.marque"
-                              class="form-control"
-                              id="marqueAdd"
-                              name="marqueAdd"
-                              placeholder="Enter your marque"
-                              required #marqueAdd="ngModel">
-                     </div>
-                     <div class="form-group">
-                       <label for="descriptionAdd">Description</label>
-                       <textarea type="text" [(ngModel)]="product.description"
-                                 class="form-control"
-                                 id="descriptionAdd"
-                                 name="descriptionAdd"
-                                 placeholder="Enter a description"
-                                 required #descriptionAdd="ngModel">{{product.description}}</textarea>
-                     </div>
-                     <div class="form-group">
-                       <label for="catalogueAdd">Catalogue</label>
-                       <input type="file" [(ngModel)]="product.catalogue"
-                              class="form-control"
-                              id="catalogueAdd"
-                              name="catalogueAdd"
-                              placeholder="Choose your catalogue "
-                              required #catalogueAdd="ngModel"
-                              accept="application/pdf"
-                              (change)="onFileChanged1($event)">
-                     </div>
-                     <div class="form-group">
-                       <label for="imageAdd">Images</label>
-                       <input type="file" [(ngModel)]="product.images"
-                              class="form-control"
-                              id="imageAdd"
-                              name="imageAdd"
-                              placeholder="Choose your image "
-                              required #imageAdd="ngModel"
-                              accept="image/*"
-                       (change)="onFileChanged($event)" multiple>
-                     </div>
-                   </div>
-                 </form>
-               </div>
-             </div>
-           </div>`,
-      showCancelButton: true,
-      confirmButtonText: 'Ajouter',
-      width: '80%',
-      cancelButtonText: 'Annuler'
-    }).then((result) => {
-        if (result.value) {
-          Swal.fire(
-            'Ajouter!',
-          )
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          Swal.fire(
-            'Annuler',
-        )
-      }
-    })
-  }
-
-
-public  onFileChanged1(event) {
-    console.log(event);
-//    this.selectedFile = event.target.files[0];
-    this.selectedFile = event.target;
-//        alert('Selected filed changed '+ this.selectedFile.files[0].name);
-//    alert('Selected filed changed '+ this.selectedFile.name);
-  }
-
-public  onFileChanged(event) {
-    console.log(event);
-//    this.selectedFile = event.target.files[0];
-    this.selectedImages = event.target;
-//        alert('Selected filed changed '+ this.selectedFile.files[0].name);
-//    alert('Selected filed changed '+ this.selectedFile.name);
-  }
-
-
-  delete() {
-//    this.Service.deleteClient(this.id).subscribe(data => console.log(data), error => console.log(error));
-//    this.goToList();
-  }
-
-
-async onUpload() {
-    const uploadData = new FormData();
-    for(let i=0;i<this.selectedImages.files.length;i++){
-      uploadData.append('images', this.selectedImages.files[i]);
-    }
-    //uploadData.append('images', this.selectedImages.files);
-//    uploadData.append('catalogue', this.selectedFile.files[]);
-//    this.product.provider=new ProviderModel(this.ProductService.getProvider(45));
-    this.product = new ProductModel(
-    {"name":"angular test name","catalogue":"angular test catalogue",
-    "reference":"angular test reference","nombreVue":4,
-    "marque":"angular test marque","blocked":false,"description":"angular test desciption",
-    "provider":""});
-    alert(JSON.stringify(this.product));
-    uploadData.append('product', JSON.stringify(this.product));
-    await this.ProductService.createProduct(uploadData,45);
-  }
-onSubmit() {
-    this.onUpload();
-  }
-*/
-
- /*  update() {
-      /*this.Service.updateClient(this.id, this.clientUpdate)
-        .subscribe(data => {
-        console.log(data);
-        this.clientUpdate = new ClientModel(data);
-        this.onUpload(this.clientUpdate.id).then(response =>{
-          this.clientUpdate = new ClientModel({});
-          this.goToList();
-        });
-        }, error => console.log(error));
-    }*/
 
 }

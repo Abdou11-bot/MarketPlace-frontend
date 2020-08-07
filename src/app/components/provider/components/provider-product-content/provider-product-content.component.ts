@@ -16,6 +16,7 @@ import{QuotationModel} from '../../../../models/quotation.model';
 import{ComplaintModel} from '../../../../models/complaint.model';
 import{SpecialityModel} from '../../../../models/speciality.model';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-provider-product-content',
@@ -393,7 +394,7 @@ export class ProviderProductContentComponent implements OnInit , OnDestroy {
     this.config.currentPage = event;
   }
   sane(imagrSrc: any) {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(imagrSrc);
+    return this.sanitizer.bypassSecurityTrustResourceUrl(environment.SERVER_RESOURCE_URL+imagrSrc);
   }
 
   customSort(filter:number){

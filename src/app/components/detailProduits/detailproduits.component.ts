@@ -7,8 +7,7 @@ import{ProviderModel} from '../../models/provider.model';
 import{ProductModel} from '../../models/product.model';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {EventEmitter, Input, Output, TemplateRef, ViewEncapsulation} from '@angular/core';
-import {Router} from '@angular/router';
-import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {DomSanitizer} from '@angular/platform-browser';
 import {MatDialog} from '@angular/material/dialog';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -18,6 +17,7 @@ import{ComplaintService} from '../../services/complaint.service';
 import{LoginService} from '../../services/login.service';
 import{ComplaintModel} from '../../models/complaint.model';
 import{MedecinModel} from '../../models/medecin.model';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-detailproduits',
@@ -33,9 +33,10 @@ export class DetailProduitsComponent implements OnInit {
   Complaint= new ComplaintModel({'product':{'provider':{},'images': [],'speciality': {}}});
   product= new ProductModel({'provider':{},'images': [],'speciality': {}});
   quotation= new QuotationModel({'product':{'provider':{},'images': [],'speciality': {}}});
-  constructor( private router:Router, private ProductService: ProductService, private LoginService: LoginService, private QuotationService: QuotationService,
+  constructor( private router:Router, private activatedRoute:ActivatedRoute, private ProductService: ProductService, private LoginService: LoginService, private QuotationService: QuotationService,
      public sanitizer: DomSanitizer,private StorageService: LocalStorageService, public ComplaintService : ComplaintService) {
-    this.ProductService.getProduct(this.router.getCurrentNavigation().extras.state.id).then(
+    this.ProductService.getProduct(Number(this.activatedRoute.snapshot.paramMap.get('id'))).then(
+//    this.ProductService.getProduct(this.router.getCurrentNavigation().extras.state.id).then(
       response => {
         this.product= new ProductModel(response);
         this.StorageService.clearMedecin();
@@ -63,6 +64,14 @@ export class DetailProduitsComponent implements OnInit {
     this.wishlistFlag = this.StorageService.productExists(this.product.id);
   }
 
+  getCatalogueName(productTemp) : string{
+    if(productTemp == undefined || productTemp == null || productTemp.catalogue == '' || productTemp.catalogue == undefined || productTemp.catalogue == null ){
+      return '';
+    }
+    let pathArray = productTemp.catalogue.split('http://localhost:8080/catalogues/');
+    let nameArray = pathArray[1].split('/');
+    return nameArray[2];
+  }
   sendComplaint(operation: string, id:number){
     if(operation == 'add'){
       let exists = this.StorageService.complaintExists(this.product.id);
@@ -84,11 +93,11 @@ export class DetailProduitsComponent implements OnInit {
   }
 
    sane(imagrSrc: any) {
-      return this.sanitizer.bypassSecurityTrustResourceUrl(imagrSrc);
+    return this.sanitizer.bypassSecurityTrustResourceUrl(environment.SERVER_RESOURCE_URL+imagrSrc);
     }
 
   gotoHome() {
-    this.router.navigate(['home']).then(() => {window.location.reload(); });
+    this.router.navigate(['home']);
   }
 
   onSubmitQuotation(){

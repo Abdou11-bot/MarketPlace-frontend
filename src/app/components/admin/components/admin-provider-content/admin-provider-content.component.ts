@@ -45,6 +45,8 @@ export class AdminProviderContentComponent implements OnInit , OnDestroy {
         for(let resp of response){
           this.collection.providers.push(new ProviderModel(resp));
         }
+        if(response.lenght == 0){
+        }
         this.config1 = {
           itemsPerPage: 5,
           currentPage: 1,

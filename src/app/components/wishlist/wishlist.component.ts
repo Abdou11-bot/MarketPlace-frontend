@@ -11,6 +11,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import{QuotationService} from '../../services/quotation.service';
 import{QuotationModel} from '../../models/quotation.model';
 import{LoginService} from '../../services/login.service';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-wishlist',
@@ -291,7 +292,7 @@ export class WishlistComponent implements OnInit {
 
 
  sane(imagrSrc: any) {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(imagrSrc);
+    return this.sanitizer.bypassSecurityTrustResourceUrl(environment.SERVER_RESOURCE_URL+imagrSrc);
   }
 
 

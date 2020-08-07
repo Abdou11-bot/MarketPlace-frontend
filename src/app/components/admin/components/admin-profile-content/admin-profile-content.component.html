@@ -27,20 +27,20 @@
               <div class="modal-body">
                 <div class="single-contact-form " >
                   <div class="contact-box name">
-                    <label class="form-control form-input-size norme" >
+                    <label class="form-control-custom form-input-size norme" >
                       Nom : {{admin.lastname}}
                     </label>
-                    <label class="form-control form-input-size norme"  >
+                    <label class="form-control-custom form-input-size norme"  >
                       Prenom : {{admin.firstname}}
                     </label>
                   </div>
                 </div>
                 <div class="single-contact-form " >
                   <div class="contact-box name">
-                    <label class="form-control form-input-size norme"  >
+                    <label class="form-control-custom form-input-size norme"  >
                       Email : {{admin.email}}
                     </label>
-                    <label class="form-control form-input-size norme"  >
+                    <label class="form-control-custom form-input-size norme"  >
                       Tel : {{admin.tel}}
                     </label>
                   </div>
@@ -58,15 +58,15 @@
               <div class="modal-body">
                 <div class="single-contact-form " >
                   <div class=" contact-box name ">
-                      <label class=" form-control  norme " style="width: 30%">Nom : </label>
+                      <label class=" form-control-custom  norme " style="width: 30%">Nom : </label>
                       <input type="text" [(ngModel)]="admin.lastname"
-                             class="form-control form-input-size "
+                             class="form-control-custom form-input-size "
                              id="lastname" style="width: 70%"
                              name="lastname" required
                              #lastname="ngModel">
-                      <label class="  form-control  norme" style="width: 30%">Prenom :</label>
+                      <label class="  form-control-custom  norme" style="width: 30%">Prenom :</label>
                       <input type="text" [(ngModel)]="admin.firstname"
-                             class="form-control form-input-size "
+                             class="form-control-custom form-input-size "
                              id="firstname" style="width: 70%"
                              name="firstname" required
                              #firstname="ngModel">
@@ -74,15 +74,15 @@
                 </div>
                 <div class="single-contact-form " >
                   <div class=" contact-box name ">
-                      <label class=" form-control  norme " style="width: 30%">Email : </label>
+                      <label class=" form-control-custom  norme " style="width: 30%">Email : </label>
                       <input type="email" [(ngModel)]="admin.email"
-                             class="form-control form-input-size "
+                             class="form-control-custom form-input-size "
                              id="email" style="width: 70%"
                              name="email" required
                              #email="ngModel">
-                      <label class="  form-control  norme" style="width: 30%">Tel :</label>
+                      <label class="  form-control-custom  norme" style="width: 30%">Tel :</label>
                       <input type="text" [(ngModel)]="admin.tel"
-                             class="form-control form-input-size "
+                             class="form-control-custom form-input-size "
                              id="tel" style="width: 70%"
                              name="tel" required
                              #tel="ngModel">

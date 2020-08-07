@@ -14,34 +14,34 @@
         <div class="col-md-8 col-lg-8 col-sm-6 col-xs-6">
           <nav class="mainmenu__nav hidden-xs hidden-sm">
             <ul class="main__menu">
-              <li class="drop main__menu__color"><a routerLink="/home">Accueil</a></li>
-              <li class="drop main__menu__color"><a routerLink="/specialities" >Catégorie</a></li>
-              <li class="drop main__menu__color"><a href="/about">À propos de nous</a></li>
+              <li class="drop main__menu__color"><a routerLink="/home" style="font-size:18px">Accueil</a></li>
+              <li class="drop main__menu__color"><a routerLink="/specialities" style="font-size:18px">Specialités</a></li>
+              <li class="drop main__menu__color"><a href="/about" style="font-size:18px">À propos de nous</a></li>
 
-              <li class="drop main__menu__color"><a href="customer-review.html">Avis client</a></li>
+<!--              <li class="drop main__menu__color"><a href="customer-review.html">Avis client</a></li>-->
 
-              <li class="drop main__menu__color"><a href="/contact">contact</a></li>
+              <li class="drop main__menu__color"><a href="/contact" style="font-size:18px">contact</a></li>
             </ul>
           </nav>
 
-          <div class="mobile-menu clearfix visible-xs visible-sm" id="mobile">
-            <nav id="mobile_dropdown">
+<!--          <div class="mobile-menu clearfix visible-xs visible-sm " id="mobile">-->
+<!--            <nav id="mobile_dropdown">-->
 
-              <div class="dropdown">
-                <a class="dropbtn" (click)="displayMenu()">
-                  <i class="fa fa-bars"><span style="margin-left: 15px">Menu</span></i>
-                </a>
-                <div class="dropdown-content" id="dropdown-content">
-                  <a href="/home" >Home</a>
-                  <a  routerLink="/specialities" >Catégorie</a>
-                  <a  href="/blog">Blog</a>
-                  <a href="/about">À propos de nous</a>
-                  <a  href="customer-review.html">Avis client</a>
-                  <a href="/contact">contact</a>
-                </div>
-              </div>
-            </nav>
-          </div>
+<!--              <div class="dropdown">-->
+<!--                <a class="dropbtn" (click)="displayMenu()">-->
+<!--                  <i class="fa fa-bars"><span style="margin-left: 15px">Menu</span></i>-->
+<!--                </a>-->
+<!--                <div class="dropdown-content" id="dropdown-content">-->
+<!--                  <a href="/home" >Home</a>-->
+<!--                  <a  routerLink="/specialities" >Specialités</a>-->
+<!--&lt;!&ndash;                  <a  href="/blog">Blog</a>&ndash;&gt;-->
+<!--                  <a href="/about">À propos de nous</a>-->
+<!--&lt;!&ndash;                  <a  href="customer-review.html">Avis client</a>&ndash;&gt;-->
+<!--                  <a href="/contact">contact</a>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </nav>-->
+<!--          </div>-->
         </div>
         <!-- End MAinmenu Ares -->
         <div class="col-md-2 col-sm-4 col-xs-3">
@@ -59,18 +59,22 @@
                   <!-- Nav Item - User Information -->
                   <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <span class=" d-none d-lg-inline text-gray-150 small" style="color:blue; font-size:15px">Admin</span>
+                      <span class=" d-none d-lg-inline text-gray-150 small" style="color:blue; font-size:15px">Connecté</span>
                       <img class="img-profile rounded-circle" style="background-color:aquamarine">
                     </a>
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                       <a class="dropdown-item" routerLink="/admin/profile" style="color:blue; font-size:15px">
-                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-150"></i>
+                        <i class="fas fa-user fa-sm fa-fw text-gray-150"></i>
+                        Administrateur
+                      </a>
+                      <a class="dropdown-item" routerLink="/admin/profile" style="color:blue; font-size:15px">
+                        <i class="fas fa-user fa-sm fa-fw  text-gray-150"></i>
                         Profile
                       </a>
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" (click)="logoutAdmin()" data-toggle="modal" data-target="#logoutModal" style="color:blue; font-size:15px">
-                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-150"></i>
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw  text-gray-150"></i>
                         Logout
                       </a>
                     </div>
@@ -92,17 +96,17 @@
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                       <a class="dropdown-item" routerLink="/provider/profile" style="color:blue; font-size:15px">
-                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-150"></i>
+                        <i class="fas fa-user fa-sm fa-fw text-gray-150"></i>
                         {{login}}
                       </a>
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" routerLink="/provider/profile" style="color:blue; font-size:15px">
-                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-150"></i>
+                        <i class="fas fa-user fa-sm fa-fw text-gray-150"></i>
                         Profile
                       </a>
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" (click)="logoutProvider()" data-toggle="modal" data-target="#logoutModal" style="color:blue; font-size:15px">
-                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-150"></i>
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw text-gray-150"></i>
                         Logout
                       </a>
                     </div>

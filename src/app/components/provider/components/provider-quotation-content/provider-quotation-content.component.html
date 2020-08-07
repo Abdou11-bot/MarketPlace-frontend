@@ -29,7 +29,7 @@
           </div>
           <div  class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered norme" id="dataTable" width="100%" cellspacing="0">
+              <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                 <thead class="card-header py-3">
                 <tr>
                   <th>Etat  <span class="glyphicon glyphicon-triangle-top " (click)="customSort(1)"></span><span (click)="reverseCustomSort(1)" class="glyphicon glyphicon-triangle-bottom"></span></th>
@@ -43,19 +43,6 @@
                   <th></th>
                 </tr>
                 </thead>
-                <tfoot class="card-header py-3">
-                <tr>
-                  <th>Etat</th>
-                  <th>Nom</th>
-                  <th>Email</th>
-                  <th>Addr</th>
-                  <th>PostalCode</th>
-                  <th>Date</th>
-                  <th>Produit</th>
-                  <th>Quantité</th>
-                  <th></th>
-                </tr>
-                </tfoot>
                 <tbody>
                 <tr *ngFor="let quotation of collection.quotations | paginate: config , index as i ">
                   <td *ngIf="quotation.traiter == true">Traité</td>
@@ -86,37 +73,37 @@
               <div class="modal-body">
                 <div class="single-contact-form " >
                   <div class="contact-box name">
-                    <label class="form-control form-input-size norme">
+                    <label class="form-control-custom  form-input-size norme">
                       Nom : {{quotation.lastname}}
                     </label>
-                    <label class="form-control form-input-size norme">
+                    <label class="form-control-custom  form-input-size norme">
                       Prenom : {{quotation.firstname}}
                     </label>
                   </div>
                 </div>
                 <div class="single-contact-form " >
                   <div class="contact-box name">
-                    <label class="form-control form-input-size norme">
+                    <label class="form-control-custom  form-input-size norme">
                       Email : {{quotation.email}}
                     </label>
-                    <label class="form-control form-input-size norme">
+                    <label class="form-control-custom  form-input-size norme">
                       Addresse : {{quotation.address}}
                     </label>
                   </div>
                 </div>
                 <div class="single-contact-form " >
                   <div class="contact-box name">
-                    <label class="form-control form-input-size norme">
+                    <label class="form-control-custom  form-input-size norme">
                       PostalCode : {{quotation.postalCode}}
                     </label>
-                    <label class="form-control form-input-size norme">
+                    <label class="form-control-custom  form-input-size norme">
                       Quantité : {{quotation.quantity}}
                     </label>
                   </div>
                 </div>
                 <div class="single-contact-form " >
                   <div class="contact-box name">
-                    <label class="form-control form-input-size norme">
+                    <label class="form-control-custom  form-input-size norme">
                       Produit : {{quotation.product.name}}
                     </label>
                   </div>
@@ -159,7 +146,7 @@
                 <div class="contact-btn">
                   <button type="button" [hidden]="!quotation.traiter" [disabled]="quotation.traiter" class="SendButton btn btn-lg btn-primary" style="float: left">Traité</button>
                   <button type="button" [hidden]="quotation.traiter" (click)="traiter(quotation.id)" class="SendButton btn btn-lg btn-primary" style="float: left">Non traité</button>
-                  <button type="button" class="SendButton btn btn-lg btn-danger" (click)="gotoList()" style="float: right">Revenir à la liste</button>
+                  <button type="button" class="SendButton btn btn-lg btn-secondary" (click)="gotoList()" style="float: right">Revenir à la liste</button>
                 </div>
               </div>
             </form>
