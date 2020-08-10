@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import {RouterModule, Routes} from "@angular/router";
 import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
-import { BlogComponent } from './components/blog/blog.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CategoriebarComponent } from './components/categoriebar/categoriebar.component';
@@ -34,8 +33,6 @@ import { LoginComponent } from './components/login/login.component';
 import { ListproduitsComponent } from './components/listproduits/listproduits.component';
 import { ListspecialitiesComponent } from './components/listspecialities/listspecialities.component';
 import { DetailProduitsComponent } from './components/detailProduits/detailproduits.component';
-import { DevisComponent } from './components/devis/devis.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CartdevisComponent } from './components/cartdevis/cartdevis.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -55,11 +52,7 @@ const routes: Routes = [
    { path: 'home', component: HomeComponent },
    { path: 'login', component: LoginComponent },
     { path: 'contact', component: ContactComponent },
-    // { path: 'blog-detail', component: BlogDetailsComponent },
     { path: 'about', component: AboutComponent },
-     { path: 'blog', component: BlogComponent },
-    { path: 'devis', component: DevisComponent },
-    { path: 'admin', component: DashboardComponent },
     { path: 'wishlist', component: WishlistComponent },
     { path: 'produits/:id', component: ListproduitsComponent },
     { path: 'specialities', component: ListspecialitiesComponent },
@@ -86,7 +79,6 @@ const routes: Routes = [
     AppComponent,
     HomeComponent,
     AboutComponent,
-    BlogComponent,
     FooterComponent,
     HeaderComponent,
     CategoriebarComponent,
@@ -96,8 +88,6 @@ const routes: Routes = [
     ListproduitsComponent,
     ListspecialitiesComponent,
     DetailProduitsComponent,
-    DevisComponent,
-    DashboardComponent,
     AdminHomeComponent,
     AdminHeaderComponent,
     AdminMenuBarComponent,
