@@ -32,10 +32,10 @@ export class AdminComplaintContentComponent implements OnInit , OnDestroy {
   ngOnInit(): void {
     this.ComplaintService.getAllComplaint().then(response => {
         for(let resp of response){
-		let complaint = new ComplaintModel(resp);
-		if(complaint .product != null){
-			this.collection.complaints.push(complaint );	
-		}
+          let complaint = new ComplaintModel(resp);
+          if(complaint.type == 1){
+            this.collection.complaints.push(complaint);
+          }
         }
     });
     this.config = {

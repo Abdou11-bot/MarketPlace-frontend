@@ -161,6 +161,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmitMedecin(event: any){
+  alert(JSON.stringify(this.MedecinData));
     this.LoginService.registerMedecin(JSON.stringify(this.MedecinData),this.MedecinSpecilality).then(async response => {
       if(response!=null){
         this.verificationRegister = true;

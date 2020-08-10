@@ -14,7 +14,6 @@ import { CategoriebarComponent } from './components/categoriebar/categoriebar.co
 import { ContactComponent } from './components/contact/contact.component';
 import { AdminHomeComponent } from './components/admin/components/admin-home/admin-home.component';
 import { AdminHeaderComponent } from './components/admin/components/admin-header/admin-header.component';
-import { AdminMainContentComponent } from './components/admin/components/admin-main-content/admin-main-content.component';
 import { AdminMessageContentComponent } from './components/admin/components/admin-message-content/admin-message-content.component';
 import { AdminProviderContentComponent } from './components/admin/components/admin-provider-content/admin-provider-content.component';
 import { AdminComplaintContentComponent } from './components/admin/components/admin-complaint-content/admin-complaint-content.component';
@@ -24,7 +23,6 @@ import { AdminProfileContentComponent } from './components/admin/components/admi
 import { AdminMenuBarComponent } from './components/admin/components/admin-menu-bar/admin-menu-bar.component';
 import { ProviderHomeComponent } from './components/provider/components/provider-home/provider-home.component';
 import { ProviderHeaderComponent } from './components/provider/components/provider-header/provider-header.component';
-import { ProviderMainContentComponent } from './components/provider/components/provider-main-content/provider-main-content.component';
 import { ProviderQuotationContentComponent } from './components/provider/components/provider-quotation-content/provider-quotation-content.component';
 import { ProviderProfileContentComponent } from './components/provider/components/provider-profile-content/provider-profile-content.component';
 import { ProviderStatisticsContentComponent } from './components/provider/components/provider-statistics-content/provider-statistics-content.component';
@@ -103,7 +101,6 @@ const routes: Routes = [
     AdminHomeComponent,
     AdminHeaderComponent,
     AdminMenuBarComponent,
-    AdminMainContentComponent,
     AdminMessageContentComponent,
     AdminProviderContentComponent,
     AdminProfileContentComponent,
@@ -116,7 +113,6 @@ const routes: Routes = [
     ProviderMenuBarComponent,
     ProviderHeaderComponent,
     ProviderProfileContentComponent,
-    ProviderMainContentComponent,
     ProviderComplaintContentComponent,
     ProviderHomeComponent,
     CartdevisComponent

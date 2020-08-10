@@ -41,11 +41,11 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let message of collection.complaints | paginate: config , index as i ">
-                  <td *ngIf="message.product == null">{{message.vue}}</td>
-                  <td *ngIf="message.product == null">{{message.name}}</td>
-                  <td *ngIf="message.product == null">{{message.objet}}</td>
-                  <td *ngIf="message.product == null">{{message.email}}</td>
-                  <td *ngIf="message.product == null" ><button class="btn btn-primary bnt-lg" (click)="loadMessage(i)"><span class="glyphicon glyphicon-eye-open"></span></button></td>
+                  <td >{{message.vue}}</td>
+                  <td >{{message.name}}</td>
+                  <td >{{message.objet}}</td>
+                  <td >{{message.email}}</td>
+                  <td  ><button class="btn btn-primary bnt-lg" (click)="loadMessage(i)"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                 </tr>
                 </tbody>
               </table>

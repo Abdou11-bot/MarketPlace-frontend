@@ -43,15 +43,15 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let complaint of collection.complaints | paginate: config , index as i ">
-                  <td  *ngIf="complaint.product != null" [hidden]="!complaint.vue">Lu</td>
-                  <td  *ngIf="complaint.product != null" [hidden]="complaint.vue">Non lu</td>
-                  <td *ngIf="complaint.product != null">{{complaint.name}}</td>
-                  <td *ngIf="complaint.product != null">{{complaint.objet}}</td>
-                  <td *ngIf="complaint.product != null">{{complaint.email}}</td>
-                  <td *ngIf="complaint.product != null">{{complaint.product.name}}</td>
-                  <td *ngIf="complaint.product != null && complaint.product.provider != null">{{complaint.product.provider.lastname}} {{complaint.product.provider.firstname}}</td>
-                  <td *ngIf="complaint.product != null && complaint.product.provider == null"></td>
-                  <td *ngIf="complaint.product != null" ><button class="btn btn-primary bnt-lg" (click)="loadComplaint(i)"><span class="glyphicon glyphicon-eye-open"></span></button></td>
+                  <td   [hidden]="!complaint.vue">Lu</td>
+                  <td   [hidden]="complaint.vue">Non lu</td>
+                  <td >{{complaint.name}}</td>
+                  <td >{{complaint.objet}}</td>
+                  <td >{{complaint.email}}</td>
+                  <td >{{complaint.product.name}}</td>
+                  <td *ngIf="complaint.product.provider != null">{{complaint.product.provider.lastname}} {{complaint.product.provider.firstname}}</td>
+                  <td *ngIf="complaint.product.provider == null"></td>
+                  <td  ><button class="btn btn-primary bnt-lg" (click)="loadComplaint(i)"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                 </tr>
                 </tbody>
               </table>

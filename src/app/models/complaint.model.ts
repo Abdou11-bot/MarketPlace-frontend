@@ -3,6 +3,7 @@ import {ProductModel} from './product.model';
 
 export  class ComplaintModel {
   id: number;
+  type: number;
   objet: string;
   name: string;
   message: string;
@@ -12,6 +13,7 @@ export  class ComplaintModel {
   vue: boolean;
   constructor(obj: any) {
       this.id = obj.id;
+      this.type = obj.type;
       this.name = obj.name;
       this.objet = obj.objet;
       this.message = obj.message;
