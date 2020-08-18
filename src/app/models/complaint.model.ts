@@ -1,5 +1,6 @@
 import {SafeUrl} from '@angular/platform-browser';
 import {ProductModel} from './product.model';
+import {MedecinModel} from './medecin.model';
 
 export  class ComplaintModel {
   id: number;
@@ -11,6 +12,7 @@ export  class ComplaintModel {
   email: string;
   product: ProductModel;
   vue: boolean;
+  medecin: MedecinModel;
   constructor(obj: any) {
       this.id = obj.id;
       this.type = obj.type;
@@ -21,5 +23,6 @@ export  class ComplaintModel {
       this.date = obj.date;
       this.vue = obj.vue;
       this.product = new ProductModel(obj.product);
+      this.medecin = obj.medecin;
   }
 }

@@ -24,7 +24,7 @@
   <hr class="sidebar-divider my-2">
   <!-- Nav Item - Pages Collapse Menu -->
   <li class="nav-item">
-    <a class="nav-link collapsed" routerLink="/admin/provider"   >
+    <a class="nav-link collapsed" (click)="gotoProviders()">
       <span>Fournisseurs</span>
     </a>
   </li>
@@ -38,14 +38,14 @@
   <hr class="sidebar-divider my-2">
   <!-- Nav Item - Pages Collapse Menu -->
   <li class="nav-item">
-    <a class="nav-link collapsed"  routerLink="/admin/messages"  >
+    <a class="nav-link collapsed" (click)="gotoMessages()">
       <span>Messages</span>
     </a>
   </li>
   <hr class="sidebar-divider my-2">
   <!-- Nav Item - Pages Collapse Menu -->
   <li class="nav-item">
-    <a class="nav-link collapsed" routerLink="/admin/complaint" >
+    <a class="nav-link collapsed" (click)="gotoComplaints()">
       <span>Reclamations</span>
     </a>
   </li>

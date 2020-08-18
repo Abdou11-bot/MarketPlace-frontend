@@ -4,7 +4,7 @@ import { AdminComplaintContentComponent } from './admin-complaint-content.compon
 
 describe('AdminComplaintContentComponent', () => {
   let component: AdminComplaintContentComponent;
-  let fixture: AdminComplaintContentComponent<AdminMessageContentComponent>;
+  let fixture: ComponentFixture<AdminMessageContentComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

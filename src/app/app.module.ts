@@ -20,6 +20,13 @@ import { AdminStatisticsContentComponent } from './components/admin/components/a
 import { AdminMedecinContentComponent } from './components/admin/components/admin-medecin-content/admin-medecin-content.component';
 import { AdminProfileContentComponent } from './components/admin/components/admin-profile-content/admin-profile-content.component';
 import { AdminMenuBarComponent } from './components/admin/components/admin-menu-bar/admin-menu-bar.component';
+import { MedecinHomeComponent } from './components/medecin/components/medecin-home/medecin-home.component';
+import { MedecinHeaderComponent } from './components/medecin/components/medecin-header/medecin-header.component';
+import { MedecinQuotationContentComponent } from './components/medecin/components/medecin-quotation-content/medecin-quotation-content.component';
+import { MedecinComplaintContentComponent } from './components/medecin/components/medecin-complaint-content/medecin-complaint-content.component';
+import { MedecinWishlistContentComponent } from './components/medecin/components/medecin-wishlist-content/medecin-wishlist-content.component';
+import { MedecinProfileContentComponent } from './components/medecin/components/medecin-profile-content/medecin-profile-content.component';
+import { MedecinMenuBarComponent } from './components/medecin/components/medecin-menu-bar/medecin-menu-bar.component';
 import { ProviderHomeComponent } from './components/provider/components/provider-home/provider-home.component';
 import { ProviderHeaderComponent } from './components/provider/components/provider-header/provider-header.component';
 import { ProviderQuotationContentComponent } from './components/provider/components/provider-quotation-content/provider-quotation-content.component';
@@ -58,13 +65,19 @@ const routes: Routes = [
     { path: 'specialities', component: ListspecialitiesComponent },
     { path: 'produit/detail/:id', component: DetailProduitsComponent },
     { path: 'admin/home',  component: AdminHomeComponent },
-    { path: 'admin/messages',  component: AdminMessageContentComponent },
-    { path: 'admin/provider',  component: AdminProviderContentComponent },
+    { path: 'admin/messages/:list/:ind',  component: AdminMessageContentComponent },
+    { path: 'admin/provider/:list/:ind/:op',  component: AdminProviderContentComponent },
     { path: 'admin/medecin',  component: AdminMedecinContentComponent },
     { path: 'admin/profile',  component: AdminProfileContentComponent },
-    { path: 'admin/complaint',  component: AdminComplaintContentComponent },
+    { path: 'admin/complaint/:list/:ind',  component: AdminComplaintContentComponent },
     { path: 'admin/statistics',  component: AdminStatisticsContentComponent },
     { path: 'admin/**',  component: AdminHomeComponent },
+    { path: 'medecin/home',  component: MedecinHomeComponent },
+    { path: 'medecin/quotation',  component: MedecinQuotationContentComponent },
+    { path: 'medecin/wishlist',  component: MedecinWishlistContentComponent },
+    { path: 'medecin/profile',  component: MedecinProfileContentComponent },
+    { path: 'medecin/complaint',  component: MedecinComplaintContentComponent },
+    { path: 'medecin/**',  component: MedecinHomeComponent },
     { path: 'provider/home',  component: ProviderHomeComponent },
     { path: 'provider/quotation',  component: ProviderQuotationContentComponent },
     { path: 'provider/statistics',  component: ProviderStatisticsContentComponent },
@@ -97,6 +110,13 @@ const routes: Routes = [
     AdminMedecinContentComponent,
     AdminComplaintContentComponent,
     AdminStatisticsContentComponent,
+    MedecinHomeComponent,
+    MedecinHeaderComponent,
+    MedecinMenuBarComponent,
+    MedecinQuotationContentComponent,
+    MedecinProfileContentComponent,
+    MedecinWishlistContentComponent,
+    MedecinComplaintContentComponent,
     ProviderStatisticsContentComponent,
     ProviderQuotationContentComponent,
     ProviderProductContentComponent,

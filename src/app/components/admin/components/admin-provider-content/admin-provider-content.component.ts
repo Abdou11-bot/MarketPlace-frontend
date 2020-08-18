@@ -1,7 +1,7 @@
 import { Component, OnInit , OnDestroy} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {EventEmitter, Input, Output, TemplateRef, ViewEncapsulation} from '@angular/core';
-import {Router} from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {DomSanitizer} from '@angular/platform-browser';
 import {MatDialog} from '@angular/material/dialog';
@@ -35,17 +35,41 @@ export class AdminProviderContentComponent implements OnInit , OnDestroy {
   claimedProducts = Array<ProductModel> ();
   product= new ProductModel({'provider':{},'images': [],'speciality': {}});
   collection = { nbSpecialities: 0, providers: Array<ProviderModel> ()};
-  constructor(private StorageService: LocalStorageService, private router: Router, public sanitizer: DomSanitizer,
+  constructor(private StorageService: LocalStorageService, private router: Router, public sanitizer: DomSanitizer,private activatedRoute:ActivatedRoute,
             private ProviderService: ProviderService, private ProductService: ProductService, private ComplaintService : ComplaintService) {  }
   ngOnDestroy(){
   }
 
   ngOnInit(): void {
+    this.collection.providers.length = 0;
     this.ProviderService.getAllProviders().then(response => {
         for(let resp of response){
-          this.collection.providers.push(new ProviderModel(resp));
+          let provider = new ProviderModel(resp);
+          if(provider.admin==false)
+             this.collection.providers.push(provider);
         }
-        if(response.length == 0){
+        if(this.activatedRoute.snapshot.paramMap.get('list')=='demandes'){
+          this.detailFlag = false;
+          this.complaintFlag = false;
+          this.requestFlag = true;
+        }else{
+          this.detailFlag = false;
+          this.complaintFlag = false;
+          this.requestFlag = false;
+        }
+        if(this.activatedRoute.snapshot.paramMap.get('list')=='detail'){
+          if(this.activatedRoute.snapshot.paramMap.get('ind')!='defaut'){
+            this.loadData(Number(this.activatedRoute.snapshot.paramMap.get('ind')));
+          }
+          if(this.activatedRoute.snapshot.paramMap.get('op')!='defaut'){
+            this.detailFlag = false;
+            this.complaintFlag = true;
+            this.requestFlag = true;
+          }else{
+            this.detailFlag = true;
+            this.complaintFlag = false;
+            this.requestFlag = false;
+          }
         }
         this.config1 = {
           itemsPerPage: 5,
@@ -86,9 +110,15 @@ export class AdminProviderContentComponent implements OnInit , OnDestroy {
       return nbrequest;
     }
   }
+  loadProviderData(i:number){
+    this.router.navigate(['/admin/provider/','detail',i,'defaut']).then(() => {this.ngOnInit();});
+  }
 
   loadData(i:number){
     this.provider = this.collection.providers[i];
+    this.ownedProducts.length = 0;
+    this.claimedProducts.length = 0;
+    this.quotations.length = 0;
     this.ProviderService.getOwnedProductsByProvider(this.provider.id).then(response => {
       for(let resp of response){
         this.ownedProducts.push(new ProductModel(resp));
@@ -109,24 +139,20 @@ export class AdminProviderContentComponent implements OnInit , OnDestroy {
     this.requestFlag = false;
   }
   displayDetailProvider(){
-    this.detailFlag = true;
-    this.complaintFlag = false;
-    this.requestFlag = false;
+    let param1=this.activatedRoute.snapshot.paramMap.get('list');
+    let param2=this.activatedRoute.snapshot.paramMap.get('ind');
+    this.router.navigate(['/admin/provider/',param1,param2,'defaut']).then(() => {this.ngOnInit();});
   }
   displayListClaimedProducts(){
-    this.detailFlag = false;
-    this.complaintFlag = true;
-    this.requestFlag = true;
+    let param1=this.activatedRoute.snapshot.paramMap.get('list');
+    let param2=this.activatedRoute.snapshot.paramMap.get('ind');
+    this.router.navigate(['/admin/provider/',param1,param2,'reclamations']).then(() => {this.ngOnInit();});
   }
   displayRequestsList(){
-    this.detailFlag = false;
-    this.complaintFlag = false;
-    this.requestFlag = true;
+    this.router.navigate(['/admin/provider/','demandes','defaut','defaut']).then(() => {this.ngOnInit();});
   }
   displayCompleteList(){
-    this.detailFlag = false;
-    this.complaintFlag = false;
-    this.requestFlag = false;
+    this.router.navigate(['/admin/provider/','liste','defaut','defaut']).then(() => {this.ngOnInit();});
   }
   blockProduct(i:number){
     this.ProductService.blockProduct(this.claimedProducts[i].id).then(response => {

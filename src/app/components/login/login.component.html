@@ -1,3 +1,6 @@
+
+<app-header ></app-header>
+<app-cartdevis></app-cartdevis>
 <!-- Start Login Register Area -->
 <div class="htc__login__register bg__white ptb--130" >
 <!--<div class="htc__login__register bg__white ptb&#45;&#45;130" style="background: rgba(0, 0, 0, 0) url(assets/images/bg/5.jpg) no-repeat scroll center center / cover ; ">-->
@@ -19,14 +22,12 @@
             <form (ngSubmit)="onSubmit($event)" #LoginForm="ngForm">
               <div class="login">
                 <label [hidden]="verificationLogin" class="alert">* Vérifier les informations données</label>
-                <label [hidden]="!AdminVerification" class="notif">* L'Email n'est pas necessaire</label>
                 <div class="form-group">
                   <input type="email" [(ngModel)]="LoginData.Email"
                          class="form-control-custom "
                          id="loginEmail"
                          name="loginEmail"
                          placeholder="Email"
-                         [disabled]="AdminVerification"
                          required #loginEmail="ngModel">
                 </div>
                 <div class="form-group">
@@ -40,7 +41,7 @@
               </div>
               <hr>
               <div class=" tabs__checkbox">
-                <label class="specialities-label"> Administrateur
+                <label class="specialities-label"> Medecin
                   <input type="checkbox" #logintypecheckbox (change)="onConnexionTypeChanged(logintypecheckbox.checked)" />
                   <span class="checkmark"></span>
                 </label>
@@ -71,7 +72,7 @@
               <div class="login">
                 <label [hidden]="verificationRegister" class="alert">* Vérifier les informations données</label>
                 <div class="form-group">
-                 * <input type="text" [(ngModel)]="RegisterData.firstname"
+                <span class="alert">*</span><input type="text" [(ngModel)]="RegisterData.firstname"
                          class="form-control-custom "
                          id="Registerfirstname"
                          name="Registerfirstname"
@@ -79,7 +80,7 @@
                          required #Registerfirstname="ngModel">
                 </div>
                 <div class="form-group">
-                 * <input type="text" [(ngModel)]="RegisterData.lastname"
+                <span class="alert">*</span><input type="text" [(ngModel)]="RegisterData.lastname"
                          class="form-control-custom "
                          id="Registerlastname"
                          name="Registerfirstname"
@@ -87,7 +88,7 @@
                          required #Registerlastname="ngModel">
                 </div>
                 <div class="form-group">
-                 * <input type="text" [(ngModel)]="RegisterData.tel"
+                <span class="alert">*</span><input type="text" [(ngModel)]="RegisterData.tel"
                          class="form-control-custom "
                          id="Registertel"
                          name="Registertel"
@@ -95,15 +96,15 @@
                          required #Registertel="ngModel">
                 </div>
                 <div class="form-group">
-                 * <input type="email" [(ngModel)]="RegisterData.email"
+                <span class="alert">*</span><input type="email" [(ngModel)]="RegisterData.email"
                          class="form-control-custom "
                          id="RegisterEmail"
                          name="RegisterEmail"
-                         placeholder="Email"
+                         placeholder="Email" (blur)="ProvidersExists()"
                          required #RegisterEmail="ngModel">
                 </div>
                 <div class="form-group">
-                 * <input type="password" [(ngModel)]="RegisterData.password"
+                <span class="alert">*</span><input type="password" [(ngModel)]="RegisterData.password"
                          class="form-control-custom "
                          id="password1"
                          name="password1"
@@ -111,7 +112,7 @@
                          #Registerpassword1="ngModel">
                 </div>
                 <div class="form-group">
-                 * <input type="password" [(ngModel)]="ConfirmPassword"
+                <span class="alert">*</span><input type="password" [(ngModel)]="ConfirmPassword"
                          class="form-control-custom "
                          id="password2"
                          name="password2"
@@ -135,7 +136,7 @@
                   <label>Informations Societé</label>
                   <hr>
                   <div class="form-group">
-                 *   <input type="text" [(ngModel)]="SocietyData.name"
+                <span class="alert">*</span>  <input type="text" [(ngModel)]="SocietyData.name"
                            class="form-control-custom "
                            id="RegisterSocietyname"
                            name="RegisterSocietyname"
@@ -143,7 +144,7 @@
                            required #RegisterSocietyname="ngModel">
                   </div>
                   <div class="form-group">
-                  *  <input type="text" [(ngModel)]="SocietyData.tel"
+                 <span class="alert">*</span> <input type="text" [(ngModel)]="SocietyData.tel"
                            class="form-control-custom "
                            id="RegisterSocietytel"
                            name="RegisterSocietytel"
@@ -151,7 +152,7 @@
                            required #RegisterSocietytel="ngModel">
                   </div>
                   <div class="form-group">
-                   * <input type="email" [(ngModel)]="SocietyData.email"
+                  <span class="alert">*</span><input type="email" [(ngModel)]="SocietyData.email"
                            class="form-control-custom "
                            id="RegisterSocietyemail"
                            name="RegisterSocietyemail"
@@ -165,7 +166,7 @@
                     <div class="flex-container">
                       <label class="specialities-label" *ngFor="let speciality of collection.Specialities ; index as i" >
                         {{speciality.name}}
-                       * <input type="checkbox" name="specialities" #SpecialityElement
+                      <input type="checkbox" name="specialities" #SpecialityElement
                              value="{{speciality.id}}" (change)="SpecialityChecked(SpecialityElement.checked,speciality)">
                         <span class="checkmark"></span>
                       </label>
@@ -184,7 +185,7 @@
               <div class="login">
                 <label [hidden]="verificationRegister" class="alert">* Vérifier les informations données</label>
                 <div class="form-group">
-                *  <input type="text" [(ngModel)]="MedecinData.firstname"
+               <span class="alert">*</span> <input type="text" [(ngModel)]="MedecinData.firstname"
                          class="form-control-custom "
                          id="Medecinfirstname"
                          name="Medecinfirstname"
@@ -192,7 +193,7 @@
                          required #Medecinfirstname="ngModel">
                 </div>
                 <div class="form-group">
-                *  <input type="text" [(ngModel)]="MedecinData.lastname"
+               <span class="alert">*</span> <input type="text" [(ngModel)]="MedecinData.lastname"
                          class="form-control-custom "
                          id="Medecinlastname"
                          name="Medecinfirstname"
@@ -200,7 +201,7 @@
                          required #Medecinlastname="ngModel">
                 </div>
                 <div class="form-group">
-                *  <input type="text" [(ngModel)]="MedecinData.tel"
+               <span class="alert">*</span> <input type="text" [(ngModel)]="MedecinData.tel"
                          class="form-control-custom "
                          id="Medecintel"
                          name="Medecintel"
@@ -208,15 +209,16 @@
                          required #Medecintel="ngModel">
                 </div>
                 <div class="form-group">
-                *  <input type="email" [(ngModel)]="MedecinData.email"
+               <span class="alert">*</span> <input type="email" [(ngModel)]="MedecinData.email"
                          class="form-control-custom "
                          id="MedecinEmail"
                          name="MedecinEmail"
                          placeholder="Email"
+                        (blur)="MedecinExists()"
                          required #MedecinEmail="ngModel">
                 </div>
                 <div class="form-group">
-                *  <input type="password" [(ngModel)]="MedecinData.password"
+               <span class="alert">*</span> <input type="password" [(ngModel)]="MedecinData.password"
                          class="form-control-custom "
                          id="Medecinpassword1"
                          name="Medecinpassword1"
@@ -224,7 +226,7 @@
                          #Medecinpassword1="ngModel">
                 </div>
                 <div class="form-group">
-                 * <input type="password" [(ngModel)]="ConfirmPassword"
+                <span class="alert">*</span><input type="password" [(ngModel)]="ConfirmPassword"
                          class="form-control-custom "
                          id="Medecinpassword2"
                          name="Medecinpassword2"
@@ -235,7 +237,7 @@
                 <span [hidden]="verificationPassword" class="alert" name="ProviderComfirmAlert">*Les mots de passe ne correspondent pas</span>
                 <div class="form-group">
                   <h2><label>Specialité :</label></h2>
-                  <select id="MedecinSpeciality" name="MedecinSpeciality" [(ngModel)]="MedecinSpecilality">
+                  <select id="MedecinSpeciality" class="form-control-custom" name="MedecinSpeciality" [(ngModel)]="MedecinSpecilality">
                     <option *ngFor="let speciality of collection.Specialities ; index as i" [value]="speciality.id">{{speciality.name}}</option>
                   </select>
                 </div>
@@ -256,3 +258,5 @@
   </div>
 </div>
 <!-- End Login Register Area -->
+
+<app-footer></app-footer>

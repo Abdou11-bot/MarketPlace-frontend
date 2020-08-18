@@ -26,5 +26,14 @@ export class AdminMenuBarComponent implements OnInit, OnDestroy {
 //    this.router.navigate(["/home"]).then(() => {window.location.reload(); });
     this.router.navigate(["/home"]);
   }
+  gotoMessages(){
+    this.router.navigate(['/admin/messages/','liste','defaut']);
+  }
+  gotoComplaints(){
+    this.router.navigate(['/admin/complaint/','liste','defaut']);
+  }
+  gotoProviders(){
+    this.router.navigate(['/admin/provider/','demandes','defaut','defaut']);
+  }
 }
 

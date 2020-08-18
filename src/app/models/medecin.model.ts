@@ -1,5 +1,6 @@
 import {SafeUrl} from '@angular/platform-browser';
 import {SpecialityModel} from './speciality.model';
+import {ProductModel} from './product.model';
 
 export  class MedecinModel {
   id: number;
@@ -10,6 +11,7 @@ export  class MedecinModel {
   password: string;
   tel: string;
   speciality: SpecialityModel;
+  Wishlist: Array<ProductModel>
   constructor(obj: any) {
       this.id = obj.id;
       this.lastname = obj.nom;
@@ -19,5 +21,6 @@ export  class MedecinModel {
       this.password = obj.password;
       this.tel = obj.tel;
       this.speciality = new SpecialityModel(obj.speciality);
+      this.Wishlist = obj.products;
   }
 }

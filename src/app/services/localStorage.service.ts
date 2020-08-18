@@ -140,28 +140,6 @@ export class LocalStorageService {
     }
     /* L O G I N   E N D */
 
-    /* M E D E C I N   B E G I N */
-
-    public MedecinExists(): boolean {
-      if(this.getMedecin() == null || this.getMedecin() == undefined || this.getMedecin().trim() == ''){
-        return  false;
-      }
-      return true;
-    }
-    public storeMedecin(login: string) {
-      this.storage.set('medecin', login);
-    }
-    public getMedecin(): string {
-     /* if((this.storage.get('medecin')==null)||(this.storage.get('medecin')==undefined )){
-        return ' ';
-      }*/
-      return this.storage.get('medecin');
-    }
-    public clearMedecin(){
-      this.storage.remove('medecin');
-    }
-    /* M E D E C I N   E N D  */
-
     /* S E A R C H   B E G I N */
     public storeResearchParams(speciality: string,provider: string,product: string) {
       this.storage.set('speciality', speciality);
@@ -240,4 +218,27 @@ export class LocalStorageService {
       return this.storage.get('adminLogin');
     }
     /* A D M I N   E N D */
+
+    /* M E D E C I N   B E G I N */
+
+    public MedecinExists(): boolean {
+      if(this.getMedecin() == null || this.getMedecin() == undefined || this.getMedecin().trim() == ''){
+        return  false;
+      }
+      return true;
+    }
+    public storeMedecin(login: string) {
+      this.storage.set('medecin', login);
+    }
+    public getMedecin(): string {
+      if((this.storage.get('medecin')==null)||(this.storage.get('medecin')==undefined )){
+        return '';
+      }
+      return this.storage.get('medecin');
+    }
+    public clearMedecin(){
+      this.storage.remove('medecin');
+    }
+    /* M E D E C I N   E N D  */
+
 }

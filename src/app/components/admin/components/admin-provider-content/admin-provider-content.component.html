@@ -48,7 +48,7 @@
                   <td *ngIf="provider.status == 0">{{provider.tel}}</td>
                   <td *ngIf="provider.type == true && provider.status == 0">responsable</td>
                   <td *ngIf="provider.type == false && provider.status == 0">particulier</td>
-                  <td *ngIf="provider.status == 0" ><button class="btn btn-primary bnt-lg" (click)="loadData(i)"><span class="glyphicon glyphicon-eye-open"></span></button></td>
+                  <td *ngIf="provider.status == 0" ><button class="btn btn-primary bnt-lg" (click)="loadProviderData(i)"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                 </tr>
                 </tbody>
               </table>
@@ -86,7 +86,7 @@
                   <td>{{provider.tel}}</td>
                   <td *ngIf="provider.type == true ">represantant</td>
                   <td *ngIf="provider.type == false ">particulier</td>
-                  <td  ><button class="btn btn-primary bnt-lg" (click)="loadData(i)"><span class="glyphicon glyphicon-eye-open"></span></button></td>
+                  <td  ><button class="btn btn-primary bnt-lg" (click)="loadProviderData(i)"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                 </tr>
                 </tbody>
               </table>
@@ -176,7 +176,7 @@
                   <button *ngIf="provider.status == 1" type="button" class="SendButton btn btn-lg btn-danger" (click)="blockprovider()" style="float: left">Bloquer</button>
                   <button *ngIf="provider.status == 0" type="button" class="SendButton btn btn-lg btn-primary" (click)="activateprovider()" style="float: left">Activer</button>
                   <button *ngIf="provider.status == -1" type="button" class="SendButton btn btn-lg btn-primary" (click)="activateprovider()"style="float: left">Re-activer</button>
-                  <button type="button" class="SendButton btn btn-lg btn-danger" (click)="displayRequestsList()" style="float: right">Revenir à la liste</button>
+                  <button type="button" class="SendButton btn btn-lg btn-danger" (click)="displayCompleteList()" style="float: right">Revenir à la liste</button>
                 </div>
               </div>
             </form>

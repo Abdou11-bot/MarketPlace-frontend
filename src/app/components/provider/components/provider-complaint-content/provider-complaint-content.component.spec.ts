@@ -4,7 +4,7 @@ import { ProviderComplaintContentComponent } from './provider-complaint-content.
 
 describe('ProviderComplaintContentComponent', () => {
   let component: ProviderComplaintContentComponent;
-  let fixture: AdminComplaintContentComponent<ProviderComplaintContentComponent>;
+  let fixture: ComponentFixture<ProviderComplaintContentComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

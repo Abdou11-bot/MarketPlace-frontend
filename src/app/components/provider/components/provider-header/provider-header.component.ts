@@ -12,6 +12,7 @@ import{ComplaintService} from '../../../../services/complaint.service';
 import{ProviderModel} from '../../../../models/provider.model';
 import{ProductModel} from '../../../../models/product.model';
 import{ComplaintModel} from '../../../../models/complaint.model';
+
 @Component({
   selector: 'app-provider-header',
   templateUrl: './provider-header.component.html',
@@ -52,7 +53,7 @@ export class ProviderHeaderComponent implements OnInit, OnDestroy {
   logout(){
     this.StorageService.storeUserOnStorage('client');
     this.StorageService.storeProviderLogin('');
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home']).then(() => { window.location.reload();});
   }
 
   getMessages(): number{

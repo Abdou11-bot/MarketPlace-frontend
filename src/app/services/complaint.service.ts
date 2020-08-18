@@ -21,7 +21,13 @@ export class ComplaintService {
   getOwnedComplaint(login: string): Promise<Array<ComplaintModel>> {
     return this.http.get<Array<ComplaintModel>>(environment.SERVER_API_URL + '/api/complaint/getOwnedComplaint/'+login).toPromise();
   }
+  getSentComplaint(login: string): Promise<Array<ComplaintModel>> {
+    return this.http.get<Array<ComplaintModel>>(environment.SERVER_API_URL + '/api/complaint/getSentComplaint/'+login).toPromise();
+  }
   setComplaintvue(id: number): Promise<ComplaintModel> {
-    return this.http.get<ComplaintModel>(environment.SERVER_API_URL + '/api/complaint/setvue/'+id).toPromise();
+    return this.http.put<ComplaintModel>(environment.SERVER_API_URL + '/api/complaint/setvue/'+id,null).toPromise();
+  }
+  deletecomplaint(id: number): Promise<Array<any>>  {
+    return this.http.delete<any>(environment.SERVER_API_URL + '/api/complaint/deletecomplaint/'+id).toPromise();
   }
 }

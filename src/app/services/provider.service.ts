@@ -60,6 +60,12 @@ export class ProviderService {
   getAdmin(): Promise<ProviderModel> {
     return this.http.get<ProviderModel>(environment.SERVER_API_URL + '/api/admin/getAdmin').toPromise();
   }
+  providersExists(login:string): Promise<any> {
+    return this.http.get<any>(environment.SERVER_API_URL + '/api/admin/providersExists/'+login).toPromise();
+  }
+  medecinExists(login:string): Promise<any> {
+    return this.http.get<any>(environment.SERVER_API_URL + '/api/admin/medecinExists/'+login).toPromise();
+  }
   updateProfil(data,login: string): Promise<ProviderModel> {
     return this.http.put<ProviderModel>(environment.SERVER_API_URL + '/api/provider/updateProfil/'+login, data).toPromise();
   }

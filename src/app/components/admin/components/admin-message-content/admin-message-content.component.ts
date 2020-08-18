@@ -1,7 +1,7 @@
 import { Component, OnInit , OnDestroy} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {EventEmitter, Input, Output, TemplateRef, ViewEncapsulation} from '@angular/core';
-import {Router} from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {DomSanitizer} from '@angular/platform-browser';
 import {MatDialog} from '@angular/material/dialog';
@@ -20,22 +20,38 @@ import{SpecialityModel} from '../../../../models/speciality.model';
 
 })
 export class AdminMessageContentComponent implements OnInit , OnDestroy {
-  detailFlag = false;
+  detailFlag =false;
   config: any;
   Complaint= new ComplaintModel({'product':{'provider':{},'images': [],'speciality': {}}});
   collection = { nbSpecialities: 0, complaints: Array<ComplaintModel> () };
   constructor(private StorageService: LocalStorageService, private router: Router, public sanitizer: DomSanitizer,
-            private ProviderService: ProviderService, private ComplaintService : ComplaintService) {  }
+            private activatedRoute:ActivatedRoute, private ProviderService: ProviderService, private ComplaintService : ComplaintService) {
+
+}
   ngOnDestroy(){
   }
 
   ngOnInit(): void {
+    this.loadData();
+  }
+
+  loadData(){
+    this.collection.complaints.length = 0;
     this.ComplaintService.getAllComplaint().then(response => {
         for(let resp of response){
           let message = new ComplaintModel(resp);
           if(message.type == 0){
             this.collection.complaints.push(message);
           }
+        }
+        if((this.activatedRoute.snapshot.paramMap.get('list'))=='liste'){
+           this.detailFlag = false;
+        }
+        if((this.activatedRoute.snapshot.paramMap.get('list'))=='detail'){
+           this.detailFlag = true;
+        }
+        if(this.detailFlag==true){
+          this.Complaint = this.collection.complaints[Number(this.activatedRoute.snapshot.paramMap.get('ind'))];
         }
     });
     this.config = {
@@ -61,14 +77,11 @@ export class AdminMessageContentComponent implements OnInit , OnDestroy {
   }
 
   loadMessage(i:number){
-    this.Complaint = this.collection.complaints[i];
-    this.detailFlag = true;
+    this.router.navigate(['/admin/messages/','detail',i]).then(() => {this.loadData();});
   }
   gotoList(){
-    this.detailFlag = false;
+    this.router.navigate(['/admin/messages/','liste','defaut']).then(() => {this.loadData();});
   }
-
-
   customSort(filter:number){
     if(filter==1)
       this.collection.complaints.sort((a,b) => Number(a.vue) - Number(b.vue));

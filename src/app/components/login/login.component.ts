@@ -26,7 +26,7 @@ import { SessionStorageService } from '../../services/sessionStorage.service';
 export class LoginComponent implements OnInit {
 
   ConnexionType : string = 'provider';
-  AdminVerification : boolean;
+  MedecinLogin : boolean;
   displayLoginForm : boolean = true;
   displayRegister : boolean = false;
   SocietyRepVerification : boolean = false;
@@ -100,7 +100,7 @@ export class LoginComponent implements OnInit {
     return 0;
   }
   public onConnexionTypeChanged(value:boolean){
-    this.AdminVerification = value;
+    this.MedecinLogin = value;
     if(value)
       this.ConnexionType = 'admin';
     else
@@ -119,31 +119,40 @@ export class LoginComponent implements OnInit {
       this.openFailedModal('Erreur','Verifier le password');
       this.verificationLogin = false;
     }else{
-      const Data = new FormData();
-      if(this.AdminVerification){
-        Data.append('login', 'admin');
-      }else{
-        Data.append('login', this.LoginData.Email);
-      }
-      Data.append('password', this.LoginData.password);
-      this.LoginService.login(Data,this.ConnexionType).then(response => {
-        if(response){
-          this.openSuccessModal('Bienvenue');
+      if(this.MedecinLogin){
+        let medecin = this.LoginService.loginMedecin(this.LoginData.Email,this.LoginData.password);
+        if(medecin!=null){
           this.verificationLogin = true;
-          if(this.AdminVerification){
-            this.StorageService.storeUserOnStorage('admin');
-            this.StorageService.storeAdminLogin('admin');
-            this.router.navigate(['/admin/home']);
-          }else{
-            this.StorageService.storeUserOnStorage('provider');
-            this.StorageService.storeProviderLogin(this.LoginData.Email);
-            this.router.navigate(['/provider/home']);
-          }
+          this.StorageService.storeUserOnStorage('medecin');
+          this.StorageService.storeMedecin(this.LoginData.Email);
+          this.router.navigate(['/medecin/home']).then(() => { window.location.reload();});
         }else{
-          this.openFailedModal('Erreur','Reessayer');
           this.verificationLogin = false;
+          this.openFailedModal('Echec','Veuillez reessayer');
         }
-      });
+      }else{
+        const Data = new FormData();
+        Data.append('login', this.LoginData.Email);
+        Data.append('password', this.LoginData.password);
+        this.LoginService.login(Data).then(response => {
+          if(Number(response) != -1){
+            this.StorageService.storeUserOnStorage(this.LoginData.Email);
+            this.verificationLogin = true;
+            if(Number(response) == 1){
+              this.StorageService.storeUserOnStorage('admin');
+              this.StorageService.storeAdminLogin('admin');
+              this.router.navigate(['/admin/home']).then(() => { window.location.reload();});
+            }else{
+              this.StorageService.storeUserOnStorage('provider');
+              this.StorageService.storeProviderLogin(this.LoginData.Email);
+              this.router.navigate(['/provider/home']).then(() => { window.location.reload();});
+            }
+          }else{
+            this.openFailedModal('Erreur','Reessayer');
+            this.verificationLogin = false;
+          }
+        });
+      }
     }
   }
 
@@ -244,6 +253,22 @@ export class LoginComponent implements OnInit {
         this.openSuccessModal('Réussi!');
       }else{
         this.openFailedModal('Erreur', 'Réessayer');
+      }
+    });
+  }
+  ProvidersExists(){
+    this.ProviderService.providersExists(this.RegisterData.email).then(response => {
+      if(response){
+        this.openFailedModal('Erreur', 'Il exist deja un compte pour cet email');
+        this.RegisterData.email='';
+      }
+    });
+  }
+  MedecinExists(){
+    this.ProviderService.medecinExists(this.MedecinData.email).then(response => {
+      if(response){
+        this.openFailedModal('Erreur', 'Il exist deja un compte pour cet email');
+        this.MedecinData.email='';
       }
     });
   }

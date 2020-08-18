@@ -1,7 +1,7 @@
 import { Component, OnInit , OnDestroy} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {EventEmitter, Input, Output, TemplateRef, ViewEncapsulation} from '@angular/core';
-import {Router} from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {DomSanitizer} from '@angular/platform-browser';
 import {MatDialog} from '@angular/material/dialog';
@@ -25,17 +25,27 @@ export class AdminComplaintContentComponent implements OnInit , OnDestroy {
   Complaint= new ComplaintModel({'product':{'provider':{},'images': [],'speciality': {}}});
   collection = { nbSpecialities: 0, complaints: Array<ComplaintModel> () };
   constructor(private StorageService: LocalStorageService, private router: Router, public sanitizer: DomSanitizer,
-            private ProviderService: ProviderService, private ComplaintService : ComplaintService) {  }
+             private activatedRoute:ActivatedRoute, private ProviderService: ProviderService, private ComplaintService : ComplaintService) {  }
   ngOnDestroy(){
   }
 
   ngOnInit(): void {
+    this.collection.complaints.length = 0;
     this.ComplaintService.getAllComplaint().then(response => {
         for(let resp of response){
           let complaint = new ComplaintModel(resp);
           if(complaint.type == 1){
             this.collection.complaints.push(complaint);
           }
+        }
+        if((this.activatedRoute.snapshot.paramMap.get('list'))=='liste'){
+           this.detailFlag = false;
+        }
+        if((this.activatedRoute.snapshot.paramMap.get('list'))=='detail'){
+           this.detailFlag = true;
+        }
+        if(this.detailFlag==true){
+          this.Complaint = this.collection.complaints[Number(this.activatedRoute.snapshot.paramMap.get('ind'))];
         }
     });
     this.config = {
@@ -59,11 +69,10 @@ export class AdminComplaintContentComponent implements OnInit , OnDestroy {
     });
   }
   loadComplaint(i:number){
-    this.Complaint = this.collection.complaints[i];
-    this.detailFlag = true;
+    this.router.navigate(['/admin/complaint/','detail',i]).then(() => {this.ngOnInit();});
   }
   gotoList(){
-    this.detailFlag = false;
+    this.router.navigate(['/admin/complaint/','liste','defaut']).then(() => {this.ngOnInit();});
   }
 
   customSort(filter:number){

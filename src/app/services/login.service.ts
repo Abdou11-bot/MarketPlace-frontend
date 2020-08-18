@@ -13,15 +13,11 @@ export class LoginService {
   constructor(private http: HttpClient, private StorageService: LocalStorageService) {
     this.StorageService.clearStorage();
   }
-  login(logindata,admin): Promise<any> {
+  login(logindata): Promise<number> {
     let params = new HttpParams();
     params = params.append('login', logindata.get('login'));
     params = params.append('password', logindata.get('password'));
-    let loginResponse = this.http.get<any>(environment.SERVER_API_URL + '/api/admin/login/'+admin,{params: params}).toPromise();
-    if(loginResponse){
-      this.StorageService.storeUserOnStorage(logindata.get('login'));
-    }
-    return loginResponse;
+    return this.http.get<number>(environment.SERVER_API_URL + '/api/admin/login',{params: params}).toPromise();
   }
 openFailedModal(error,message)
   {

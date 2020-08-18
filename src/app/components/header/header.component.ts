@@ -16,9 +16,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, OnChanges {
-//export class HeaderComponent implements OnInit, OnChanges, DoCheck {
 
-  AdminSpace=false;
   researchFlag=true;
   providerLogged=false;
   loginFlag=false;
@@ -29,12 +27,6 @@ export class HeaderComponent implements OnInit, OnChanges {
   constructor(private ProductService: ProductService, private ProviderService: ProviderService, private StorageService: LocalStorageService, private router:Router) { }
 
   ngOnChanges(){
-    let AdminSpaceResponse = this.StorageService.getAdminSpace();
-    if((AdminSpaceResponse.trim() == 'AdminSpace') || (AdminSpaceResponse.trim() == 'ProviderSpace')){
-      this.AdminSpace = true;
-    }else{
-      this.AdminSpace = false;
-    }
     let adminLoggedResponse = this.StorageService.getAdminLogin();
     if(adminLoggedResponse.trim() == 'admin'){
       this.adminLogged = true;
@@ -52,38 +44,7 @@ export class HeaderComponent implements OnInit, OnChanges {
     }
     this.loginFlag = this.loginIsHidden();
   }
-/*
-  ngDoCheck(){
-    let AdminSpaceResponse = this.StorageService.getAdminSpace();
-    if((AdminSpaceResponse.trim() == 'AdminSpace') || (AdminSpaceResponse.trim() == 'ProviderSpace')){
-      this.AdminSpace = true;
-    }else{
-      this.AdminSpace = false;
-    }
-    let adminLoggedResponse = this.StorageService.getAdminLogin();
-    if(adminLoggedResponse.trim() == 'admin'){
-      this.adminLogged = true;
-      this.providerLogged = false;
-    }else{
-      this.adminLogged = false;
-    }
-    let providerLoggedResponse = this.StorageService.getProviderLogin();
-    if(providerLoggedResponse.trim() == ''){
-      this.providerLogged = false;
-    }else{
-      this.providerLogged = true;
-      this.adminLogged = false;
-      this.login = this.StorageService.getProviderLogin();
-    }
-    this.loginFlag = this.loginIsHidden();
-  }*/
   ngOnInit(): void {
-    let AdminSpaceResponse = this.StorageService.getAdminSpace();
-    if((AdminSpaceResponse.trim() == 'AdminSpace') || (AdminSpaceResponse.trim() == 'ProviderSpace')){
-      this.AdminSpace = true;
-    }else{
-      this.AdminSpace = false;
-    }
     let adminLoggedResponse = this.StorageService.getAdminLogin();
     if(adminLoggedResponse.trim() == 'admin'){
       this.adminLogged = true;
@@ -179,11 +140,11 @@ export class HeaderComponent implements OnInit, OnChanges {
   logoutAdmin(){
     this.StorageService.storeUserOnStorage('client');
     this.StorageService.storeAdminLogin('');
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home']).then(() => { window.location.reload();});
   }
   logoutProvider(){
     this.StorageService.storeUserOnStorage('client');
     this.StorageService.storeProviderLogin('');
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home']).then(() => { window.location.reload();});
   }
 }
