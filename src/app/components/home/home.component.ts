@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
   constructor(public ProductService : ProductService, private ProviderService: ProviderService, private StorageService: LocalStorageService,  private router: Router, public sanitizer: DomSanitizer) {  }
 
   ngOnInit(): void {
-    this.StorageService.storeAdminSpace('ClientSpace');
+//    this.StorageService.storeAdminSpace('ClientSpace');
     this.ProviderService.getAllSpecialities().then(response => {
       for (const resp of response) {
         this.collection.specialities.push(new SpecialityModel (resp));

@@ -36,33 +36,47 @@ export class DetailProduitsComponent implements OnInit {
   quotation= new QuotationModel({'product':{'provider':{},'images': [],'speciality': {}}});
   constructor( private router:Router, private activatedRoute:ActivatedRoute, private ProductService: ProductService, private LoginService: LoginService, private QuotationService: QuotationService,
      public sanitizer: DomSanitizer,private StorageService: LocalStorageService, public ComplaintService : ComplaintService) {
-    this.ProductService.getProduct(Number(this.activatedRoute.snapshot.paramMap.get('id'))).then(
-//    this.ProductService.getProduct(this.router.getCurrentNavigation().extras.state.id).then(
-      response => {
-        this.product= new ProductModel(response);
-        this.StorageService.clearMedecin();
-        this.wishlistFlag = this.StorageService.productExists(this.product.id);
-        this.complaintFlag = this.StorageService.complaintExists(this.product.id);
-        this.medecinFlag = this.StorageService.MedecinExists();
-        this.ProductService.incrementView(this.product.id);
-      }
-    );
   }
 
   setWishlistOperation(operation: string, id:number){
-    if(operation == 'add'){
-      let exists = this.StorageService.productExists(id);
-      if(!exists){
-        this.StorageService.storeOnStorage(id);
+    if(this.StorageService.getMedecin() == ''){
+      if(operation == 'add'){
+        let exists = this.StorageService.productExists(id);
+        if(!exists){
+          this.StorageService.storeOnStorage(id);
+        }
+      }
+      if(operation == 'delete'){
+        let exists = false;
+        while(!exists){
+          exists=this.StorageService.deleteProduct(id);
+        }
+      }
+      this.wishlistFlag = this.StorageService.productExists(this.product.id);
+    }else{
+      if(operation == 'add'){
+        this.ProductService.addToWishlist(this.StorageService.getMedecin(),id).then(response => {
+          if(response){
+            this.openSuccessModal('Operation reussite');
+            this.ngOnInit();
+            this.wishlistFlag = true;
+          }else{
+            this.openFailedModal('error','Operation échoué');
+          }
+        });
+      }
+      if(operation == 'delete'){
+        this.ProductService.deleteFromWishlist(this.StorageService.getMedecin(),id).then(response => {
+          if(response){
+            this.openSuccessModal('Operation reussite');
+            this.ngOnInit();
+            this.wishlistFlag = false;
+          }else{
+            this.openFailedModal('error','Operation échoué');
+          }
+        });
       }
     }
-    if(operation == 'delete'){
-      let exists = false;
-      while(!exists){
-        exists=this.StorageService.deleteProduct(id);
-      }
-    }
-    this.wishlistFlag = this.StorageService.productExists(this.product.id);
   }
 
   getCatalogueName(productTemp) : string{
@@ -90,7 +104,18 @@ export class DetailProduitsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.StorageService.storeAdminSpace('ClientSpace');
+    this.ProductService.getProduct(Number(this.activatedRoute.snapshot.paramMap.get('id'))).then(
+//    this.ProductService.getProduct(this.router.getCurrentNavigation().extras.state.id).then(
+      response => {
+        this.product= new ProductModel(response);
+        this.StorageService.clearMedecin();
+        this.wishlistFlag = this.StorageService.productExists(this.product.id);
+        this.complaintFlag = this.StorageService.complaintExists(this.product.id);
+        this.medecinFlag = this.StorageService.MedecinExists();
+        this.ProductService.incrementView(this.product.id);
+      }
+    );
+//    this.StorageService.storeAdminSpace('ClientSpace');
   }
 
    sane(imagrSrc: any) {

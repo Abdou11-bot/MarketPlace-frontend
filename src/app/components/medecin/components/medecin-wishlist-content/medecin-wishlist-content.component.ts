@@ -109,7 +109,6 @@ export class MedecinWishlistContentComponent implements OnInit , OnDestroy {
       }else{
         this.openFailedModal('error','Operation échoué');
       }
-
     });
   }
 }

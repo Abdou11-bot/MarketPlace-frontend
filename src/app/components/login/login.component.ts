@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
   constructor(private ProviderService: ProviderService,private router:Router,private StorageService: LocalStorageService,
              public LoginService : LoginService, public ComplaintService : ComplaintService, public ProductService : ProductService) {}
   ngOnInit(): void {
-    this.StorageService.storeAdminSpace('ClientSpace');
+//    this.StorageService.storeAdminSpace('ClientSpace');
     this.ProviderService.getAllSpecialities().then(response => {
         for (const resp of response) {
           this.collection.Specialities.push(new SpecialityModel(resp));

@@ -38,7 +38,7 @@ export class CategoriebarComponent implements OnInit {
     }
 
    ngOnInit(): void {
-    this.StorageService.storeAdminSpace('ClientSpace');
+//    this.StorageService.storeAdminSpace('ClientSpace');
         this.ProviderService.getAllSpecialities().then(response => {
            for (const resp of response) {
                  this.collection.specialities.push(new SpecialityModel (resp));

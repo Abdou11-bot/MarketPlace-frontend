@@ -16,33 +16,13 @@ export class FooterComponent implements OnInit, OnChanges, DoCheck {
   constructor(private ProviderService: ProviderService,  private router: Router, private StorageService: LocalStorageService) { }
 
   ngOnChanges(){
-    let AdminSpaceResponse = this.StorageService.getAdminSpace();
-    if((AdminSpaceResponse.trim() == 'AdminSpace') || (AdminSpaceResponse.trim() == 'ProviderSpace')){
-      this.AdminSpace = true;
-    }else{
-      this.AdminSpace = false;
-    }
   }
 
   ngDoCheck(){
-    let AdminSpaceResponse = this.StorageService.getAdminSpace();
-    if((AdminSpaceResponse.trim() == 'AdminSpace') || (AdminSpaceResponse.trim() == 'ProviderSpace')){
-      this.AdminSpace = true;
-    }else{
-      this.AdminSpace = false;
-    }
   }
   ngOnInit(): void {
-    let AdminSpaceResponse = this.StorageService.getAdminSpace();
-    if((AdminSpaceResponse.trim() == 'AdminSpace') || (AdminSpaceResponse.trim() == 'ProviderSpace')){
-      this.AdminSpace = true;
-    }else{
-      this.AdminSpace = false;
-    }
-    this
-      this.ProviderService.getAdmin().then(response => {
-          this.Administrator = new ProviderModel(response);
-      });
-    }
-
+    this.ProviderService.getAdmin().then(response => {
+      this.Administrator = new ProviderModel(response);
+    });
+  }
 }

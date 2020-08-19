@@ -25,12 +25,12 @@ export class WishlistComponent implements OnInit {
   quotation= new QuotationModel({'product':{'provider':{},'images': [],'speciality': {}}});
   constructor(private StorageService: LocalStorageService, private router:Router, private QuotationService: QuotationService,
             private LoginService: LoginService, private ProductService: ProductService, public sanitizer: DomSanitizer) {
-    this.medecinFlag = this.StorageService.MedecinExists();
-    this.getWishlist();
   }
 
   ngOnInit() {
-    this.StorageService.storeAdminSpace('ClientSpace');
+    this.medecinFlag = this.StorageService.MedecinExists();
+    this.getWishlist();
+//    this.StorageService.storeAdminSpace('ClientSpace');
   }
   empty(){
     this.StorageService.clearStorage();
@@ -52,37 +52,57 @@ export class WishlistComponent implements OnInit {
     Swal.fire({text: message,icon: 'info'});
   }
   getWishlist(){
-    if(this.StorageService.wishlistIsEmpty()){
-      this.openEmptyModal('La liste est vide !');
-      return ;
-    }
-    let responseSTRING=JSON.stringify(this.StorageService.getFromStorage());
-    responseSTRING = responseSTRING.substr(2);
-    responseSTRING = responseSTRING.slice(0, -1);
-    responseSTRING = responseSTRING.slice(0, -1);
-    let responseARRAY = responseSTRING.split('null');
-    responseSTRING = '';
-    for(let element of responseARRAY){
-      responseSTRING += element;
-    }
-    this.ProductService.getProducts(responseSTRING).then(
-      response => {
-        for(let product of response){
-          this.collection.products.push(new ProductModel(product));
-        }
+    if(this.StorageService.getMedecin() == ''){
+      if(this.StorageService.wishlistIsEmpty()){
+        this.openEmptyModal('La liste est vide !');
+        return ;
       }
-    );
+      let responseSTRING=JSON.stringify(this.StorageService.getFromStorage());
+      responseSTRING = responseSTRING.substr(2);
+      responseSTRING = responseSTRING.slice(0, -1);
+      responseSTRING = responseSTRING.slice(0, -1);
+      let responseARRAY = responseSTRING.split('null');
+      responseSTRING = '';
+      for(let element of responseARRAY){
+        responseSTRING += element;
+      }
+      this.ProductService.getProducts(responseSTRING).then(
+        response => {
+          for(let product of response){
+            this.collection.products.push(new ProductModel(product));
+          }
+        }
+      );
+    }else{
+      this.ProductService.getWishlist(this.StorageService.getMedecin()).then(response => {
+          for(let resp of response){
+            this.collection.products.push(new ProductModel(resp));
+          }
+      });
+    }
   }
 
   deleteProductFromWishlist(product: number){
-    let exists = false;
-    while(!exists){
-      exists=this.StorageService.deleteProduct(product);
+    if(this.StorageService.getMedecin() == ''){
+      let exists = false;
+      while(!exists){
+        exists=this.StorageService.deleteProduct(product);
+      }
+    }else{
+      this.ProductService.deleteFromWishlist(this.StorageService.getMedecin(),product).then(response => {
+        if(response){
+          this.openSuccessModal('Operation reussite');
+          this.ngOnInit();
+        }else{
+          this.openFailedModal('error','Operation échoué');
+        }
+      });
     }
+
   }
   deleteProduct(product: number){
     this.deleteProductFromWishlist(product);
-    window.location.reload();
+    this.ngOnInit();
   }
    openRequestQuotationModal(index: number){
       Swal.fire({
@@ -258,7 +278,6 @@ export class WishlistComponent implements OnInit {
  sane(imagrSrc: any) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(environment.SERVER_RESOURCE_URL+imagrSrc);
   }
-
 
    openRequestQuotationMedecinModal(i:number){
       Swal.fire({

@@ -45,7 +45,7 @@ export class ListproduitsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.StorageService.storeAdminSpace('ClientSpace');
+//    this.StorageService.storeAdminSpace('ClientSpace');
     let type = ' ';
     type = this.StorageService.getType();
     if(type.trim() == 'speciality'){

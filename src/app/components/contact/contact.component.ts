@@ -28,7 +28,7 @@ export class ContactComponent implements OnInit {
   constructor(private StorageService: LocalStorageService,public ProductService : ProductService,public ComplaintService : ComplaintService,private ProviderService: ProviderService, private router: Router) { }
 
   ngOnInit(): void {
-    this.StorageService.storeAdminSpace('ClientSpace');
+ //   this.StorageService.storeAdminSpace('ClientSpace');
     this.ProviderService.getAdmin().then(response => {
         this.Administrator = new ProviderModel(response);
     });

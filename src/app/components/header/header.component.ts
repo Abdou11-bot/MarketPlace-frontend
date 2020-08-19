@@ -134,16 +134,19 @@ export class HeaderComponent implements OnInit, OnChanges {
     }
 
   logoutAdmin(){
+    this.StorageService.storeAdminSpace('ClientSpace');
     this.StorageService.storeUserOnStorage('client');
     this.StorageService.storeAdminLogin('');
     this.router.navigate(['/home']).then(() => { window.location.reload();});
   }
   logoutProvider(){
+    this.StorageService.storeAdminSpace('ClientSpace');
     this.StorageService.storeUserOnStorage('client');
     this.StorageService.storeProviderLogin('');
     this.router.navigate(['/home']).then(() => { window.location.reload();});
   }
   logoutMedecin(){
+    this.StorageService.storeAdminSpace('ClientSpace');
     this.StorageService.storeUserOnStorage('client');
     this.StorageService.storeMedecin('');
     this.router.navigate(['/home']).then(() => { window.location.reload();});
