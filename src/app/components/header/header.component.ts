@@ -22,15 +22,17 @@ export class HeaderComponent implements OnInit, OnChanges {
   loginFlag=false;
   login;
   adminLogged=false;
+  medecinLogged=false;
   researchParams = { 'product': '', 'provider' : '' , 'speciality': ''}
   collection = { count: 0, specialities: Array<SpecialityModel> () };
   constructor(private ProductService: ProductService, private ProviderService: ProviderService, private StorageService: LocalStorageService, private router:Router) { }
 
-  ngOnChanges(){
+  displayUser(){
     let adminLoggedResponse = this.StorageService.getAdminLogin();
     if(adminLoggedResponse.trim() == 'admin'){
       this.adminLogged = true;
       this.providerLogged = false;
+      this.medecinLogged = false;
     }else{
       this.adminLogged = false;
     }
@@ -41,35 +43,29 @@ export class HeaderComponent implements OnInit, OnChanges {
       this.providerLogged = true;
       this.login = this.StorageService.getProviderLogin();
       this.adminLogged = false;
+      this.medecinLogged = false;
+    }
+    this.loginFlag = this.loginIsHidden();
+    let medecinLoggedResponse = this.StorageService.getMedecin();
+    if(medecinLoggedResponse.trim() == ''){
+      this.medecinLogged = false;
+    }else{
+      this.medecinLogged = true;
+      this.login = this.StorageService.getMedecin();
+      this.adminLogged = false;
+      this.providerLogged = false;
     }
     this.loginFlag = this.loginIsHidden();
   }
+  ngOnChanges(){
+    this.displayUser();
+  }
   ngOnInit(): void {
-    let adminLoggedResponse = this.StorageService.getAdminLogin();
-    if(adminLoggedResponse.trim() == 'admin'){
-      this.adminLogged = true;
-      this.providerLogged = false;
-    }else{
-      this.adminLogged = false;
-    }
-    let providerLoggedResponse = this.StorageService.getProviderLogin();
-    if(providerLoggedResponse.trim() == ''){
-      this.providerLogged = false;
-    }else{
-      this.providerLogged = true;
-      this.adminLogged = false;
-      this.login = this.StorageService.getProviderLogin();
-    }
-    this.ProviderService.getAllSpecialities().then(response => {
-      for (const resp of response) {
-        this.collection.specialities.push(new SpecialityModel(resp));
-      }
-    });
-    this.loginFlag = this.loginIsHidden();
- }
+    this.displayUser();
+  }
 
   loginIsHidden(){
-    if(this.adminLogged || this.providerLogged){
+    if(this.adminLogged || this.providerLogged || this.medecinLogged){
       return true;
     }
     return false;
@@ -145,6 +141,11 @@ export class HeaderComponent implements OnInit, OnChanges {
   logoutProvider(){
     this.StorageService.storeUserOnStorage('client');
     this.StorageService.storeProviderLogin('');
+    this.router.navigate(['/home']).then(() => { window.location.reload();});
+  }
+  logoutMedecin(){
+    this.StorageService.storeUserOnStorage('client');
+    this.StorageService.storeMedecin('');
     this.router.navigate(['/home']).then(() => { window.location.reload();});
   }
 }

@@ -44,6 +44,18 @@ export class ProductService {
     params = params.append('chaine', data);
     return this.http.get<Array<ProductModel>>(environment.SERVER_API_URL + '/api/product/productsids',{params: params}).toPromise();
   }
+  getWishlist(login: string): Promise<Array<ProductModel>> {
+    return this.http.get<Array<ProductModel>>(environment.SERVER_API_URL + '/api/medecin/getWishlist/'+login).toPromise();
+  }
+  addToWishlist(login: string,id:number): Promise<Array<ProductModel>> {
+    return this.http.put<Array<ProductModel>>(environment.SERVER_API_URL + '/api/medecin/addtowishlist/'+login+'/'+id,null).toPromise();
+  }
+  deleteFromWishlist(login: string,id:number): Promise<any> {
+    return this.http.put<any>(environment.SERVER_API_URL + '/api/medecin/deletfromwishlist/'+login+'/'+id,null).toPromise();
+  }
+  emptyWishlist(login: string): Promise<any> {
+    return this.http.put<any>(environment.SERVER_API_URL + '/api/medecin/emptywishlist/'+login,null).toPromise();
+  }
   getResearchResult(speciality:string, product: string, provider: string): Promise<Array<ProductModel>> {
     if(speciality != '0' && provider!='' &&product!=''){
       let params = new HttpParams();
@@ -93,35 +105,4 @@ export class ProductService {
     }
   }
 
-/*
-  createProduct(uploadData: FormData,provider) {
-    // @ts-ignore
-   return this.http.post('http://localhost:8080/api/provider/addproduct/'+provider, uploadData)
-      .subscribe(res => {console.log(res); },
-        err => console.log('Error Occured duringng uploading: ' + err)
-      );
-  }
-  updateProduct(id: number, Product: ProductModel): Observable<any> {
-    // @ts-ignore
-    return this.http.put(environment.SERVER_API_URL + '/api/clients/edit/' + id, Product);
-  }
-
-  deleteProduct(id: number): Observable<any> {
-    return this.http.delete(environment.SERVER_API_URL + '/api/clients/delete/' + id);
-  }
-
-  onUpLoad(uploadData, id: number) {
-    return this.http.post('http://localhost:8080/api/image/uploadImage/' + id, uploadData)
-      .subscribe(res => {console.log(res); },
-        err => console.log('Error Occured duringng uploading: ' + err)
-      );
-
-  }
-
-  getProductImage(id: number) {
-    // @ts-ignore
-    return this.http.get<string>('http://localhost:8080/api/image/uploadImage/' + id, {responseType: 'text'})
-      .toPromise();
-  }
-*/
 }

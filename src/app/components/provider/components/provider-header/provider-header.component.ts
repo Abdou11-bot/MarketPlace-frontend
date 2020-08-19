@@ -28,8 +28,8 @@ export class ProviderHeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    let AdminSpaceResponse = this.StorageService.getUserFromStorage();
-    if(AdminSpaceResponse.trim() != 'provider'){
+    let ProviderSpaceResponse = this.StorageService.getUserFromStorage();
+    if(ProviderSpaceResponse.trim() != 'provider'){
       this.router.navigate(['/home']);
     }
     this.ProviderService.getProfil(this.StorageService.getProviderLogin()).then(response => {
@@ -45,8 +45,8 @@ export class ProviderHeaderComponent implements OnInit, OnDestroy {
 
   }
   ngDoCheck(): void {
-    let AdminSpaceResponse = this.StorageService.getUserFromStorage();
-    if(AdminSpaceResponse.trim() != 'provider'){
+    let ProviderSpaceResponse = this.StorageService.getUserFromStorage();
+    if(ProviderSpaceResponse.trim() != 'provider'){
       this.router.navigate(['/home']);
     }
   }

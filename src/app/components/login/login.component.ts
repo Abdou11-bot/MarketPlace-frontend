@@ -125,7 +125,7 @@ export class LoginComponent implements OnInit {
           this.verificationLogin = true;
           this.StorageService.storeUserOnStorage('medecin');
           this.StorageService.storeMedecin(this.LoginData.Email);
-          this.router.navigate(['/medecin/home']).then(() => { window.location.reload();});
+          this.router.navigate(['/medecin/home']);
         }else{
           this.verificationLogin = false;
           this.openFailedModal('Echec','Veuillez reessayer');
@@ -141,11 +141,11 @@ export class LoginComponent implements OnInit {
             if(Number(response) == 1){
               this.StorageService.storeUserOnStorage('admin');
               this.StorageService.storeAdminLogin('admin');
-              this.router.navigate(['/admin/home']).then(() => { window.location.reload();});
+              this.router.navigate(['/admin/home']);
             }else{
               this.StorageService.storeUserOnStorage('provider');
               this.StorageService.storeProviderLogin(this.LoginData.Email);
-              this.router.navigate(['/provider/home']).then(() => { window.location.reload();});
+              this.router.navigate(['/provider/home']);
             }
           }else{
             this.openFailedModal('Erreur','Reessayer');

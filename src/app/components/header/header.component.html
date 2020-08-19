@@ -115,6 +115,38 @@
                 </ul>
               </nav>
             </li>
+            <li [hidden]="!medecinLogged" style="float:right">
+              <nav class="navbar navbar-expand navbar-light bg-white topbar mt-3 static-top  ">
+                <!-- Topbar Navbar -->
+                <ul class="navbar-nav ml-auto">
+                  <!-- Nav Item - User Information -->
+                  <li class="nav-item dropdown no-arrow">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class=" d-none d-lg-inline text-gray-150 small" style="color:blue; font-size:15px">Connecté</span>
+                      <img class="img-profile rounded-circle" style="background-color:aquamarine">
+                    </a>
+                    <!-- Dropdown - User Information -->
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                      <a class="dropdown-item" routerLink="/provider/profile" style="color:blue; font-size:15px">
+                        <i class="fas fa-user fa-sm fa-fw text-gray-150"></i>
+                        {{login}}
+                      </a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" routerLink="/medecin/profile" style="color:blue; font-size:15px">
+                        <i class="fas fa-user fa-sm fa-fw text-gray-150"></i>
+                        Profile
+                      </a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" (click)="logoutMedecin()" data-toggle="modal" data-target="#logoutModal" style="color:blue; font-size:15px">
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw text-gray-150"></i>
+                        Logout
+                      </a>
+                    </div>
+                  </li>
+<!---->
+                </ul>
+              </nav>
+            </li>
 
           </ul>
         </div>

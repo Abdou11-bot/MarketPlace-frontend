@@ -25,19 +25,6 @@ export class WishlistComponent implements OnInit {
   quotation= new QuotationModel({'product':{'provider':{},'images': [],'speciality': {}}});
   constructor(private StorageService: LocalStorageService, private router:Router, private QuotationService: QuotationService,
             private LoginService: LoginService, private ProductService: ProductService, public sanitizer: DomSanitizer) {
-  /*    let operationResponse = this.StorageService.getOperation();
-      let operationArray = operationResponse.split(',');
-      let operation = operationArray[0].substr(1);
-      if(operation != 'list'){
-        let productId = operationArray[1].slice(0, -1);
-        if(operation == 'add'){
-          this.addToWishlist(Number(productId));
-        }
-        if(operation == 'delete'){
-          this.deleteProductFromWishlist(Number(productId));
-        }
-      }
-  */
     this.medecinFlag = this.StorageService.MedecinExists();
     this.getWishlist();
   }
@@ -49,14 +36,6 @@ export class WishlistComponent implements OnInit {
     this.StorageService.clearStorage();
     window.location.reload();
   }
-/*
-  addToWishlist(product:number){
-      let exists = this.StorageService.productExists(product);
-      if(!exists){
-        this.StorageService.storeOnStorage(product);
-      }
-  }
-*/
   openDeleteProduct(index: number){
     Swal.fire({
         title: `Retirer de la liste des souhaits?`,
@@ -86,12 +65,6 @@ export class WishlistComponent implements OnInit {
     for(let element of responseARRAY){
       responseSTRING += element;
     }
-  /*  responseARRAY = responseSTRING.split(',');
-    responseSTRING = '';
-    for(let element of responseARRAY){
-      responseSTRING += element;
-    }*/
-//    this.StorageService.storeOnStorage(responseSTRING);
     this.ProductService.getProducts(responseSTRING).then(
       response => {
         for(let product of response){
@@ -111,12 +84,6 @@ export class WishlistComponent implements OnInit {
     this.deleteProductFromWishlist(product);
     window.location.reload();
   }
-/*
-  deleteProduct(product: number){
-    this.StorageService.storeOperation('delete,'+product);
-    window.location.reload();
-  }
-*/
    openRequestQuotationModal(index: number){
       Swal.fire({
         title: ``,
@@ -264,7 +231,6 @@ export class WishlistComponent implements OnInit {
       })
     }
 
-
   onSubmitQuotation(index: number){
     let today :string = new Date().toISOString().substring(0,10);
     this.quotation.date = today;
@@ -288,8 +254,6 @@ export class WishlistComponent implements OnInit {
   {
     Swal.fire(error, message, 'error')
   }
-
-
 
  sane(imagrSrc: any) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(environment.SERVER_RESOURCE_URL+imagrSrc);
@@ -383,7 +347,6 @@ export class WishlistComponent implements OnInit {
     this.quotation.date = today;
     this.quotation.product=this.collection.products[i];
     let medecin = await this.LoginService.getMedecin(this.StorageService.getMedecin());
-//    let medecin = await this.LoginService.getMedecin(Number(this.StorageService.getMedecin()));
     this.quotation.firstname = medecin.firstname;
     this.quotation.lastname = medecin.lastname;
     this.quotation.email = medecin.email;
