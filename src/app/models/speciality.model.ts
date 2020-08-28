@@ -4,13 +4,13 @@ export  class SpecialityModel {
   id: number;
   name: string;
   image: string;
-  price: number;
+  priceSpeciality: number;
   constructor(obj: any) {
     if(obj != null){
       this.id = obj.id;
       this.name = obj.name;
       this.image = obj.image;
-      this.price = obj.priceSpeciality;
+      this.priceSpeciality = obj.priceSpeciality;
     }
   }
   ListOfSpecialities(objs: Array<any>):Array<SpecialityModel> {

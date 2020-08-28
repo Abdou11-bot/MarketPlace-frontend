@@ -57,7 +57,7 @@ export class ListspecialitiesComponent implements OnInit {
     if(filter == 2)
       this.collection.specialities.sort((a,b) => a.id - b.id);
     if(filter == 3)
-      this.collection.specialities.sort((a,b) => a.price - b.price);
+      this.collection.specialities.sort((a,b) => a.priceSpeciality  - b.priceSpeciality );
   }
 
   pageChanged(event) {

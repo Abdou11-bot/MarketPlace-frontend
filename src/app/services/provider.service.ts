@@ -81,4 +81,13 @@ export class ProviderService {
   updateClient(data): Promise<ProductModel> {
     return this.http.put<ProductModel>(environment.SERVER_API_URL + '/api/provider/updateproduct',data).toPromise();
   }
+  deletedSpeciality(id: number): Promise<any> {
+    return this.http.delete<any>(environment.SERVER_API_URL + '/api/provider/deletedSpeciality/'+id).toPromise();
+  }
+  addSpeciality(data): Promise<ProductModel> {
+    return this.http.post<ProductModel>(environment.SERVER_API_URL + '/api/provider/addSpeciality/',data).toPromise();
+  }
+  updateSpeciality(data,id:number): Promise<ProductModel> {
+    return this.http.put<ProductModel>(environment.SERVER_API_URL + '/api/provider/updateSpeciality/'+id,data).toPromise();
+  }
 }

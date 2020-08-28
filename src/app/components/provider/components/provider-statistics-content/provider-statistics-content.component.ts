@@ -1,7 +1,7 @@
 import { Component, OnInit , OnDestroy, OnChanges} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {EventEmitter, Input, Output, TemplateRef, ViewEncapsulation} from '@angular/core';
-import {Router} from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {DomSanitizer} from '@angular/platform-browser';
 import {MatDialog} from '@angular/material/dialog';
@@ -76,10 +76,10 @@ export class ProviderStatisticsContentComponent implements OnInit , OnDestroy ,O
   subMenuFlag3 = false;
   quotationEvolutionFlag = false;
   complaintEvolutionFlag = false;
-  MostViewedProduct;
-  MostRequestProduct;
-  MostClaimedProduct;
-  constructor(private StorageService: LocalStorageService, private router: Router, public sanitizer: DomSanitizer,
+  MostViewedProduct = new ProductModel({'provider':{},'images': [],'speciality': {}});;
+  MostRequestProduct = new ProductModel({'provider':{},'images': [],'speciality': {}});;
+  MostClaimedProduct = new ProductModel({'provider':{},'images': [],'speciality': {}});;
+  constructor(private StorageService: LocalStorageService, private activatedRoute:ActivatedRoute, private router: Router, public sanitizer: DomSanitizer,
             private ProviderService: ProviderService, private ComplaintService : ComplaintService, private QuotationService : QuotationService) {  }
   ngOnDestroy(){
   }
@@ -90,6 +90,16 @@ export class ProviderStatisticsContentComponent implements OnInit , OnDestroy ,O
     this.loadData();
   }
   loadData(){
+    this.collection.specialities.length = 0;
+    this.collection.complaints.length = 0;
+    this.collection.quotations.length = 0;
+    this.collection.products.length = 0;
+    this.ProviderService.getOwnedProductsByProviderLogin(this.StorageService.getProviderLogin()).then(response => {
+      for(let resp of response){
+        this.collection.products.push(new ProductModel(resp));
+      }
+      this.loadViewData();
+    });
     this.QuotationService.getAllQuotationSendToProvider(this.StorageService.getProviderLogin()).then(response => {
       for(let resp of response){
         this.collection.quotations.push(new QuotationModel(resp));
@@ -102,12 +112,27 @@ export class ProviderStatisticsContentComponent implements OnInit , OnDestroy ,O
       }
       this.loadComplaintData();
     });
-    this.ProviderService.getOwnedProductsByProviderLogin(this.StorageService.getProviderLogin()).then(response => {
-      for(let resp of response){
-        this.collection.products.push(new ProductModel(resp));
-      }
-      this.loadViewData();
-    });
+    if(this.activatedRoute.snapshot.paramMap.get('type') == 'vue'){
+      this.subMenuFlag1 = true;
+      this.subMenuFlag2 = false;
+      this.subMenuFlag3 = false;
+      this.quotationEvolutionFlag = false;
+      this.complaintEvolutionFlag = false;
+    }
+    if(this.activatedRoute.snapshot.paramMap.get('type') == 'demande'){
+      this.subMenuFlag1 = false;
+      this.subMenuFlag2 = true;
+      this.subMenuFlag3 = false;
+      this.quotationEvolutionFlag = false;
+      this.complaintEvolutionFlag = false;
+    }
+    if(this.activatedRoute.snapshot.paramMap.get('type') == 'reclamation'){
+      this.subMenuFlag1 = false;
+      this.subMenuFlag2 = false;
+      this.subMenuFlag3 = true;
+      this.quotationEvolutionFlag = false;
+      this.complaintEvolutionFlag = false;
+    }
   }
   getNBQuotation(product : ProductModel){
     let i=0;
@@ -243,20 +268,14 @@ export class ProviderStatisticsContentComponent implements OnInit , OnDestroy ,O
     this.evolutionChartDatasets = [{ data: Axis_Y, label: 'Reclamation' }];
   }
   setSubMenu(i:number){
-    this.subMenuFlag1 = false;
-    this.subMenuFlag2 = false;
-    this.subMenuFlag3 = false;
     if(i==1){
-      this.subMenuFlag1 = true;
-      this.loadViewData();
+      this.router.navigate(['/provider/statistics/','vue','defaut']).then(() => {this.loadData();});
     }
     if(i==2){
-      this.subMenuFlag2 = true;
-      this.loadQuotationData();
+      this.router.navigate(['/provider/statistics/','demande','defaut']).then(() => {this.loadData();});
     }
     if(i==3){
-      this.subMenuFlag3 = true;
-      this.loadComplaintData();
+      this.router.navigate(['/provider/statistics/','reclamation','defaut']).then(() => {this.loadData();});
     }
   }
   displayEvolution(i:number){

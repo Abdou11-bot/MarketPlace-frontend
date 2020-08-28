@@ -23,8 +23,10 @@ export class ProviderMenuBarComponent implements OnInit, OnDestroy {
     this.StorageService.storeAdminSpace('ProviderSpace');
   }
   gotoHome(){
-//    this.router.navigate(["/home"]).then(() => {window.location.reload(); });
     this.router.navigate(["/home"]);
+  }
+  gotoStats(){
+    this.router.navigate(['/provider/statistics/','vue','defaut']);
   }
 }
 

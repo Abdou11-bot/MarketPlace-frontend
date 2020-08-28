@@ -41,7 +41,7 @@ export class ProviderProfileContentComponent implements OnInit , OnDestroy {
         this.societyData = this.provider.society;
         for(let speciality of this.provider.specialities){
           this.collection.ownedSpecialities.push( speciality);
-          this.SpecialitiesSelectedPrice += speciality.price;
+          this.SpecialitiesSelectedPrice += speciality.priceSpeciality ;
           this.collection.selectedSpecialities = this.collection.ownedSpecialities;
         }
       }
@@ -67,7 +67,7 @@ export class ProviderProfileContentComponent implements OnInit , OnDestroy {
         this.collection.ownedSpecialities = [];
         for(let speciality of this.provider.specialities){
           this.collection.ownedSpecialities.push( speciality);
-          this.SpecialitiesSelectedPrice += speciality.price;
+          this.SpecialitiesSelectedPrice += speciality.priceSpeciality ;
           this.collection.selectedSpecialities = this.collection.ownedSpecialities;
         }
         this.openSuccessModal('Fournisseur Modifié');
@@ -87,10 +87,10 @@ export class ProviderProfileContentComponent implements OnInit , OnDestroy {
   }
   SpecialityChecked(value:boolean, speciality:SpecialityModel){
     if(value){
-      this.SpecialitiesSelectedPrice += speciality.price;
+      this.SpecialitiesSelectedPrice += speciality.priceSpeciality ;
       this.collection.selectedSpecialities.push(speciality)
     }else{
-      this.SpecialitiesSelectedPrice -= speciality.price;
+      this.SpecialitiesSelectedPrice -= speciality.priceSpeciality ;
       let specialitiesTemp = [];
       for(let specialityTemp of this.collection.selectedSpecialities){
         if(speciality.id != specialityTemp.id)

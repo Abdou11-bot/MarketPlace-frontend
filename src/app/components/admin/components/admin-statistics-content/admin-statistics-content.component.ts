@@ -1,7 +1,7 @@
 import { Component, OnInit , OnDestroy} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {EventEmitter, Input, Output, TemplateRef, ViewEncapsulation} from '@angular/core';
-import {Router} from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {DomSanitizer} from '@angular/platform-browser';
 import {MatDialog} from '@angular/material/dialog';
@@ -37,7 +37,7 @@ export class AdminStatisticsContentComponent implements OnInit , OnDestroy {
   subMenuFlag2 = false;
   MostSpecialitySubscribedByMedecin;
   MostSpecialitySubscribedByProvider;
-  constructor(private StorageService: LocalStorageService, private router: Router, public sanitizer: DomSanitizer, private ProviderService: ProviderService) {  }
+  constructor(private StorageService: LocalStorageService, private activatedRoute:ActivatedRoute, private router: Router, public sanitizer: DomSanitizer, private ProviderService: ProviderService) {  }
 
   ngOnDestroy(){
   }
@@ -45,24 +45,37 @@ export class AdminStatisticsContentComponent implements OnInit , OnDestroy {
   ngOnInit(): void {
     this.loadData();
   }
+
   loadData(){
+    this.collection.specialities.length = 0;
+    this.collection.providers.length = 0;
+    this.collection.medecins.length = 0;
     this.ProviderService.getAllSpecialities().then(response => {
         for(let resp of response){
           this.collection.specialities.push(new SpecialityModel(resp));
         }
     });
-    this.ProviderService.getAllProviders().then(response => {
-        for(let resp of response){
-          this.collection.providers.push(new ProviderModel(resp));
-        }
-        this.loadProviderData();
-    });
-    this.ProviderService.getAllMedecins().then(response => {
-        for(let resp of response){
-          this.collection.medecins.push(new MedecinModel(resp));
-        }
-        this.loadMedecinData();
-    });
+    if(this.activatedRoute.snapshot.paramMap.get('type') == 'medecins'){
+      this.subMenuFlag1 = true;
+      this.subMenuFlag2 = false;
+      this.ProviderService.getAllMedecins().then(response => {
+          for(let resp of response){
+            this.collection.medecins.push(new MedecinModel(resp));
+          }
+          this.loadMedecinData();
+      });
+    }else{
+      this.subMenuFlag1 = false;
+      this.subMenuFlag2 = true;
+      this.ProviderService.getAllProviders().then(response => {
+          for(let resp of response){
+            let provider = new ProviderModel(resp);
+            if(provider.admin != true)
+              this.collection.providers.push(provider);
+          }
+          this.loadProviderData();
+      });
+    }
   }
   getNBMedecins(speciality : SpecialityModel){
     let i=0;
@@ -141,15 +154,11 @@ export class AdminStatisticsContentComponent implements OnInit , OnDestroy {
     return false;
   }
   setSubMenu(i:number){
-    this.subMenuFlag1 = false;
-    this.subMenuFlag2 = false;
     if(i==1){
-      this.subMenuFlag1 = true;
-      this.loadMedecinData();
+      this.router.navigate(['/admin/statistics/','medecins','defaut']).then(() => {this.ngOnInit();});
     }
     if(i==2){
-      this.subMenuFlag2 = true;
-      this.loadProviderData();
+      this.router.navigate(['/admin/statistics/','fournisseurs','defaut']).then(() => {this.ngOnInit();});
     }
   }
   getDate(chaine:string): string{

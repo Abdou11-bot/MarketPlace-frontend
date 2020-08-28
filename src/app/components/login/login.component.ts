@@ -79,10 +79,10 @@ export class LoginComponent implements OnInit {
 
   SpecialityChecked(value:boolean, speciality:SpecialityModel){
     if(value){
-      this.SpecialitiesSelectedPrice += speciality.price;
+      this.SpecialitiesSelectedPrice += speciality.priceSpeciality;
       this.collection.selectedSpecialities.push(speciality)
     }else{
-      this.SpecialitiesSelectedPrice -= speciality.price;
+      this.SpecialitiesSelectedPrice -= speciality.priceSpeciality;
       let specialitiesTemp = [];
       for(let specialityTemp of this.collection.selectedSpecialities){
         if(speciality.id != specialityTemp.id)
@@ -94,7 +94,7 @@ export class LoginComponent implements OnInit {
   getSpecialityPrice(id:number): number{
     for(let i=0;i<this.collection.Specialities.length;i++){
       if(this.collection.Specialities[i].id==id){
-        return this.collection.Specialities[i].price;
+        return this.collection.Specialities[i].priceSpeciality ;
       }
     }
     return 0;

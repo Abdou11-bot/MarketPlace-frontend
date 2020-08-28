@@ -26,18 +26,21 @@ import {environment} from '../../../environments/environment';
   styleUrls: ['./detailproduits.component.css']
 })
 export class DetailProduitsComponent implements OnInit {
-
+  slides: any = [[]];
   wishlistFlag: boolean = false;
-  medecinFlag: boolean = false;
-  complaintFlag: boolean = false;
+  medecinFlag: boolean = false;   getProductsSimilarTo
   user = {'login':'','password':''};
   Complaint= new ComplaintModel({'product':{'provider':{},'images': [],'speciality': {}}});
   product= new ProductModel({'provider':{},'images': [],'speciality': {}});
   quotation= new QuotationModel({'product':{'provider':{},'images': [],'speciality': {}}});
+  collection = { similarProducts: Array<ProductModel> () };
   constructor( private router:Router, private activatedRoute:ActivatedRoute, private ProductService: ProductService, private LoginService: LoginService, private QuotationService: QuotationService,
      public sanitizer: DomSanitizer,private StorageService: LocalStorageService, public ComplaintService : ComplaintService) {
   }
 
+  public gotoProductDetails(url, id) {
+      this.router.navigate([url, id]);
+  }
   setWishlistOperation(operation: string, id:number){
     if(this.StorageService.getMedecin() == ''){
       if(operation == 'add'){
@@ -58,7 +61,6 @@ export class DetailProduitsComponent implements OnInit {
         this.ProductService.addToWishlist(this.StorageService.getMedecin(),id).then(response => {
           if(response){
             this.openSuccessModal('Operation reussite');
-            this.ngOnInit();
             this.wishlistFlag = true;
           }else{
             this.openFailedModal('error','Operation échoué');
@@ -69,7 +71,6 @@ export class DetailProduitsComponent implements OnInit {
         this.ProductService.deleteFromWishlist(this.StorageService.getMedecin(),id).then(response => {
           if(response){
             this.openSuccessModal('Operation reussite');
-            this.ngOnInit();
             this.wishlistFlag = false;
           }else{
             this.openFailedModal('error','Operation échoué');
@@ -100,22 +101,35 @@ export class DetailProduitsComponent implements OnInit {
         exists=this.StorageService.deleteComplaint(id);
       }
     }
-    this.complaintFlag = this.StorageService.complaintExists(this.product.id);
   }
 
   ngOnInit() {
     this.ProductService.getProduct(Number(this.activatedRoute.snapshot.paramMap.get('id'))).then(
-//    this.ProductService.getProduct(this.router.getCurrentNavigation().extras.state.id).then(
       response => {
         this.product= new ProductModel(response);
-        this.StorageService.clearMedecin();
-        this.wishlistFlag = this.StorageService.productExists(this.product.id);
-        this.complaintFlag = this.StorageService.complaintExists(this.product.id);
-        this.medecinFlag = this.StorageService.MedecinExists();
         this.ProductService.incrementView(this.product.id);
+        this.medecinFlag = this.StorageService.MedecinExists();
+        if(this.StorageService.getMedecin() == ''){
+          this.wishlistFlag = this.StorageService.productExists(this.product.id);
+        }else{
+          this.wishlistFlag = Boolean(this.ProductService.existsInWishlist(this.StorageService.getMedecin(), Number(this.activatedRoute.snapshot.paramMap.get('id'))));
+        }
       }
     );
-//    this.StorageService.storeAdminSpace('ClientSpace');
+    this.ProductService.getProductsSimilarTo(Number(this.activatedRoute.snapshot.paramMap.get('id'))).then(
+      response => {
+        for(let resp of response){
+          this.collection.similarProducts.push(new ProductModel(resp));
+          this.collection.similarProducts.push(new ProductModel(resp));
+          this.collection.similarProducts.push(new ProductModel(resp));
+          this.collection.similarProducts.push(new ProductModel(resp));
+          this.collection.similarProducts.push(new ProductModel(resp));
+          this.collection.similarProducts.push(new ProductModel(resp));
+          this.collection.similarProducts.push(new ProductModel(resp));
+        }
+        this.slides = this.chunk(this.collection.similarProducts, 3);
+      }
+    );
   }
 
    sane(imagrSrc: any) {
@@ -702,10 +716,20 @@ export class DetailProduitsComponent implements OnInit {
     let medecin = await this.LoginService.loginMedecin(login,password);
       if(medecin!=null){
         this.medecinFlag = true;
+        this.StorageService.storeUserOnStorage('medecin');
+        this.StorageService.storeMedecin(login);
         this.openSuccessModal('Bienvenu !');
+        window.location.reload();
       }else{
         this.openFailedModal('Echec','Veuillez reessayer');
       }
   }
 
+  chunk(arr, chunkSize) {
+    let R = [];
+    for (let i = 0, len = arr.length; i < len; i += chunkSize) {
+      R.push(arr.slice(i, i + chunkSize));
+    }
+    return R;
+  }
 }

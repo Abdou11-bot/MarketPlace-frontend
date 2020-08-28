@@ -37,14 +37,13 @@
         <!-- Content Row -->
         <div [hidden]="!subMenuFlag1" class="row">
           <div class="col-xl-8 col-lg-7">
-            <div class="card shadow mb-4">
+            <div class="card shadow mb-4" style=" height:130% !important">
               <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Diagramme</h6>
               </div>
               <div class="card-body">
                 <div class="chart-area">
-
-                  <div style="display: block">
+                  <div >
                     <canvas mdbChart
                             [data]="pieChartData"
                             [labels]="pieChartLabels"
@@ -53,8 +52,8 @@
                             (chartClick)="chartClicked($event)"></canvas>
                   </div>
                 </div>
-                <hr>
               </div>
+              <hr>
             </div>
           </div>
           <div class="col-xl-3 col-md-6 mb-4 " style="height: 40%">
@@ -82,14 +81,14 @@
         </div>
         <div [hidden]="!subMenuFlag2" class="row">
           <div class="col-xl-8 col-lg-7">
-            <div class="card shadow mb-4">
+            <div class="card shadow mb-4" style=" height:130% !important">
               <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Diagramme</h6>
               </div>
-              <div class="card-body">
+              <div class="card-body" >
                 <div class="chart-area">
 
-                  <div style="display: block">
+                  <div style="display: block;">
                     <canvas mdbChart
                             [data]="pieChartData"
                             [labels]="pieChartLabels"
@@ -98,8 +97,8 @@
                             (chartClick)="chartClicked($event)"></canvas>
                   </div>
                 </div>
-                <hr>
               </div>
+              <hr>
             </div>
           </div>
           <div class="col-xl-3 col-md-6 mb-4 " style="height: 40%">

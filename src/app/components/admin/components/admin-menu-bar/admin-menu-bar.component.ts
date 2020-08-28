@@ -23,7 +23,6 @@ export class AdminMenuBarComponent implements OnInit, OnDestroy {
     this.StorageService.storeAdminSpace('AdminSpace');
   }
   gotoHome(){
-//    this.router.navigate(["/home"]).then(() => {window.location.reload(); });
     this.router.navigate(["/home"]);
   }
   gotoMessages(){
@@ -34,6 +33,9 @@ export class AdminMenuBarComponent implements OnInit, OnDestroy {
   }
   gotoProviders(){
     this.router.navigate(['/admin/provider/','demandes','defaut','defaut']);
+  }
+  gotoStats(){
+    this.router.navigate(['/admin/statistics/','medecins','defaut']);
   }
 }
 

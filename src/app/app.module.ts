@@ -18,6 +18,7 @@ import { AdminProviderContentComponent } from './components/admin/components/adm
 import { AdminComplaintContentComponent } from './components/admin/components/admin-complaint-content/admin-complaint-content.component';
 import { AdminStatisticsContentComponent } from './components/admin/components/admin-statistics-content/admin-statistics-content.component';
 import { AdminMedecinContentComponent } from './components/admin/components/admin-medecin-content/admin-medecin-content.component';
+import { AdminSpecialityContentComponent } from './components/admin/components/admin-speciality-content/admin-speciality-content.component';
 import { AdminProfileContentComponent } from './components/admin/components/admin-profile-content/admin-profile-content.component';
 import { AdminMenuBarComponent } from './components/admin/components/admin-menu-bar/admin-menu-bar.component';
 import { MedecinHomeComponent } from './components/medecin/components/medecin-home/medecin-home.component';
@@ -68,9 +69,10 @@ const routes: Routes = [
     { path: 'admin/messages/:list/:ind',  component: AdminMessageContentComponent },
     { path: 'admin/provider/:list/:ind/:op',  component: AdminProviderContentComponent },
     { path: 'admin/medecin',  component: AdminMedecinContentComponent },
+    { path: 'admin/specialities',  component: AdminSpecialityContentComponent },
     { path: 'admin/profile',  component: AdminProfileContentComponent },
     { path: 'admin/complaint/:list/:ind',  component: AdminComplaintContentComponent },
-    { path: 'admin/statistics',  component: AdminStatisticsContentComponent },
+    { path: 'admin/statistics/:type/:diag',  component: AdminStatisticsContentComponent },
     { path: 'admin/**',  component: AdminHomeComponent },
     { path: 'medecin/home',  component: MedecinHomeComponent },
     { path: 'medecin/quotation',  component: MedecinQuotationContentComponent },
@@ -80,7 +82,7 @@ const routes: Routes = [
     { path: 'medecin/**',  component: MedecinHomeComponent },
     { path: 'provider/home',  component: ProviderHomeComponent },
     { path: 'provider/quotation',  component: ProviderQuotationContentComponent },
-    { path: 'provider/statistics',  component: ProviderStatisticsContentComponent },
+    { path: 'provider/statistics/:type/:diag',  component: ProviderStatisticsContentComponent },
     { path: 'provider/profile',  component: ProviderProfileContentComponent },
     { path: 'provider/product',  component: ProviderProductContentComponent},
     { path: 'provider/complaint',  component: ProviderComplaintContentComponent },
@@ -108,6 +110,7 @@ const routes: Routes = [
     AdminProviderContentComponent,
     AdminProfileContentComponent,
     AdminMedecinContentComponent,
+    AdminSpecialityContentComponent,
     AdminComplaintContentComponent,
     AdminStatisticsContentComponent,
     MedecinHomeComponent,

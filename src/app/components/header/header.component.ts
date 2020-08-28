@@ -45,7 +45,6 @@ export class HeaderComponent implements OnInit, OnChanges {
       this.adminLogged = false;
       this.medecinLogged = false;
     }
-    this.loginFlag = this.loginIsHidden();
     let medecinLoggedResponse = this.StorageService.getMedecin();
     if(medecinLoggedResponse.trim() == ''){
       this.medecinLogged = false;

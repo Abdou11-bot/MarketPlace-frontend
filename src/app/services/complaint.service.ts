@@ -24,6 +24,9 @@ export class ComplaintService {
   getSentComplaint(login: string): Promise<Array<ComplaintModel>> {
     return this.http.get<Array<ComplaintModel>>(environment.SERVER_API_URL + '/api/complaint/getSentComplaint/'+login).toPromise();
   }
+  existsForMedecin(login: string, product_id: number): Promise<any> {
+    return this.http.get<any>(environment.SERVER_API_URL + '/api/complaint/existsForMedecin/'+login+'/'+product_id).toPromise();
+  }
   setComplaintvue(id: number): Promise<ComplaintModel> {
     return this.http.put<ComplaintModel>(environment.SERVER_API_URL + '/api/complaint/setvue/'+id,null).toPromise();
   }

@@ -31,6 +31,7 @@
               "src/styles.css",
               "src/assets/css/responsive.css",
               "src/assets/style.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.css",
               "node_modules/sweetalert2/src/sweetalert2.scss"
             ],
             "scripts": [
@@ -46,6 +47,7 @@
               "src/assets/js/owl.carousel.min.js",
               "node_modules/postcss/lib/vendor.js",
               "node_modules/jasmine-spec-reporter/built/main.js",
+              "node_modules/@fortawesome/fontawesome-free/js/all.js",
               "node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/scripts-webpack-plugin.js"
             ]
           },

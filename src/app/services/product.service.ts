@@ -18,6 +18,10 @@ export class ProductService {
     return this.http.get<Array<ProductModel>>(environment.SERVER_API_URL + '/api/product/productsforSpeciality/'+id).toPromise();
   }
 
+  getProductsSimilarTo(id: number): Promise<Array<ProductModel>> {
+    return this.http.get<Array<ProductModel>>(environment.SERVER_API_URL + '/api/product/getProductsSimilarTo/'+id).toPromise();
+  }
+
   getProduct(id: number): Promise<ProductModel> {
     return this.http.get<ProductModel>(environment.SERVER_API_URL + '/api/provider/getproduct/'+id).toPromise();
   }
@@ -43,6 +47,9 @@ export class ProductService {
     let params = new HttpParams();
     params = params.append('chaine', data);
     return this.http.get<Array<ProductModel>>(environment.SERVER_API_URL + '/api/product/productsids',{params: params}).toPromise();
+  }
+  existsInWishlist(login: string, product_id: number): Promise<any> {
+    return this.http.get<any>(environment.SERVER_API_URL + '/api/medecin/existsInWishlist/'+login+'/'+product_id).toPromise();
   }
   getWishlist(login: string): Promise<Array<ProductModel>> {
     return this.http.get<Array<ProductModel>>(environment.SERVER_API_URL + '/api/medecin/getWishlist/'+login).toPromise();

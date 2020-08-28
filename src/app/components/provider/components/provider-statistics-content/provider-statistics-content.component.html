@@ -53,7 +53,7 @@
               </div>
               <div class="card-body">
                 <div class="chart-area">
-<!--                  <canvas id="myAreaChart"></canvas>-->
+                  <!--                  <canvas id="myAreaChart"></canvas>-->
                   <div style="display: block">
                     <canvas mdbChart
                             [chartType]="chartType"
@@ -67,8 +67,8 @@
                     </canvas>
                   </div>
                 </div>
-                <hr>
               </div>
+              <hr>
             </div>
           </div>
           <div class="col-xl-3 col-md-6 mb-4 " style="height: 40%">
@@ -92,7 +92,7 @@
               </div>
               <div class="card-body">
                 <div class="chart-area">
-<!--                  <canvas id="myAreaChart"></canvas>-->
+                  <!--                  <canvas id="myAreaChart"></canvas>-->
                   <div style="display: block">
                     <canvas mdbChart
                             [chartType]="chartType"
@@ -106,14 +106,14 @@
                     </canvas>
                   </div>
                 </div>
-                <hr>
               </div>
+              <hr>
             </div>
           </div>
           <div [hidden]="!quotationEvolutionFlag" class="col-xl-8 col-lg-7">
             <div class="card shadow mb-4">
               <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Diagramme</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Diagramme </h6>
               </div>
               <div class="card-body">
                 <div class="chart-area">
@@ -130,8 +130,8 @@
                     </canvas>
                   </div>
                 </div>
-                <hr>
               </div>
+              <hr>
             </div>
           </div>
           <div class="col-xl-3 col-md-6 mb-4 " style="height: 40%">
@@ -152,14 +152,14 @@
           </div>
         </div>
         <div [hidden]="!subMenuFlag3" class="row">
-          <div [hidden]="complaintEvolutionFlag" class="col-xl-8 col-lg-7">
+          <div [hidden]="complaintEvolutionFlag && subMenuFlag3" class="col-xl-8 col-lg-7">
             <div class="card shadow mb-4">
               <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Diagramme</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Diagramme </h6>
               </div>
               <div class="card-body">
                 <div class="chart-area">
-<!--                  <canvas id="myAreaChart"></canvas>-->
+                  <!--                  <canvas id="myAreaChart"></canvas>-->
                   <div style="display: block">
                     <canvas mdbChart
                             [chartType]="chartType"
@@ -173,8 +173,8 @@
                     </canvas>
                   </div>
                 </div>
-                <hr>
               </div>
+              <hr>
             </div>
           </div>
           <div [hidden]="!complaintEvolutionFlag" class="col-xl-8 col-lg-7">
@@ -197,8 +197,8 @@
                     </canvas>
                   </div>
                 </div>
-                <hr>
               </div>
+              <hr>
             </div>
           </div>
           <div class="col-xl-3 col-md-6 mb-4 " style="height: 40%">

@@ -12,3 +12,20 @@
 font-size:large;
 font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+.similar_product_card {
+  max-width: 400px;
+}
+.img_slide_similar_product{
+  width:100% !important;
+  height:50% !important;
+}
+.img_slide_product{
+  width:500px !important;
+  height:500px !important;
+}
+.carousel-item {
+  &.active, &.carousel-item-right, &.carousel-item-next {
+    display: flex !important;
+    flex-wrap: wrap
+  }
+}
