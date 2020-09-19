@@ -123,12 +123,12 @@ export class ProviderStatisticsContentComponent implements OnInit , OnDestroy ,O
       this.subMenuFlag1 = false;
       this.subMenuFlag2 = true;
       this.subMenuFlag3 = false;
-      this.quotationEvolutionFlag = false;
-      this.complaintEvolutionFlag = false;
+mplaintEvolutionFlag = false;
     }
     if(this.activatedRoute.snapshot.paramMap.get('type') == 'reclamation'){
       this.subMenuFlag1 = false;
-      this.subMenuFlag2 = false;
+      this.subMenuFlag      this.quotationEvolutionFlag = false;
+      this.co2 = false;
       this.subMenuFlag3 = true;
       this.quotationEvolutionFlag = false;
       this.complaintEvolutionFlag = false;
